@@ -1,0 +1,25 @@
+##
+## ALIASES
+##
+
+unalias ls
+alias ls "ls -F"
+unalias ll
+alias ll "ls -lF | less"
+
+
+##
+## TCSH SETTINGS
+##
+
+set prompt='(%n@%m:%~)%h%% '
+set autolist
+set complete = enhance
+set autocorrect
+set correct = complete
+set notify
+set nobeep
+set visiblebell
+set filec
+xset -b
+
