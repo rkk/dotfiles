@@ -1,0 +1,14 @@
+#!/bin/bash
+##
+## Startup script for the Macports MySQL server.
+## Tested with mysql5-server-5.1.27.
+##
+
+MACPORTS_ROOT="/opt/local"
+MYSQL_ADMIN_BIN="${MACPORTS_ROOT}/bin/mysqladmin5"
+MYSQL_SERVER_BIN="${MACPORTS_ROOT}/bin/mysqld_safe5"
+MYSQL_ROOT_USER="root"
+
+echo "Starting MySQL server..."
+sudo ${MYSQL_SERVER_BIN} &
+

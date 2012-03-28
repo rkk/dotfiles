@@ -1,0 +1,18 @@
+#!/bin/bash
+##
+## Startup script for the Macports MySQL server.
+## Tested with mysql5-server-5.1.27.
+##
+
+MACPORTS_ROOT="/opt/local"
+MYSQL_ADMIN_BIN="${MACPORTS_ROOT}/bin/mysqladmin5"
+MYSQL_ROOT_USER="root"
+
+stopResult=$(${MYSQL_ADMIN_BIN} -u${MYSQL_ROOT_USER} -p shutdown)
+stopExit=${?}
+if [ ${stopExit} -ne 0 ]; then
+	echo "ERROR: Could not stop MySQL: " ${stopResult}
+	exit 1
+fi
+
+
