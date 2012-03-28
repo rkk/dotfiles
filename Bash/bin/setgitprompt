@@ -1,0 +1,48 @@
+#!/bin/bash
+##
+## Git prompt setup.
+## Source this to put Git branch, user profile and
+## local copy status in the shell prompt.
+##
+
+colorReset="\[\e[0m\]"
+colorRed="\[\e[1;31m\]"
+colorGreen="\[\e[1;32m\]"
+colorYellow="\[\e[1;33m\]"
+backgroundWhite="\[\e[0;30;47m\]"
+
+workProfile="YOUR-COMPANY-MAIL"
+privateProfile="YOUR-PRIVATE-MAIL"
+
+
+## Get the status of the local working copy, whether
+## it's dirty or not.
+function getGitStatus {
+    git diff --quiet HEAD &>/dev/null
+    [[ $? == 1 ]] && echo " (!) "
+}
+
+
+## Get current Git branch name
+function getGitBranch {
+    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(getGitStatus)/"
+}
+
+
+## Get current Git user e-mail
+## If you - like me - often mess up the work
+## private Git identities, this is for you.
+function getGitUser {
+    userMail=$(git config --get user.email)
+    if [ "$userMail" == "$workProfile" ]; then
+        echo "WorkProfile"
+    fi
+    if [ "$userMail" == "$privateProfile" ]; then
+        echo "PrivateProfile"
+    fi
+}
+
+
+PS1='\[\033[01;32m\]###\[\033[00m\] \t // \[\e[1;33m\]$(getGitUser)\[\e[0m\] // \[\033[01;32m\]$(getGitBranch)\[\033[00m\]\[\033[00m\]\[\033[02;32m\]\[\033[00m\] // \W\033[1;33m\]#\[\033[00m\] '
+export PS1
+
