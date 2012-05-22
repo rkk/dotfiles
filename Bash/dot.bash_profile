@@ -22,12 +22,10 @@ export PATH
 ## HISTORY
 ##
 
-export HISTSIZE=100000
-## Don't put duplicate lines in the history. See bash(1) for more options
-## Don't overwrite GNU Midnight Commander's setting of `ignorespace'.
-export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
-# ... or force ignoredups and ignorespace
-export HISTCONTROL=ignoreboth
+export HISTSIZE=32768
+export HISTFILESIZE=$HISTSIZE
+export HISTCONTROL=ignoredups
+export HISTIGNORE="ls:ls *:cd:cd -:pwd;exit:date:* --help"
 
 ## Append to the history file, don't overwrite it
 shopt -s histappend
@@ -44,6 +42,8 @@ shopt -s checkwinsize
 PS1="\[\e[0;30;47m\]\u@\h\[\e[0m\]:\W$ "
 export PS1
 
+# Make the "sudo" prompt more useful, without requiring access to "visudo".
+export SUDO_PROMPT='[sudo] password for %u on %h: ';
 
 ##
 ## COLORS
