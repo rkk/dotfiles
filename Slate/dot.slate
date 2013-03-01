@@ -6,6 +6,7 @@ alias terminal "iTerm"
 alias browser "Aurora"
 alias spotify "Spotify"
 alias cmdAlt cmd;alt
+alias ctrlAlt ctrl;alt
 
 
 ##
@@ -22,5 +23,5 @@ config windowHintsSpread true
 ##
 bind e:${cmdAlt} focus ${editor}
 bind b:${cmdAlt} focus ${browser}
-bind i:${cmdAlt} focus ${terminal}
+bind t:${cmdAlt} focus ${terminal}
 
