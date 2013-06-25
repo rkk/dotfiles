@@ -5,6 +5,7 @@ alias editor "PhpStorm"
 alias terminal "iTerm"
 alias browser "Aurora"
 alias spotify "Spotify"
+alias macvim "MacVim"
 alias cmdAlt cmd;alt
 alias ctrlAlt ctrl;alt
 
@@ -24,4 +25,5 @@ config windowHintsSpread true
 bind e:${cmdAlt} focus ${editor}
 bind b:${cmdAlt} focus ${browser}
 bind t:${cmdAlt} focus ${terminal}
+bind v:${cmdAlt} focus ${macvim}
 
