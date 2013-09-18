@@ -1,0 +1,11 @@
+# ~/.tmuxinator/rkk.yml
+
+project_name: rkk
+project_root: ~/Private
+pre: ~/bin/setgitrasmus; ~/bin/tsetenv
+tabs:
+  - Shells:
+      layout: even-horizontal
+      panes:
+        - cd Work; clear
+        - cd ~; clear
