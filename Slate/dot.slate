@@ -1,13 +1,21 @@
 ##
 ## ALIASES
 ##
-alias editor "PhpStorm"
+alias ide "PhpStorm"
+alias editor "MacVim"
 alias terminal "iTerm"
-alias browser "Aurora"
+alias altBrowser "Firefox"
+#alias browser "Google Chrome"
+alias browser "Chromium"
 alias spotify "Spotify"
-alias macvim "MacVim"
+alias chat "HipChat"
+alias timetracker "TogglDesktop"
+alias gmail "Gmail"
+alias sqlpro "Sequel Pro"
+alias trello "Trello"
 alias cmdAlt cmd;alt
 alias ctrlAlt ctrl;alt
+alias ctrlShift ctrl;shift
 
 
 ##
@@ -17,13 +25,47 @@ config keyboardLayout dvorak
 config windowHintsShowIcons true
 config windowHintsIgnoreHiddenWindows false
 config windowHintsSpread true
+config windowHintsFontSize 100
 
+
+##
+## LAYOUTS
+##
+alias sox screenOriginX
+alias soy screenOriginY
+alias ssx screenSizeX
+alias ssy screenSizeY
+
+alias leftHalf ${sox};${soy} ${ssx}/2;${ssy}
+alias rightHalf ${sox}+${ssx}/2;${soy} ${ssx}/2;${ssy}
+layout twoScreen ${terminal} move ${leftHalf}
+layout twoScreen ${ide} move ${rightHalf}
 
 ##
 ## DIRECT BINDINGS
 ##
-bind e:${cmdAlt} focus ${editor}
-bind b:${cmdAlt} focus ${browser}
-bind t:${cmdAlt} focus ${terminal}
-bind v:${cmdAlt} focus ${macvim}
+bind d:${ctrlShift} focus ${editor}
+bind l:${ctrlShift} focus ${ide}
+bind b:${ctrlShift} focus ${browser}
+bind f:${ctrlShift} focus ${altBrowser}
+bind t:${ctrlShift} focus ${terminal}
+bind t:${ctrlShift} focus ${terminal}
+bind h:${ctrlShift} focus ${chat}
+bind m:${ctrlShift} focus ${timetracker}
+bind y:${ctrlShift} focus ${sqlpro}
+## Note: o:ctrlShift is handled by FluidApp
+bind r:${ctrlShift} focus ${trello}
 
+
+## Trying out the experimental switcher
+#bind tab:cmd switch
+
+## Send window to a specific monitor, and resize
+bind 1:alt,ctrl throw 0 
+#bind 1:alt,ctrl throw 0 resize
+bind 2:alt,ctrl throw 1
+#bind 2:alt,ctrl throw 1 resize
+bind esc:ctrl hint AOEUIDHTNS
+
+## Experimental direct layout
+#bind esc:${ctrlShift} layout twoScreen
