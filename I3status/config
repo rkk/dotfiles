@@ -1,0 +1,24 @@
+##
+## Copy or symlink this to ~/.config/i3status/config
+##
+
+general {
+    colors = true
+    color_good = "#cccccc"
+    color_bad = "#cc1616"
+    color_degraded = "#55858e"
+    interval = 2
+}
+
+order += "cpu_usage"
+order += "tztime local"
+
+
+cpu_usage {
+    format = "%usage"
+}
+
+tztime local {
+    format = " %H:%M "
+}
+
