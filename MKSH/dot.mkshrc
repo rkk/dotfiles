@@ -1,0 +1,112 @@
+##
+## Configuration file for MirBSD Korn Shell (mksh).
+##
+
+## Vi-compatible key bindings.
+set -o vi
+
+## Enable eternal history.
+HISTSIZE="2048"
+HISTFILE="${HOME}/.history"
+[[ -f ${HISTFILE} ]] || touch ${HISTFILE}
+export HISTSIZE HISTFILE
+
+
+##
+## ENVIRONMENT
+##
+
+EDITOR="vim"
+VISUAL="${EDITOR}"
+export EDITOR VISUAL
+
+CHARSET="UTF-8"
+LANG="en_US.UTF-8"
+LC_ALL="en_US.UTF-8"
+export CHARSET LANG LC_ALL
+
+
+##
+## PATHS
+##
+case `uname -s` in
+  'Darwin')
+    PATH="/usr/local/bin:$PATH"
+    PATH="${PATH}:${HOME}/bin"
+    PATH="${PATH}:${HOME}/Frameworks/Drush"
+    PATH="${PATH}:${HOME}/Frameworks/phantomjs/bin"
+    PATH="${PATH}:${HOME}/Frameworks/casperjs/bin"
+    ## Gems for Ruby 1.9 are in the Brew Ruby directory
+    PATH="${PATH}:/usr/local/Cellar/ruby/2.0.0-p247/bin"
+  ;;
+  'Linux')
+  PATH="${PATH}:/usr/local/go/bin:~/bin"
+  ;;
+esac
+
+export PATH
+
+
+##
+## ALIAS
+##
+
+alias l="ls -CoF"
+alias la="ls -lAh"
+alias c="cd"
+alias mp="mkdir -p"
+alias g="git"
+alias p="pwd"
+alias gtt="git status"
+alias gll="git log --name-only"
+alias gba="git branch -a"
+alias gnew="git checkout -b"
+alias gfa="git fetch --all"
+## Functions must be aliased to be used in prompt setup.
+alias prompt_git_branch="git_branch"
+alias prompt_git_status="git_status"
+
+
+##
+## PROMPT
+##
+
+function git_status() {
+    delta="$(git ls-files -m 2> /dev/null)"
+    if [ "${delta}" = "" ]; then
+        exit
+    fi
+    print "!"
+}
+
+function git_branch() {
+    name="$(git branch --no-color 2> /dev/null | grep '^\*' | awk '{print $2}')"
+    if [ "${name}" = "" ]; then
+        exit
+    fi
+    print ${name}
+}
+
+
+PS1="\$(tput setaf 2)::\$(tput sgr0) \$(prompt_git_branch)\$(prompt_git_status) \$(basename \${PWD})\$(tput sgr0)# "
+PS2=">> "
+export PS1 PS2
+
+
+##
+## GO SUPPORT
+##
+
+GOROOT="/usr/local/go"
+if [ -d ${GOROOT} ]; then
+  export GOROOT="${GOROOT}"
+  export PATH="${PATH}:${GOROOT}/bin"
+fi
+
+GOPATH="${HOME}/Go"
+if [ ! -d ${GOPATH} ]; then
+  mkdir -p ${GOPATH}/bin
+fi
+export GOPATH
+
+
