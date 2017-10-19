@@ -63,3 +63,14 @@ if [ ! -d "${BUNDLE_ROOT}/vim-gitgutter" ]; then
     git clone git://github.com/airblade/vim-gitgutter.git "${BUNDLE_ROOT}/vim-gitgutter"
 fi
 
+# Solarized
+if [ ! -d "${BUNDLE_ROOT}/vim-colors-solarized" ]; then
+    git clone git://github.com/altercation/vim-colors-solarized "${BUNDLE_ROOT}/vim-colors-solarized"
+fi
+
+# Completor, requires Gocode for Golang code completion
+if [ ! -d "${BUNDLE_ROOT}/completor.vim" ]; then
+    git clone git://github.com/maralla/completor.vim.git "${BUNDLE_ROOT}/completor.vim"
+fi
+
+
