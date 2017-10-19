@@ -58,3 +58,8 @@ if [ ! -d "${BUNDLE_ROOT}/nerdtree" ]; then
     git clone git://github.com/scrooloose/nerdtree "${BUNDLE_ROOT}/nerdtree"
 fi
 
+# Git Gutter
+if [ ! -d "${BUNDLE_ROOT}/vim-gitgutter" ]; then
+    git clone git://github.com/airblade/vim-gitgutter.git "${BUNDLE_ROOT}/vim-gitgutter"
+fi
+
