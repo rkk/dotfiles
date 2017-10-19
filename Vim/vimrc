@@ -35,8 +35,8 @@ set statusline+=%l/%L
 
 let NERDTreeShowHidden=1
 
-let g:syntastic_error_symbol='✗'
-let g:syntastic_warning_symbol='⚠'
+let g:syntastic_error_symbol='X'
+let g:syntastic_warning_symbol='!'
 let g:syntastic_auto_jump=0
 
 " FZF (replaces Ctrl-P, FuzzyFinder and Command-T)
@@ -49,7 +49,8 @@ set ignorecase
 set smartcase
 set wrapscan
 
-
+autocmd BufEnter * syn match ErrorMsg /[^\x00-\x7F]/
+let g:completor_gocode_binary = '~/bin/gocode'
 
 "
 " APPEARANCE
@@ -63,6 +64,8 @@ au VimEnter * set conceallevel=2
 hi StatusLine                  ctermfg=8     ctermbg=2     cterm=NONE
 hi markdownItalic              ctermfg=DarkGrey ctermbg=NONE cterm=NONE
 
+set background=dark
+colorscheme solarized
 
 
 "
