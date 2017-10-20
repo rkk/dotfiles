@@ -5,10 +5,8 @@
 ## Vi-compatible key bindings.
 set -o vi
 
-## Enable eternal history.
 HISTSIZE="2048"
 HISTFILE="${HOME}/.history"
-[[ -f ${HISTFILE} ]] || touch ${HISTFILE}
 export HISTSIZE HISTFILE
 
 
