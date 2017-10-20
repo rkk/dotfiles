@@ -35,7 +35,7 @@ bar {
         urgent_workspace   $color_red    $color_red    $color_white
     }
     position top
-    status_command i3status
+    status_command i3blocks
 }
 
 client.focused   $color_blue $color_blue $color_white
@@ -174,6 +174,7 @@ mode "resize" {
     bindsym Escape mode "default"
 }
 
+bindsym XF86Launch1 exec 'locker'
 
 ##
 ## EXEC
@@ -187,4 +188,6 @@ exec xrdb -merge $HOME/.Xdefaults
 
 ## Allow external hosts, e.g. Docker-based X11-applications.
 exec xhost +
+exec /usr/bin/xfce4-volumed
+exec /usr/bin/redshift-gtk
 
