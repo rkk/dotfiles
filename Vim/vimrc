@@ -50,7 +50,6 @@ set smartcase
 set wrapscan
 
 autocmd BufEnter * syn match ErrorMsg /[^\x00-\x7F]/
-let g:completor_gocode_binary = '~/bin/gocode'
 
 "
 " APPEARANCE
