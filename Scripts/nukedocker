@@ -1,0 +1,21 @@
+#!/bin/bash
+##
+## Stops and removes ALL Docker containers.
+## This is not a drill.
+##
+
+if [ ${#} -ne 1 ]; then
+  echo "Usage $(basename ${0}) NUKE"
+  echo ""
+  exit 0
+fi
+
+echo "Stopping all ..."
+docker stop $(docker ps -a -q)
+
+echo "Removing all ..."
+docker rm $(docker ps -a -q)
+
+echo "done."
+echo ""
+

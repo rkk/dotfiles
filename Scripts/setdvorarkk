@@ -1,0 +1,29 @@
+#/bin/bash
+##
+## Configures the keyboard layout to Dvorarkk and swaps
+## the Caps Lock and Control keys.
+##
+
+layout="$HOME/Frameworks/Dvorarkk/X11/dvorarkk.xmodmap"
+
+if [ ! -f ${layout} ]; then
+    echo "ERROR: Cannot locate Dvorarkk layout file"
+    exit 1
+fi
+
+## setxkbmap resets to US layout, so run xmodmap after.
+setxkbmap -option ctrl:nocaps
+xmodmap ${layout}
+
+## Apple external keyboard have keys in other locations.
+if [ ${#} -eq 1 ]; then
+  if [ ${1} = 'apple' ]; then
+    ## Move ':' and '~' to the proper location.
+    echo 0 | sudo tee /sys/module/hid_apple/parameters/iso_layout
+    ## Swap Option and Command keys, like a normal person.
+    echo 1 | sudo tee /sys/module/hid_apple/parameters/swap_opt_cmd
+    ## Force Function keys to act like Function keys (no Fn needed)
+    echo 2 | sudo tee /sys/module/hid_apple/parameters/fnmode
+  fi
+fi
+

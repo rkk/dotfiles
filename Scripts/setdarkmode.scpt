@@ -1,0 +1,5 @@
+on alfred_script(q)
+	tell application "System Events"
+		tell appearance preferences to set dark mode to not dark mode
+	end tell
+end alfred_script

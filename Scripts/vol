@@ -1,0 +1,23 @@
+#!/bin/bash
+##
+## Volume control, command line.
+##
+
+if [ ${#} -ne 1 ]; then
+    echo "Usage: $(basename ${0}) <up|down>"
+    exit 0
+fi
+
+direction="${1}"
+arg="10%-"
+if [ ${direction} == "up" ]; then
+    arg="10%+"
+fi
+
+output="$(/usr/bin/amixer -D pulse sset Master ${arg})"
+vol_res=${?}
+if [ ${vol_res} -ne 0 ]; then
+    echo "ERROR: Cannot adjust volume ${direction}"
+    exit 1
+fi
+

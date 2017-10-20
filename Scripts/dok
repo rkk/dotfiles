@@ -1,0 +1,186 @@
+#!/bin/bash
+##
+## Wrapper around Docker.
+## Adapted from jessfraz '.dockerfunc'.
+##
+
+## Stops a given instance if running.
+del_stopped(){
+  local name=$1
+  local state
+  state=$(docker inspect --format "{{.State.Running}}" "$name" 2>/dev/null)
+
+  if [[ "$state" == "false" ]]; then
+    docker rm "$name"
+  fi
+}
+
+
+if [ ${#} -ne 1 ]; then
+  echo "Usage: $(basename ${0}) CONTAINER"
+  echo ""
+  echo "Containers:"
+  echo "  chrome     - Google Chrome browser"
+  echo "  chromium   - Chromium browser"
+  echo "  ctop       - Ctop Docker monitoring"
+  echo "  ff         - Firefox browser"
+  echo "  spotify    - Spotify music player"
+  echo "  iceweasel  - Iceweasel browser"
+  echo "  newsbeuter - Newsbeuter"
+  echo "  rainbow    - Rainbow Twitter client"
+  echo ""
+  exit 0
+fi
+
+target=${1}
+
+function start_chrome() {
+  local DOCKER_REPO="jess/chrome"
+  docker run -ti \
+    --net host \
+    --cpuset-cpus 0 \
+    --memory 512mb \
+    -v /etc/hosts:/etc/hosts \
+    -v /dev/shm:/dev/shm \
+    -v /etc/localtime:/etc/localtime:ro \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -e DISPLAY=${DISPLAY} \
+    -v "${HOME}/Downloads:/root/Downloads" \
+    -v "${HOME}/.config/google-chrome/:/data" \
+    -v /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket \
+    --security-opt seccomp=$HOME/chrome.json \
+    --name chrome \
+    ${DOCKER_REPO} --user-data-dir=/data
+}
+
+function start_chromium() {
+  local DOCKER_REPO="jess/chromium"
+  docker run -ti --rm \
+    --cap-add SYS_ADMIN \
+    -v /etc/hosts:/etc/hosts \
+    -v /dev/shm:/dev/shm \
+    -v /etc/localtime:/etc/localtime:ro \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -e DISPLAY=${DISPLAY} \
+    -v "${HOME}/Downloads:/root/Downloads" \
+    -v "${HOME}/.chrome:/data" \
+    --name chromium \
+    ${DOCKER_REPO} --user-data-dir=/data 2>&1 > /dev/null
+}
+
+
+function start_firefox() {
+  del_stopped firefox
+  local DOCKER_REPO="jess/firefox"
+  docker run -ti --rm \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -v "${HOME}/.mozilla:/root/.mozilla" \
+    -e "LANG=en_US" -e "LC_ALL=en_US.UTF-8" \
+    -e GDK_SCALE -e GPD_DPI_SCALE \
+    -e "DISPLAY=${DISPLAY}" \
+    --name dockerfirefox \
+    ${DOCKER_REPO} 2>&1 > /dev/null
+}
+
+
+function start_spotify() {
+  local DOCKER_REPO="jess/spotify"
+  docker run \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -e "DISPLAY=${DISPLAY}" \
+    --name spotify \
+    ${DOCKER_REPO}
+}
+
+
+function start_iceweasel() {
+  local DOCKER_REPO="jess/iceweasel"
+  docker run \
+    -v "${HOME}/.mozilla:/root/.mozilla" \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -e "DISPLAY=${DISPLAY}" \
+    --name iceweasel \
+    ${DOCKER_REPO}
+}
+
+
+function start_xsoldier() {
+  local DOCKER_REPO="xsoldier"
+  docker run \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -e "DISPLAY=${DISPLAY}" \
+    --name xsoldier \
+    ${DOCKER_REPO}
+}
+
+
+function start_ctop() {
+  local DOCKER_REPO="quay.io/vektorlab/ctop:latest"
+  docker run \
+    -ti \
+    --rm \
+    --name dockerctop \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    ${DOCKER_REPO}
+}
+
+
+function start_newsbeuter() {
+  local DOCKER_REPO="sublimino/newsbeuter"
+  docker run \
+    -ti \
+    --rm \
+    --name newsbeuter \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v ${HOME}/.config:/home/rss/.config \
+    ${DOCKER_REPO}
+}
+
+
+function start_rainbow() {
+  local DOCKER_REPO="jess/rainbowstream"
+  docker run \
+    -ti \
+    --rm \
+    --name rainbowstream \
+    -v /etc/localtime:/etc/localtime:ro \
+    -v ${HOME}/.rainbow_oauth:/root/.rainbow_oauth \
+    -v ${HOME}/.rainbow_config.json:/root/.rainbow_config.json \
+    ${DOCKER_REPO}
+}
+
+
+##
+## MAIN
+##
+
+case ${target} in
+  "chrome")
+    start_chrome
+    ;;
+  "chromium")
+    start_chromium
+    ;;
+  "ctop")
+    start_ctop
+    ;;
+   "ff")
+    start_firefox
+    ;;
+   "spotify")
+    start_spotify
+    ;;
+   "iceweasel")
+    start_iceweasel
+    ;;
+   "newsbeuter")
+     start_newsbeuter
+     ;;
+   "rainbow")
+     start_rainbow
+     ;;
+   "xsoldier")
+    start_xsoldier
+    ;;
+esac
+

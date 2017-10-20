@@ -1,0 +1,39 @@
+#/bin/bash
+##
+## Toggles the screen brightness.
+## Requires Sudo access.
+##
+
+proc_controller="/sys/class/backlight/intel_backlight/brightness"
+max_proc_controller="/sys/class/backlight/intel_backlight/max_brightness"
+current_proc_controller="/sys/class/backlight/intel_backlight/actual_brightness"
+
+if [ ! -f "${proc_controller}" ]; then
+    echo "ERROR: Brightness controller file ${proc_controller} does not exist"
+    exit 1
+fi
+
+if [ ! -f "${max_proc_controller}" ]; then
+    echo "ERROR: Maximum brightness controller file ${max_proc_controller} does not exist"
+    exit 1
+fi
+
+if [ ! -f "${current_proc_controller}" ]; then
+    echo "ERROR: Current brightness controller file ${current_proc_controller} does not exist"
+    exit 1
+fi
+
+max_value="$(cat ${max_proc_controller})"
+current_value="$(cat ${current_proc_controller})"
+
+new_value="${max_value}"
+if [ "${max_value}" = "${current_value}" ]; then
+    new_value=$(( ${current_value} / 2 ))
+fi
+
+if [ ${#} -eq 1 ]; then
+    new_value=${1}
+fi
+echo ${new_value} | sudo tee ${proc_controller}
+
+

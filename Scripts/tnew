@@ -1,0 +1,16 @@
+#!/bin/bash
+##
+## Creates a Tmux session with UTF-8 support, as I tend
+## to forget the needed parameters. And the environment.
+##
+
+if [ ${#} -ne 1 ]; then
+    echo "USAGE: $(basename ${0}) SESSION-NAME"
+    exit 1
+fi
+
+session=${1}
+export LANG=en_US.UTF-8
+tmux -u new -s ${session}
+
+echo "Thank you."

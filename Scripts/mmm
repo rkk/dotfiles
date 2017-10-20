@@ -1,0 +1,9 @@
+#!/bin/bash
+##
+## Configures the laptop and 20 inch Apple Cinema Display.
+
+
+APPLE_DISPLAY="HDMI-1"
+INTERNAL_DISPLAY="LVDS-1"
+xrandr --output ${APPLE_DISPLAY} --off --output ${INTERNAL_DISPLAY} --auto
+
