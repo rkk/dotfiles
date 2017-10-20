@@ -23,6 +23,8 @@ LANG="en_US.UTF-8"
 LC_ALL="en_US.UTF-8"
 export CHARSET LANG LC_ALL
 
+XDG_CONFIG_HOME="${HOME}/.config"
+export XDG_CONFIG_HOME
 
 ##
 ## PATHS
