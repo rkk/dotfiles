@@ -10,15 +10,15 @@ AUTOLOAD_ROOT="${HOME}/.vim/autoload"
 PATHOGEN_VIM="${AUTOLOAD_ROOT}/pathogen.vim"
 
 if [ ! -d "${BUNDLE_ROOT}" ]; then
-    mkdir -p ${BUNDLE_ROOT}
+    mkdir -p "${BUNDLE_ROOT}"
 fi
 
 if [ ! -d "${AUTOLOAD_ROOT}" ]; then
-    mkdir -p ${AUTOLOAD_ROOT}
+    mkdir -p "${AUTOLOAD_ROOT}"
 fi
 
-if [ ! -f ${PATHOGEN_VIM} ]; then
-    curl -LSso ${PATHOGEN_VIM} https://tpo.pe/pathogen.vim
+if [ ! -f "${PATHOGEN_VIM}" ]; then
+    curl -LSso "${PATHOGEN_VIM}" https://tpo.pe/pathogen.vim
 fi
 
 
