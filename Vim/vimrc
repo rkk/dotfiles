@@ -24,6 +24,10 @@ set scrolloff=5
 set laststatus=2
 
 " Statusline: FILENAME MODIFIED-FLAG FILETYPE BUFFER-NUMBER GIT-STATUS CURSOR
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
 set statusline=%t\ 
 set statusline+=%m\ 
 set statusline+=%y\ 
@@ -35,9 +39,17 @@ set statusline+=%l/%L
 
 let NERDTreeShowHidden=1
 
-let g:syntastic_error_symbol='X'
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+let g:syntastic_error_symbol='>'
 let g:syntastic_warning_symbol='!'
 let g:syntastic_auto_jump=0
+
+let g:syntastic_sh_checkers = ['sh', 'shellcheck']
+let g:syntastic_go_checkers = ['go', 'gofmt', 'golint']
 
 " FZF (replaces Ctrl-P, FuzzyFinder and Command-T)
 " Requires FZF Github repo checked out in ~/.fzf.

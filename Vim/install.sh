@@ -68,3 +68,8 @@ if [ ! -d "${BUNDLE_ROOT}/vim-colors-solarized" ]; then
     git clone git://github.com/altercation/vim-colors-solarized "${BUNDLE_ROOT}/vim-colors-solarized"
 fi
 
+# Syntastic
+if [ ! -d "${BUNDLE_ROOT}/syntastic" ]; then
+    git clone --depth=1 https://github.com/vim-syntastic/syntastic.git "${BUNDLE_ROOT}/syntastic"
+fi
+
