@@ -126,13 +126,12 @@ function start_ctop() {
 
 
 function start_newsbeuter() {
-  local DOCKER_REPO="sublimino/newsbeuter"
+  local DOCKER_REPO="newsbeuter"
   docker run \
     -ti \
     --rm \
     --name newsbeuter \
-    -v /var/run/docker.sock:/var/run/docker.sock \
-    -v ${HOME}/.config:/home/rss/.config \
+    -v ${HOME}/.config/newsbeuter:/home/newsbeuter/.newsbeuter \
     ${DOCKER_REPO}
 }
 
