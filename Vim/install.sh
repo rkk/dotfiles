@@ -5,9 +5,17 @@
 
 set -e
 
+VIM_ROOT="${HOME}/.vim"
 BUNDLE_ROOT="${HOME}/.vim/bundle"
 AUTOLOAD_ROOT="${HOME}/.vim/autoload"
 PATHOGEN_VIM="${AUTOLOAD_ROOT}/pathogen.vim"
+BACKUP_ROOT="${HOME}/.vim/backup"
+TMP_ROOT="${HOME}/.vim/tmp"
+
+# Assume this repo can be used for Vim.
+if [ ! -d "${VIM_ROOT}" ]; then
+    ln -s "${PWD}" "${VIM_ROOT}"
+fi
 
 if [ ! -d "${BUNDLE_ROOT}" ]; then
     mkdir -p "${BUNDLE_ROOT}"
@@ -17,6 +25,14 @@ if [ ! -d "${AUTOLOAD_ROOT}" ]; then
     mkdir -p "${AUTOLOAD_ROOT}"
 fi
 
+if [ ! -d "${BACKUP_ROOT}" ]; then
+    mkdir -p "${BACKUP_ROOT}"
+fi
+
+if [ ! -d "${TMP_ROOT}" ]; then
+    mkdir -p "${TMP_ROOT}"
+fi
+
 if [ ! -f "${PATHOGEN_VIM}" ]; then
     curl -LSso "${PATHOGEN_VIM}" https://tpo.pe/pathogen.vim
 fi
@@ -24,17 +40,17 @@ fi
 
 # Fugitive
 if [ ! -d "${BUNDLE_ROOT}/vim-fugitive" ]; then
-    git clone https://github.com/tpope/vim-fugitive.git "${BUNDLE_ROOT}/vim-fugitive"
+    git clone git://github.com/tpope/vim-fugitive.git "${BUNDLE_ROOT}/vim-fugitive"
 fi
 
 # Tagbar
 if [ ! -d "${BUNDLE_ROOT}/tagbar" ]; then
-    git clone https://github.com/majutsushi/tagbar.git "${BUNDLE_ROOT}/tagbar"
+    git clone git://github.com/majutsushi/tagbar.git "${BUNDLE_ROOT}/tagbar"
 fi
 
 # Goyo
 if [ ! -d "${BUNDLE_ROOT}/goyo" ]; then
-    git clone https://github.com/junegunn/goyo.vim.git "${BUNDLE_ROOT}/goyo"
+    git clone git://github.com/junegunn/goyo.vim.git "${BUNDLE_ROOT}/goyo"
 fi
 
 # Vim Commentary
@@ -70,6 +86,6 @@ fi
 
 # Syntastic
 if [ ! -d "${BUNDLE_ROOT}/syntastic" ]; then
-    git clone --depth=1 https://github.com/vim-syntastic/syntastic.git "${BUNDLE_ROOT}/syntastic"
+    git clone --depth=1 git://github.com/vim-syntastic/syntastic.git "${BUNDLE_ROOT}/syntastic"
 fi
 
