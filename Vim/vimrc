@@ -136,3 +136,9 @@ endfunction
 ""
 
 
+" Tagbar
+hi TagbarKind ctermfg=NONE cterm=NONE
+hi TagbarScope ctermfg=NONE cterm=NONE
+hi TagbarSignature ctermfg=NONE cterm=NONE
+hi TagbarType ctermfg=NONE cterm=NONE
+hi ErrorMsg ctermfg=NONE cterm=NONE
