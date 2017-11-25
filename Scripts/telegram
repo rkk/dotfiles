@@ -1,0 +1,10 @@
+#!/bin/bash
+
+
+telegram="${HOME}/Frameworks/Telegram/Telegram"
+if [ ! -f "${telegram}" ]; then
+  echo "ERROR: Telegram not installed at ${telegram}"
+  exit 1
+fi
+
+${telegram} &
