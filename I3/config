@@ -59,8 +59,7 @@ bindsym ctrl+shift+f [title="Mozilla Firefox"] focus
 bindsym ctrl+shift+b [title="Google Chrome"]   focus
 bindsym ctrl+shift+t [title="sakura-term"]     focus
 bindsym ctrl+shift+l [title="PhpStorm"]        focus
-bindsym ctrl+shift+h [title="sakura-slack"]    focus
-
+bindsym ctrl+shift+h [title="Slack"]           focus
 
 ##
 ## KEYS
