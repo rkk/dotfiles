@@ -11,6 +11,6 @@ fi
 
 session=${1}
 export LANG=en_US.UTF-8
-tmux -u new -s ${session}
+tmux -u new -s "${session}"
 
 echo "Thank you."
