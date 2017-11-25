@@ -17,7 +17,8 @@ del_stopped(){
 
 
 if [ ${#} -ne 1 ]; then
-  echo "Usage: $(basename ${0}) CONTAINER"
+  self=$(basename "${0}")
+  echo "Usage: ${self} CONTAINER"
   echo ""
   echo "Containers:"
   echo "  chrome     - Google Chrome browser"
@@ -28,6 +29,7 @@ if [ ${#} -ne 1 ]; then
   echo "  iceweasel  - Iceweasel browser"
   echo "  newsbeuter - Newsbeuter"
   echo "  rainbow    - Rainbow Twitter client"
+  echo "  privoxy    - Privoxy privacy proxy"
   echo ""
   exit 0
 fi
@@ -44,7 +46,7 @@ function start_chrome() {
     -v /dev/shm:/dev/shm \
     -v /etc/localtime:/etc/localtime:ro \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
-    -e DISPLAY=${DISPLAY} \
+    -e DISPLAY="${DISPLAY}" \
     -v "${HOME}/Downloads:/root/Downloads" \
     -v "${HOME}/.config/google-chrome/:/data" \
     -v /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket \
@@ -126,6 +128,7 @@ function start_ctop() {
 
 
 function start_newsbeuter() {
+  del_stopped newsbeuter
   local DOCKER_REPO="newsbeuter"
   docker run \
     -ti \
@@ -133,6 +136,19 @@ function start_newsbeuter() {
     --name newsbeuter \
     -v ${HOME}/.config/newsbeuter:/home/newsbeuter/.newsbeuter \
     ${DOCKER_REPO}
+}
+
+
+function start_privoxy() {
+  local DOCKER_REPO="privoxy"
+  docker run \
+    --restart always \
+    --link torproxy:torproxy \
+        -v /etc/localtime:/etc/localtime:ro \
+        -v ${HOME}/.config/privoxy/user.action:/etc/privoxy/user.action \
+        -p 8118:8118 \
+        --name privoxy \
+        ${DOCKER_REPO}
 }
 
 
@@ -175,11 +191,17 @@ case ${target} in
    "newsbeuter")
      start_newsbeuter
      ;;
+   "nb")
+     start_newsbeuter
+     ;;
    "rainbow")
      start_rainbow
      ;;
    "xsoldier")
     start_xsoldier
+    ;;
+   "privoxy")
+    start_privoxy
     ;;
 esac
 
