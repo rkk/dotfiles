@@ -74,6 +74,7 @@ au VimEnter * hi! link Conceal Statement
 au VimEnter * set conceallevel=2
 hi StatusLine                  ctermfg=8     ctermbg=2     cterm=NONE
 hi markdownItalic              ctermfg=DarkGrey ctermbg=NONE cterm=NONE
+hi goString                    ctermfg=11     ctermbg=0    cterm=NONE
 
 set background=dark
 colorscheme solarized
