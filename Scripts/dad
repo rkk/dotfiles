@@ -1,0 +1,3 @@
+#!/bin/bash
+curl https://icanhazdadjoke.com/
+echo ""
