@@ -16,6 +16,7 @@ apt_packages="${apt_packages} whois autotools-dev automake libevent-dev"
 apt_packages="${apt_packages} libncurses5-dev exuberant-ctags"
 apt_packages="${apt_packages} python-pip xclip golang redshift rofi"
 
+sudo apt-get update
 for package in ${apt_packages}
 do
     sudo apt-get install -y "${package}"
