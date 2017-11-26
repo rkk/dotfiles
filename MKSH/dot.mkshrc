@@ -33,9 +33,6 @@ case `uname -s` in
   'Darwin')
     PATH="/usr/local/bin:$PATH"
     PATH="${PATH}:${HOME}/bin"
-    PATH="${PATH}:${HOME}/Frameworks/Drush"
-    PATH="${PATH}:${HOME}/Frameworks/phantomjs/bin"
-    PATH="${PATH}:${HOME}/Frameworks/casperjs/bin"
     ## Gems for Ruby 1.9 are in the Brew Ruby directory
     PATH="${PATH}:/usr/local/Cellar/ruby/2.0.0-p247/bin"
   ;;

@@ -66,6 +66,8 @@ autocmd BufEnter * syn match ErrorMsg /[^\x00-\x7F]/
 "
 " APPEARANCE
 "
+set background=dark
+colorscheme solarized
 
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE
 
@@ -76,8 +78,12 @@ hi StatusLine                  ctermfg=8     ctermbg=2     cterm=NONE
 hi markdownItalic              ctermfg=NONE ctermbg=NONE cterm=NONE
 hi goString ctermfg=11 ctermbg=0 cterm=NONE
 
-set background=dark
-colorscheme solarized
+" Tagbar
+hi TagbarKind ctermfg=NONE cterm=NONE
+hi TagbarScope ctermfg=NONE cterm=NONE
+hi TagbarSignature ctermfg=NONE cterm=NONE
+hi TagbarType ctermfg=NONE cterm=NONE
+hi ErrorMsg ctermfg=NONE cterm=NONE
 
 "
 " KEYS
@@ -129,10 +135,10 @@ function! GetSyntax()
 endfunction
 
 
-
-
 ""
 "" TESTING AREA
 ""
 
 map <leader>c :Commentary<cr>
+
+
