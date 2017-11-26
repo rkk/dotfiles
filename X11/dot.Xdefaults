@@ -1,0 +1,126 @@
+!!
+!! SCREENSAVER
+!!
+
+xscreensaver.timeout: 5
+
+
+!!
+!! COLOR
+!!
+
+#define S_base03        #002b36
+#define S_base02        #073642
+#define S_base01        #586e75
+#define S_base00        #657b83
+#define S_base0         #839496
+#define S_base1         #93a1a1
+#define S_base2         #eee8d5
+#define S_base3         #fdf6e3
+
+*background:            S_base03
+*foreground:            #657b83
+*fadeColor:             S_base03
+*cursorColor:           S_base1
+*pointerColorBackground:S_base01
+*pointerColorForeground:S_base1
+
+#define S_yellow        #b58900
+#define S_orange        #cb4b16
+#define S_red           #dc322f
+#define S_magenta       #d33682
+#define S_violet        #6c71c4
+#define S_blue          #268bd2
+#define S_cyan          #2aa198
+#define S_green         #859900
+
+!! black dark/light
+*color0:                S_base02
+*color8:                S_base03
+
+!! red dark/light
+*color1:                S_red
+*color9:                S_orange
+
+!! green dark/light
+*color2:                S_green
+*color10:               S_base01
+
+!! yellow dark/light
+*color3:                S_yellow
+*color11:               S_base00
+
+!! blue dark/light
+*color4:                S_blue
+*color12:               S_base0
+
+!! magenta dark/light
+*color5:                S_magenta
+*color13:               S_violet
+
+!! cyan dark/light
+*color6:                S_cyan
+*color14:               S_base1
+
+!! white dark/light
+*color7:                S_base2
+*color15:               S_base3
+
+
+!!
+!! TERMINAL SETTINGS
+!!
+
+URxvt*scrollBar: false
+URxvt.font:     xft:Go Mono:size=12:antialias=true
+URxvt.boldFont: xft:Go Mono:size=12:antialias=true
+
+
+!!
+!! TESTING, HERE BE DRAGONS.
+!!
+
+!! Enable copy to clipboard on selection in URXVT.
+urxvt*perl-ext-common:      default,matcher,urxvt-clipboard,font-size
+
+!! Enable font size switching in URXVT.
+!! See github.com/majutsushi/urxvt-font-size.
+URxvt.keysym.C-Up:     font-size:increase
+URxvt.keysym.C-Down:   font-size:decrease
+URxvt.keysym.C-S-Up:   font-size:incglobal
+URxvt.keysym.C-S-Down: font-size:decglobal
+
+
+!! Use Xclip to handle copy/paste.
+URxvt.clipboard.copycmd: xclip -i -selection clipboard
+URxvt.clipboard.pastcmd: xclip -o -selection clipboard
+
+!! Disables the uppercase messages when using Ctrl-Shift-(key).
+URxvt.iso14755:               false
+
+URxvt.keysym.Shift-Control-C: perl:clipboard:copy
+
+!! Limit font spacing.
+Urxvt.letterSpace: -3
+
+!! Launch browser
+URxvt.urlLauncher: firefox
+URxvt*pointerBlank: false
+
+!!
+!! ROFI SETTINGS
+!!
+!rofi.color-enabled: true
+rofi.color-enabled: false
+rofi.color-window: #393939, #393939, #268bd2
+rofi.color-normal: #393939, #ffffff, #393939, #268bd2, #ffffff
+rofi.color-active: #393939, #268bd2, #393939, #268bd2, #205171
+rofi.color-urgent: #393939, #f3843d, #393939, #268bd2, #ffc39c
+!rofi.location: 6
+rofi.padding: 2
+rofi.yoffset: -22
+rofi.xoffset: 0
+rofi.fixed-num-lines: true
+rofi.ssh-set-title: true
+rofi.terminal: urxvt
+
