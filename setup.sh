@@ -13,7 +13,7 @@ apt_packages="${apt_packages} network-manager network-manager-openvpn"
 apt_packages="${apt_packages} network-manager-openvpn-gnome"
 apt_packages="${apt_packages} whois autotools-dev automake libevent-dev"
 apt_packages="${apt_packages} libncurses5-dev exuberant-ctags"
-apt_packages="${apt_packages} python-pip xclip golang"
+apt_packages="${apt_packages} python-pip xclip golang redshift rofi"
 
 for package in ${apt_packages}
 do
