@@ -1,5 +1,6 @@
 #!/bin/bash
 if [ -f "${HOME}/bin/setdvorarkk" ]; then
+    setxkbmap -option caps:ctrl_modifier
     "${HOME}"/bin/setdvorarkk
 fi
 
