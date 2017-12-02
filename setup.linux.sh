@@ -14,7 +14,7 @@ fi
 TMPDIR=${TMPDIR:-/tmp}
 FONT_ROOT="${HOME}/.local/share/fonts"
 
-apt_packages="tmux vim ruby git-core i3-wm i3-lock i3status mksh"
+apt_packages="tmux vim ruby git-core i3-wm i3-lock i3blocks mksh"
 apt_packages="${apt_packages} dmenu curl sakura"
 apt_packages="${apt_packages} network-manager network-manager-openvpn"
 apt_packages="${apt_packages} network-manager-openvpn-gnome"
