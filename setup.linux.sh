@@ -5,6 +5,12 @@
 # side effects are expected if run multiple times.
 #
 
+if [ "$(uname)" != "Linux" ]; then
+    echo "Unsupported operating system"
+    exit 2
+fi
+
+
 TMPDIR=${TMPDIR:-/tmp}
 FONT_ROOT="${HOME}/.local/share/fonts"
 
