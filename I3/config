@@ -8,6 +8,12 @@ set $terminal_app     "sakura -t sakura-term"
 set $app_launcher     "dmenu_run"
 set $desktop_launcher "rofi -show run"
 
+##
+## WORKSPACES
+##
+set $web_workspace  workspace 1
+set $term_workspace workspace 2
+set $msg_workspace  workspace 3
 
 ##
 ## COLORS
@@ -51,6 +57,22 @@ font xft:Go Mono 8
 
 
 ##
+## APPLICATION BEHAVIOR
+##
+
+## Workspace layout:
+##   1: Browsers
+##   2: Terminals
+##   3: Messaging
+
+
+assign [class="Firefox"]              $web_workspace
+assign [class="Google-chrome-beta"]   $web_workspace
+assign [class="TelegramDesktop"]      $msg_workspace
+assign [class="Slack"]                $msg_workspace
+
+
+##
 ## DIRECT APPLICATION SHORTCUT KEYS
 ##
 
@@ -60,6 +82,7 @@ bindsym ctrl+shift+b [title="Google Chrome"]   focus
 bindsym ctrl+shift+t [title="sakura-term"]     focus
 bindsym ctrl+shift+l [title="PhpStorm"]        focus
 bindsym ctrl+shift+h [title="Slack"]           focus
+
 
 ##
 ## KEYS
