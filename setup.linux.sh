@@ -21,6 +21,7 @@ apt_packages="${apt_packages} network-manager-openvpn-gnome"
 apt_packages="${apt_packages} whois autotools-dev automake libevent-dev"
 apt_packages="${apt_packages} libncurses5-dev exuberant-ctags"
 apt_packages="${apt_packages} python-pip xclip golang redshift rofi"
+apt_packages="${apt_packages} cabextract"
 
 sudo apt-get update
 for package in ${apt_packages}
@@ -51,6 +52,15 @@ if [ -f "${font_tar}" ]; then
     rm -f "${font_tar}"
 fi
 
+# Microsoft core fonts.
+if [ ! -d "${TMPDIR}/corefonts" ]; then
+    git clone https://github.com/pushcx/corefonts "${TMPDIR}/corefonts"
+    for f in ${TMPDIR}/corefonts/*exe
+    do
+        cabextract -d "${FONT_ROOT}" -q -L -F "*.TTF" "${f}"
+    done
+    rm -rf "${TMPDIR}/corefonts"
+fi
 
 
 echo "Done."
