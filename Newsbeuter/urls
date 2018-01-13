@@ -10,7 +10,6 @@ http://feeds.washingtonpost.com/rss/blogs/rss_the-switch "~Washington Post"
 
 ## UNIX
 https://www.linux.com/feeds/rss "~Linux.com"
-https://linuxrig.com/feed/ "~Linux Rig"
 https://www.networkworld.com/blog/linux-tycoon/index.rss
 https://webopsweekly.com/rss/1hgfip4m "~Webops Weekly"
 http://www.allthingsdistributed.com/index.xml "~All Things Distributed"
@@ -19,6 +18,7 @@ https://www.reddit.com/r/i3wm/.rss "~I3WM (Reddit)"
 https://www.reddit.com/r/BSD/.rss "~BSD (Reddit)"
 http://feeds2.feedburner.com/Command-line-fu "~Command Line Fu"
 https://newsletter.nixers.net/feed.xml "~Nixers"
+https://blog.jessfraz.com/index.xml "~Jess Fraz"
 
 
 ## GOLANG
@@ -38,6 +38,8 @@ https://www.reddit.com/r/raspberry_pi/.rss "~Raspberry Pi (Reddit)"
 http://feeds.akkartik.name/kartiks-scrapbook "~Kartik"
 https://medium.com/feed/graphicfacilitation "~Graphic Facilitation"
 https://jsonfeed.org/xml/rss.xml "~JSON Feed"
+https://aphyr.com/posts.atom "~Kyle Kingsbury"
+https://blog.benjojo.co.uk/rss.xml "~Ben Cox"
 
 
 ## LONG READS
