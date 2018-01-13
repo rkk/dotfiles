@@ -11,9 +11,10 @@ set $desktop_launcher "rofi -show run"
 ##
 ## WORKSPACES
 ##
-set $web_workspace  workspace 1
-set $term_workspace workspace 2
-set $msg_workspace  workspace 3
+set $web_workspace   web
+set $term_workspace  term
+set $msg_workspace   msg
+set $extra_workspace extra
 
 ##
 ## COLORS
@@ -32,9 +33,9 @@ set $color_blue   #007fbf
 
 bar {
     colors {
-        background $bg_solarized
-        statusline $fg_solarized
-		separator  $color_gray
+        background         $bg_solarized
+        statusline         $fg_solarized
+		separator          $color_gray
         focused_workspace  $bg_solarized $bg_solarized $color_brown
         active_workspace   $color_white  $fg_solarized $color_white
         inactive_workspace $bg_solarized $bg_solarized $color_gray
@@ -146,26 +147,16 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 ## Switch to workspace.
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
+bindsym $mod+1 workspace $web_workspace
+bindsym $mod+2 workspace $term_workspace
+bindsym $mod+3 workspace $msg_workspace
+bindsym $mod+4 workspace $extra_workspace
 
 ## Move focused container to workspace.
-bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
-bindsym $mod+Shift+3 move container to workspace 3
-bindsym $mod+Shift+4 move container to workspace 4
-bindsym $mod+Shift+5 move container to workspace 5
-bindsym $mod+Shift+6 move container to workspace 6
-bindsym $mod+Shift+7 move container to workspace 7
-bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+1 move container to workspace $web_workspace
+bindsym $mod+Shift+2 move container to workspace $term_workspace
+bindsym $mod+Shift+3 move container to workspace $msg_workspace
+bindsym $mod+Shift+4 move container to workspace $extra_workspace
 
 ## Reload the configuration file
 bindsym $mod+Shift+j reload
