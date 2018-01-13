@@ -21,7 +21,8 @@ separator=false
 [separator]
 
 [power]
-command=acpi -b | grep "^Battery" | cut -d, -f3 | cut -d: --fields=1,2
+#command=acpi -b | grep "^Battery" | cut -d, -f3 | cut -d: --fields=1,2
+command=batman
 interval=10
 separator=false
 
