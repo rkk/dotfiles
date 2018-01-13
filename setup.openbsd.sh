@@ -19,11 +19,9 @@ FONT_ROOT="${HOME}/.local/share/fonts"
 #
 # (EOM).
 
-# Miss: i3blocks
-packages="vim-8.0.0987p0-no_x11-perl-python3-ruby git i3 i3lock"
 packages="${packages} dmenu curl sakura"
 packages="${packages} xclip go redshift rofi"
-packages="${packages} cabextract newsbeuter"
+packages="${packages} cabextract newsbeuter mc"
 
 for package in ${packages}
 do
@@ -47,21 +45,26 @@ fi
 if [ ! -d "${FONT_ROOT}" ]; then
     mkdir -p "${FONT_ROOT}"
 fi
-font_tar="${TMPDIR}/ttfs.tar.gz"
-curl -sS "https://go.googlesource.com/image/+archive/master/font/gofont/ttfs.tar.gz" > "${font_tar}"
-tar xzf "${font_tar}" -C "${FONT_ROOT}"
-if [ -f "${font_tar}" ]; then
-    rm -f "${font_tar}"
+
+if [ ! -f "${FONT_ROOT}/Go-Mono.ttf" ]; then
+    font_tar="${TMPDIR}/ttfs.tar.gz"
+    curl -sS "https://go.googlesource.com/image/+archive/master/font/gofont/ttfs.tar.gz" > "${font_tar}"
+    tar xzf "${font_tar}" -C "${FONT_ROOT}"
+    if [ -f "${font_tar}" ]; then
+        rm -f "${font_tar}"
+    fi
 fi
 
 # Microsoft core fonts.
-if [ ! -d "${TMPDIR}/corefonts" ]; then
-    git clone https://github.com/pushcx/corefonts "${TMPDIR}/corefonts"
-    for f in ${TMPDIR}/corefonts/*exe
-    do
-        cabextract -d "${FONT_ROOT}" -q -L -F "*.TTF" "${f}"
-    done
-    rm -rf "${TMPDIR}/corefonts"
+if [ ! -f "${FONT_ROOT}/webdings.ttf" ]; then
+    if [ ! -d "${TMPDIR}/corefonts" ]; then
+        git clone https://github.com/pushcx/corefonts "${TMPDIR}/corefonts"
+        for f in ${TMPDIR}/corefonts/*exe
+        do
+            cabextract -d "${FONT_ROOT}" -q -L -F "*.TTF" "${f}"
+        done
+        rm -rf "${TMPDIR}/corefonts"
+    fi
 fi
 
 
