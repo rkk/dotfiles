@@ -17,3 +17,7 @@ fi
 if [ -f /usr/bin/redshift ]; then
   /usr/bin/redshift &
 fi
+
+if [ $(uname -s) = "OpenBSD" ]; then
+  /usr/local/bin/i3
+fi
