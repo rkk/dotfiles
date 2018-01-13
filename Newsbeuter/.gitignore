@@ -1,4 +1,5 @@
 cache.db
+cache.db.lock
 error.log
 history.cmdline
 history.search
