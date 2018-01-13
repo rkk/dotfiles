@@ -26,6 +26,14 @@ export CHARSET LANG LC_ALL
 XDG_CONFIG_HOME="${HOME}/.config"
 export XDG_CONFIG_HOME
 
+## OpenBSD fixes.
+if [ "$(uname)" = "OpenBSD" ]; then
+  # If not set to xterm, will fail with the message "tput setaf".
+  TERM="xterm"
+  export TERM
+fi
+
+
 ##
 ## PATHS
 ##
@@ -38,6 +46,9 @@ case `uname -s` in
   ;;
   'Linux')
   PATH="${PATH}:/usr/local/go/bin:~/bin"
+  ;;
+  'OpenBSD')
+  PATH="${PATH}:${HOME}/bin"
   ;;
 esac
 
@@ -68,6 +79,10 @@ alias gfa="git fetch --all"
 ## Functions must be aliased to be used in prompt setup.
 alias prompt_git_branch="git_branch"
 alias prompt_git_status="git_status"
+
+if [ "$(uname)" = "OpenBSD" ]; then
+  alias vi="vim"
+fi
 
 
 ##
