@@ -85,6 +85,10 @@ hi TagbarSignature ctermfg=NONE cterm=NONE
 hi TagbarType ctermfg=NONE cterm=NONE
 hi ErrorMsg ctermfg=NONE cterm=NONE
 
+" Fixes for OpenBSD terminal
+hi Normal ctermbg=NONE
+
+
 "
 " KEYS
 "
