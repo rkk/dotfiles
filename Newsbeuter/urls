@@ -10,7 +10,6 @@ http://feeds.washingtonpost.com/rss/blogs/rss_the-switch "~Washington Post"
 
 ## UNIX
 https://www.linux.com/feeds/rss "~Linux.com"
-https://www.networkworld.com/blog/linux-tycoon/index.rss
 https://webopsweekly.com/rss/1hgfip4m "~Webops Weekly"
 http://www.allthingsdistributed.com/index.xml "~All Things Distributed"
 https://www.tedunangst.com/inks/rss "~Ted Unangst"
@@ -19,6 +18,15 @@ https://www.reddit.com/r/BSD/.rss "~BSD (Reddit)"
 http://feeds2.feedburner.com/Command-line-fu "~Command Line Fu"
 https://newsletter.nixers.net/feed.xml "~Nixers"
 https://blog.jessfraz.com/index.xml "~Jess Fraz"
+https://ma.ttias.be/feed/ "~Ma.ttias.be"
+
+
+## DEVELOPMENT
+http://www.sicpers.info/feed/ "~Sicpers"
+https://brandur.org/articles.atom "~Brandur"
+http://chneukirchen.org/trivium/index.atom "~Trivium"
+http://feeds.feedburner.com/spf13 "~SPF13"
+https://bartoszmilewski.com/feed/ "~Bartosz"
 
 
 ## GOLANG
@@ -30,11 +38,8 @@ http://www.florinpatan.ro/feeds/posts/default "~Florian Patan"
 
 ## MISC
 https://cathuselah.net/blog?format=RSS "~Cat Cai"
-http://chneukirchen.org/trivium/index.atom "~Trivium"
-http://feeds.feedburner.com/spf13 "~SPF13"
 https://www.reddit.com/r/coolgithubprojects/.rss "~Cool Github projects (Reddit)"
 https://open.nytimes.com/feed "~NYT Open"
-https://brandur.org/articles.atom "~Brandur"
 https://www.reddit.com/r/raspberry_pi/.rss "~Raspberry Pi (Reddit)"
 http://feeds.akkartik.name/kartiks-scrapbook "~Kartik"
 https://medium.com/feed/graphicfacilitation "~Graphic Facilitation"
@@ -52,7 +57,10 @@ https://twitrss.me/twitter_user_to_rss/?user=qrs "~qrs (Twitter)"
 https://twitrss.me/twitter_user_to_rss/?user=antifuchs "~antifuchs (Twitter)"
 https://twitrss.me/twitter_user_to_rss/?user=davecheney "~davecheney (Twitter)"
 https://twitrss.me/twitter_user_to_rss/?user=copyconstruct "~copyconstruct (Twitter)"
+https://twitrss.me/twitter_user_to_rss/?user=mattiasgeniar "~mattiasgeniar (Twitter)"
 http://sircmpwn.github.io/feed.xml "~Sir cmpwn"
+https://blog.acolyer.org/feed/ "~The Morning Paper"
+https://lostetter.wordpress.com/feed/ "~Marina Lostetter"
 
 
 ## LONG READS
