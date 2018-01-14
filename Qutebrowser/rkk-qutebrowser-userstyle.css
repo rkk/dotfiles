@@ -1,0 +1,18 @@
+* {
+    /* font-family: "Go Mono" !important; */
+    font-family: "Go Regular" !important;
+    /* color: #eee8b5 !important; */
+    color: #93a1a1 !important;
+    background: #002b36 !important;
+    font-weight: normal !important;
+    font-size: 14px !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: 100% !important;
+    text-transform: uppercase !important;
+}
+
+img, figure {
+    display: none !important;
+}
