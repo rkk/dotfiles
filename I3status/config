@@ -1,0 +1,15 @@
+general {
+    colors = true
+    interval = 10
+}
+
+order += "battery 0"
+order += "time"
+
+battery 0 {
+    format = "%remaining"
+}
+
+time {
+    format = "%H:%M"
+}
