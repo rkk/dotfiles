@@ -20,6 +20,7 @@ http://feeds2.feedburner.com/Command-line-fu "~Command Line Fu"
 https://newsletter.nixers.net/feed.xml "~Nixers"
 https://blog.jessfraz.com/index.xml "~Jess Fraz"
 https://ma.ttias.be/feed/ "~Ma.ttias.be"
+https://virtuallyfun.com/feed/ "~Fun with Virtualization"
 
 
 ## DEVELOPMENT
@@ -28,6 +29,7 @@ https://brandur.org/articles.atom "~Brandur"
 http://chneukirchen.org/trivium/index.atom "~Trivium"
 http://feeds.feedburner.com/spf13 "~SPF13"
 https://bartoszmilewski.com/feed/ "~Bartosz"
+http://www.enterpriseintegrationpatterns.com/ramblings.rss "~Enterprise Integration Patterns"
 
 
 ## GOLANG
