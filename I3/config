@@ -52,7 +52,7 @@ client.urgent    $color_red  $color_red  $color_white
 
 ## Hide borders, use 1 px if displayed.
 hide_edge_borders	both
-new_window	        pixel 1
+new_window	        pixel 0
 
 ## Standard font.
 font xft:Go Mono 8
