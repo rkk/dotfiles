@@ -20,6 +20,8 @@ http://feeds2.feedburner.com/Command-line-fu "~Command Line Fu"
 https://newsletter.nixers.net/feed.xml "~Nixers"
 https://blog.jessfraz.com/index.xml "~Jess Fraz"
 https://ma.ttias.be/feed/ "~Ma.ttias.be"
+https://virtuallyfun.com/feed/ "~Fun with Virtualization"
+http://www.feyrer.de/NetBSD/bx/blosxom.cgi/index.rss "~Hubertf NetBSD blog"
 
 
 ## DEVELOPMENT
@@ -29,6 +31,7 @@ http://chneukirchen.org/trivium/index.atom "~Trivium"
 http://feeds.feedburner.com/spf13 "~SPF13"
 https://bartoszmilewski.com/feed/ "~Bartosz"
 http://feeds.feedburner.com/sirupsen "~Sirupsen"
+http://www.enterpriseintegrationpatterns.com/ramblings.rss "~Enterprise Integration Patterns"
 
 
 ## GOLANG
@@ -63,6 +66,7 @@ https://twitrss.me/twitter_user_to_rss/?user=mattiasgeniar "~mattiasgeniar (Twit
 http://sircmpwn.github.io/feed.xml "~Sir cmpwn"
 https://blog.acolyer.org/feed/ "~The Morning Paper"
 https://lostetter.wordpress.com/feed/ "~Marina Lostetter"
+http://howivim.com/feed.xml "~How I Vim"
 
 
 ## LONG READS
