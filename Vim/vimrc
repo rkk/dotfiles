@@ -1,4 +1,13 @@
 "
+" VIM CONFIGURATION
+" Tested on Vim 7.x and 8.x in terminals on Linux, OpenBSD
+" and Mac OS X.
+"
+" Quick tip: Reload this file by running ":so %", meaning source
+" the currently open file.
+
+
+"
 " BEHAVIOR
 "
 
@@ -22,20 +31,8 @@ set backspace=indent,eol,start
 
 set scrolloff=5
 set laststatus=2
-
-" Statusline: FILENAME MODIFIED-FLAG FILETYPE BUFFER-NUMBER GIT-STATUS CURSOR
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-set statusline=%t\ 
-set statusline+=%m\ 
-set statusline+=%y\ 
-set statusline+=b%-3.3n\ 
-set statusline+=%=
-set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}
-set statusline+=\ \ %c,
-set statusline+=%l/%L
+" StatusLine format: <Syntax check> %= <Filename> : <Line number>, <Character>
+set statusline=%{SyntasticStatuslineFlag()}\ \ %=%t%m\:%l\,%c
 
 let NERDTreeShowHidden=1
 
@@ -53,7 +50,7 @@ let g:syntastic_go_checkers = ['go', 'gofmt', 'golint']
 
 " FZF (replaces Ctrl-P, FuzzyFinder and Command-T)
 " Requires FZF Github repo checked out in ~/.fzf.
-set rtp+=~/.fzf
+" set rtp+=~/.fzf
 
 set hlsearch
 set incsearch
@@ -69,14 +66,27 @@ autocmd BufEnter * syn match ErrorMsg /[^\x00-\x7F]/
 set background=dark
 colorscheme solarized
 
+hi clear Normal
+"" OpenBSD terminal requires ctermbg=NONE or equivalent.
+hi Normal ctermfg=12 ctermbg=8
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE
 
 au VimEnter * syntax keyword Statement lambda conceal cchar=λ
 au VimEnter * hi! link Conceal Statement
 au VimEnter * set conceallevel=2
-hi StatusLine                  ctermfg=8     ctermbg=2     cterm=NONE
-hi markdownItalic              ctermfg=NONE ctermbg=NONE cterm=NONE
+hi StatusLine                  ctermfg=10     ctermbg=8     cterm=NONE
+" hi markdownItalic              ctermfg=NONE ctermbg=NONE cterm=NONE
 hi goString ctermfg=11 ctermbg=0 cterm=NONE
+hi link goDecimalInt   Normal
+hi link goSignedInts   Normal
+hi link goBoolean      Normal
+hi link goType         Normal
+hi link goRawString    String
+hi link Constant       String
+hi link goFormatSpecifier Normal
+hi link goEscapeC      Normal
+hi link markdownItalic Normal
+
 
 " Tagbar
 hi TagbarKind ctermfg=NONE cterm=NONE
@@ -84,9 +94,6 @@ hi TagbarScope ctermfg=NONE cterm=NONE
 hi TagbarSignature ctermfg=NONE cterm=NONE
 hi TagbarType ctermfg=NONE cterm=NONE
 hi ErrorMsg ctermfg=NONE cterm=NONE
-
-" Fixes for OpenBSD terminal
-hi Normal ctermbg=NONE
 
 
 "
