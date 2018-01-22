@@ -32,6 +32,8 @@ http://feeds.feedburner.com/spf13 "~SPF13"
 https://bartoszmilewski.com/feed/ "~Bartosz"
 http://feeds.feedburner.com/sirupsen "~Sirupsen"
 http://www.enterpriseintegrationpatterns.com/ramblings.rss "~Enterprise Integration Patterns"
+http://feeds.podtrac.com/q8s8ba9YtM6r "~CodeNewbie.org"
+http://feeds.codenewbie.org/basecs_podcast.xml "~Base CS podcast"
 
 
 ## GOLANG
@@ -63,10 +65,12 @@ https://twitrss.me/twitter_user_to_rss/?user=antifuchs "~antifuchs (Twitter)"
 https://twitrss.me/twitter_user_to_rss/?user=davecheney "~davecheney (Twitter)"
 https://twitrss.me/twitter_user_to_rss/?user=copyconstruct "~copyconstruct (Twitter)"
 https://twitrss.me/twitter_user_to_rss/?user=mattiasgeniar "~mattiasgeniar (Twitter)"
+https://twitrss.me/twitter_user_to_rss/?user=x0rg"~x0rg (Twitter)"
 http://sircmpwn.github.io/feed.xml "~Sir cmpwn"
 https://blog.acolyer.org/feed/ "~The Morning Paper"
 https://lostetter.wordpress.com/feed/ "~Marina Lostetter"
 http://howivim.com/feed.xml "~How I Vim"
+https://geekdad.com/feed/ "~Geek Dad"
 
 
 ## LONG READS
