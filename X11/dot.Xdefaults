@@ -77,25 +77,6 @@ URxvt.boldFont: xft:Go Mono:size=12:antialias=true
 
 
 !!
-!! ROFI SETTINGS
-!!
-
-rofi.padding: 2
-rofi.yoffset: -22
-rofi.xoffset: 0
-rofi.fixed-num-lines: true
-rofi.ssh-set-title: true
-rofi.terminal: urxvt
-rofi.fuzzy: true
-
-rofi.color-enabled: true
-rofi.color-window: S_base03  S_base03, #00073642, #00586e75
-rofi.color-normal: S_base03, #99fdf6e3, #ff002b36, #ff073642, #99eee8d5
-rofi.color-active: S_base03, #99268bd2, #ff002b36, #ff073642, #99268bd2
-rofi.color-urgent: S_base03, #99d33682, #ff002b36, #ff073642, #99d33682
-
-
-!!
 !! TESTING, HERE BE DRAGONS.
 !!
 

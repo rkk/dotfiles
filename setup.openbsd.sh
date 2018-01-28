@@ -20,7 +20,7 @@ FONT_ROOT="${HOME}/.local/share/fonts"
 # (EOM).
 
 packages="${packages} dmenu curl sakura"
-packages="${packages} xclip go redshift rofi"
+packages="${packages} xclip go redshift"
 packages="${packages} cabextract newsbeuter mc"
 
 for package in ${packages}
