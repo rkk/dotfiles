@@ -5,8 +5,7 @@
 ##
 
 set $terminal_app     "sakura -t sakura-term"
-set $app_launcher     "dmenu_run"
-set $desktop_launcher "rofi -show run"
+set $app_launcher     "dmenu_run -l 1 -nb '#002b36' -nf '#657b83' -sb '#002b36' -sf '#859900' -p ':: '"
 
 ##
 ## WORKSPACES
@@ -105,8 +104,7 @@ bindsym $mod+Shift+Return exec $terminal_app
 ## Close focused window.
 bindsym $mod+Shift+q kill
 
-## Application and desktop launchers.
-bindsym ctrl+Shift+space exec $desktop_launcher
+## Application launcher.
 bindsym ctrl+space       exec $app_launcher
 
 ## Lock screen using i3lock.
