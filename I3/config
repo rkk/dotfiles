@@ -11,10 +11,11 @@ set $desktop_launcher "rofi -show run"
 ##
 ## WORKSPACES
 ##
-set $web_workspace   web
-set $term_workspace  term
-set $msg_workspace   msg
-set $extra_workspace extra
+set $term_workspace  ••
+set $web_workspace   •
+set $msg_workspace   •••
+set $extra_workspace ••••
+
 
 ##
 ## COLORS
@@ -105,8 +106,8 @@ bindsym $mod+Shift+Return exec $terminal_app
 bindsym $mod+Shift+q kill
 
 ## Application and desktop launchers.
-bindsym ctrl+Shift+space exec $app_launcher
-bindsym ctrl+space       exec $desktop_launcher
+bindsym ctrl+Shift+space exec $desktop_launcher
+bindsym ctrl+space       exec $app_launcher
 
 ## Lock screen using i3lock.
 bindsym ctrl+shift+$mod+l exec --no-startup-id i3lock -c $color_black
