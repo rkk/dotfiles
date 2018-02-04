@@ -151,5 +151,13 @@ endfunction
 ""
 
 map <leader>c :Commentary<cr>
+map <leader>t :GoTest<cr>
+"" Navigate splits using <leader>{h,l,j,k}
+map <leader>h <C-w>h
+map <leader>l <C-w>l
+map <leader>j <C-w>j
+map <leader>k <C-w>k
 
-
+set fillchars+=vert:\|
+hi clear VertSplit
+hi clear StatusLineNC
