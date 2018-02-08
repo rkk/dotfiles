@@ -10,10 +10,10 @@ set $app_launcher     "dmenu_run -l 1 -nb '#002b36' -nf '#657b83' -sb '#002b36' 
 ##
 ## WORKSPACES
 ##
-set $term_workspace  ••
-set $web_workspace   •
-set $msg_workspace   •••
-set $extra_workspace ••••
+set $term_workspace  term
+set $web_workspace   web
+set $msg_workspace   msg 
+set $extra_workspace extra
 
 
 ##
