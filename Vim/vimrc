@@ -60,6 +60,12 @@ set wrapscan
 
 autocmd BufEnter * syn match ErrorMsg /[^\x00-\x7F]/
 
+" Use Quickfix window type for all vim-go windows, allows for
+" using :cnext and :cprevious everywhere, rather than having
+" to use :lnext and :lprevious in location list windows.
+let g:go_list_type = "quickfix"
+
+
 "
 " APPEARANCE
 "
@@ -105,20 +111,23 @@ let mapleader = "\<Space>"
 map <leader>g :Commentary<cr>
 
 " File, tag and buffer management
-map <leader>N :NERDTreeFind<cr>
 map <leader>/ :TagbarToggle<cr>
 map <leader>n :NERDTreeToggle<cr>
 map <leader>. :bn<cr>
 map <leader>m :bp<cr>
+map <leader>, :bp<cr>
 
 nmap <leader>w :w<CR>
 nmap <leader>x :x<CR>
 nmap <leader>q :q!<CR>
 
-" Use FZF for navigation
 nmap <leader>b :Buffers<CR>
-nmap <leader>t :Tags<CR>
+nmap <leader>T :Tags<CR>
 nmap <leader>f :Files<CR>
+
+nnoremap <leader>a :cclose<CR>
+nnoremap <leader>N :cnext<CR>
+nnoremap <leader>P :cprevious<CR>
 
 
 "" Go settings
@@ -161,3 +170,42 @@ map <leader>k <C-w>k
 set fillchars+=vert:\|
 hi clear VertSplit
 hi clear StatusLineNC
+
+" Do not use swapfiles or backup files.
+"
+set noswapfile
+set nobackup
+let g:go_fmt_command = "goimports"
+let g:go_autodetect_gopath = 1
+let g:go_list_type = "quickfix"
+
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_generate_tags = 1
+
+" Open :GoDeclsDir with ctrl-g
+nmap <C-g> :GoDeclsDir<cr>
+imap <C-g> <esc>:<C-u>GoDeclsDir<cr>
+augroup go
+  autocmd!
+
+" :GoDoc
+autocmd FileType go nmap <Leader>d <Plug>(go-doc)
+
+" :GoCoverageToggle
+autocmd FileType go nmap <Leader>o <Plug>(go-coverage-toggle)
+
+" :GoInfo
+autocmd FileType go nmap <Leader>i <Plug>(go-info)
+
+" :GoMetaLinter
+autocmd FileType go nmap <Leader>l <Plug>(go-metalinter)
+
+" :GoDef but opens in a vertical split
+autocmd FileType go nmap <Leader>v <Plug>(go-def-vertical)
+" :GoDef but opens in a horizontal split
+autocmd FileType go nmap <Leader>s <Plug>(go-def-split)
+augroup END
