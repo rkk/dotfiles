@@ -24,6 +24,7 @@ https://virtuallyfun.com/feed/ "~Fun with Virtualization"
 http://www.feyrer.de/NetBSD/bx/blosxom.cgi/index.rss "~Hubertf NetBSD blog" "unix"
 https://bentsukun.ch//index.xml "~Ben Tsu Kun"
 https://jcs.org/rss/feeds "~JCS" "unix"
+http://joeyh.name/blog/index.rss "~JoeyH"
 
 
 ## DEVELOPMENT
@@ -36,6 +37,7 @@ http://feeds.feedburner.com/sirupsen "~Sirupsen"
 http://www.enterpriseintegrationpatterns.com/ramblings.rss "~Enterprise Integration Patterns"
 http://feeds.podtrac.com/q8s8ba9YtM6r "~CodeNewbie.org"
 http://feeds.codenewbie.org/basecs_podcast.xml "~Base CS podcast"
+https://www.sandimetz.com/blog?format=RSS "~Sandi Metz"
 
 
 ## GOLANG
