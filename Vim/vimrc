@@ -50,7 +50,7 @@ let g:syntastic_go_checkers = ['go', 'gofmt', 'golint']
 
 " FZF (replaces Ctrl-P, FuzzyFinder and Command-T)
 " Requires FZF Github repo checked out in ~/.fzf.
-" set rtp+=~/.fzf
+set rtp+=~/.fzf
 
 set hlsearch
 set incsearch
