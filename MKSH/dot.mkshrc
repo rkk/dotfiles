@@ -33,6 +33,10 @@ if [ "$(uname)" = "OpenBSD" ]; then
   export TERM
 fi
 
+if [ ! -z DISPLAY ]; then
+  DISPLAY=":0"
+  export DISPLAY
+fi
 
 ##
 ## PATHS
