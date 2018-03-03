@@ -67,6 +67,10 @@ if [ ! -f "${FONT_ROOT}/webdings.ttf" ]; then
     fi
 fi
 
+# Fuzzy Finder (fzf).
+if [ ! -d "${HOME}/.fzf" ]; then
+    git clone https://github.com/junegunn/fzf.git ~/.fzf
+fi
 
 echo "Done."
 

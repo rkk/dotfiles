@@ -131,4 +131,5 @@ if [ ! -d ${GOPATH} ]; then
 fi
 export GOPATH
 
-
+PATH="${PATH}:${GOPATH}/bin"
+export PATH

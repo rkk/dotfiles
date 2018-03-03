@@ -1,16 +1,13 @@
 #!/bin/bash
-##
-## Mute volume, command line.
-##
 
 if [ $(uname) = "Darwin" ]; then
-  ## Handle Mac
   osascript -e 'set volume output muted true'
   mute_res=${?}
   if [ ${mute_res} -ne 0 ]; then
     echo "ERROR: Cannot mute"
     exit 1
   fi
+  exit 0
 fi
 
 
@@ -21,5 +18,15 @@ if [ $(uname) = "Linux" ]; then
     echo "ERROR: Cannot toggle mute"
     exit 1
   fi
+  exit 0
+fi
+
+if [ $(uname) = "OpenBSD" ]; then
+  output="$(/usr/bin/mixerctl -t outputs.spkr_mute)"
+  mute_res="${?}"
+   if [ ${mute_res} -ne 0 ]; then
+     echo "ERROR: Cannot toggle mute"
+     exit 1
+   fi
 fi
 

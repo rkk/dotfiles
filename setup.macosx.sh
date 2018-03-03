@@ -54,6 +54,12 @@ if [ -f "${font_tar}" ]; then
     rm -f "${font_tar}"
 fi
 
+# Fuzzy Finder (fzf).
+if [ ! -d "${HOME}/.fzf" ]; then
+    git clone https://github.com/junegunn/fzf.git ~/.fzf
+fi
+
+
 echo ""
 echo "Installation completed."
 echo ""
