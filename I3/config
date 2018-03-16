@@ -196,14 +196,12 @@ bindsym XF86Launch1 exec 'locker'
 ## EXEC
 ##
 
-## Run standard X session script.
-exec ~/.xsession
+xsetroot -solid black
 
 ## Ensure proper colors, e.g. fix Pink Screen of Death in URXVT.
-exec xrdb -merge $HOME/.Xdefaults
+exec /usr/X11R6/bin/xrdb -merge $HOME/.Xdefaults
 
 ## Allow external hosts, e.g. Docker-based X11-applications.
 exec xhost +
-exec /usr/bin/xfce4-volumed
-exec /usr/bin/redshift-gtk
+exec /usr/local/bin/redshift-gtk &
 
