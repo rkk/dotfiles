@@ -1,54 +1,55 @@
 # vi: ft=i3
 
 ##
+## COLORS
+##
+
+set $bg_solar #002b36
+set $fg_solar #657b83
+set $gray     #666666
+set $brown    #b58900
+set $white    #ffffff
+set $black    #000000
+set $red      #990000
+set $blue     #007fbf
+
+
+##
 ## APPLICATIONS
 ##
 
-set $terminal_app     "sakura -t sakura-term"
+set $terminal_app     "urxvt -T main-term -name main-term"
 set $app_launcher     "dmenu_run -l 1 -nb '#002b36' -nf '#657b83' -sb '#002b36' -sf '#859900' -p ':: '"
+
 
 ##
 ## WORKSPACES
 ##
+
 set $term_workspace  term
 set $web_workspace   web
 set $msg_workspace   msg 
 set $extra_workspace extra
 
-
-##
-## COLORS
-##
-
-## Colors grouping:
-## <class> <border> <background> <text> <indicator> <child border>
-set $bg_solarized #002b36
-set $fg_solarized #657b83
-set $color_gray   #666666
-set $color_brown  #b58900
-set $color_white  #ffffff
-set $color_black  #000000
-set $color_red    #990000
-set $color_blue   #007fbf
-
 bar {
     colors {
-        background         $bg_solarized
-        statusline         $fg_solarized
-		separator          $color_gray
-        focused_workspace  $bg_solarized $bg_solarized $color_brown
-        active_workspace   $color_white  $fg_solarized $color_white
-        inactive_workspace $bg_solarized $bg_solarized $color_gray
-        urgent_workspace   $color_red    $color_red    $color_white
+        background         $bg_solar
+        statusline         $fg_solar
+		separator          $gray
+        focused_workspace  $bg_solar      $bg_solar   $brown
+        active_workspace   $white         $fg_solar   $white
+        inactive_workspace $bg_solar      $bg_solar   $gray
+        urgent_workspace   $red           $red        $white
     }
     position top
     status_command i3status
     modifier Mod1
 }
 
-client.focused   $color_blue $color_blue $color_white
-client.unfocused $color_gray $color_gray $color_white
-client.urgent    $color_red  $color_red  $color_white
+#                BORDER BACKGROUND  TEXT    INDICATOR    CHILD-BORDER
+client.focused   $blue  $blue       $white
+client.unfocused $gray  $gray       $white
+client.urgent    $red   $red        $white
 
 ## Hide borders, use 1 px if displayed.
 hide_edge_borders	both
