@@ -37,6 +37,7 @@ http://feeds.codenewbie.org/basecs_podcast.xml "~Base CS podcast"
 https://www.sandimetz.com/blog?format=RSS "~Sandi Metz"
 https://blog.safia.rocks/rss "~Safia Rocks"
 https://utcc.utoronto.ca/~cks/space/blog/?atom "~CKS"
+http://www.mooreds.com/wordpress/feed/ "~Dan Moore"
 
 
 ## GOLANG
@@ -72,10 +73,8 @@ http://sircmpwn.github.io/feed.xml "~Sir cmpwn"
 https://blog.acolyer.org/feed/ "~The Morning Paper"
 https://lostetter.wordpress.com/feed/ "~Marina Lostetter"
 http://howivim.com/feed.xml "~How I Vim"
-https://geekdad.com/feed/ "~Geek Dad"
 https://lcamtuf.blogspot.com/feeds/posts/default "~lcamtuf"
 
 
 ## LONG READS
-http://qz.com/feed/ "~Quartz"
 https://thehistoryoftheweb.com/feed/ "~History of the Web"
