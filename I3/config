@@ -84,7 +84,7 @@ assign [class="Slack"]                $msg_workspace
 bindsym ctrl+shift+f [title="Mozilla Firefox"] focus
 bindsym ctrl+shift+b [title="Google Chrome"]   focus
 bindsym ctrl+shift+w [title="qutebrowser"]     focus
-bindsym ctrl+shift+t [title="sakura-term"]     focus
+bindsym ctrl+shift+t [title="main-term"]       focus
 bindsym ctrl+shift+l [title="PhpStorm"]        focus
 bindsym ctrl+shift+h [title="Slack"]           focus
 
