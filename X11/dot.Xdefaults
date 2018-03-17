@@ -72,7 +72,8 @@ xscreensaver.timeout: 5
 !!
 
 URxvt*scrollBar: false
-URxvt.font:     xft:Go Mono:size=12:antialias=true
+!!URxvt.font:     xft:Go Mono:size=12:antialias=true
+URxvt.font:     xft:Go Mono:size=14:antialias=true
 URxvt.boldFont: xft:Go Mono:size=12:antialias=true
 
 
@@ -81,7 +82,7 @@ URxvt.boldFont: xft:Go Mono:size=12:antialias=true
 !!
 
 !! Enable copy to clipboard on selection in URXVT.
-urxvt*perl-ext-common:      default,matcher,urxvt-clipboard,font-size
+!! urxvt*perl-ext-common:      default,matcher,urxvt-clipboard,font-size
 
 !! Enable font size switching in URXVT.
 !! See github.com/majutsushi/urxvt-font-size.
@@ -107,4 +108,5 @@ Urxvt.letterSpace: -3
 !! Launch browser
 URxvt.urlLauncher: firefox
 URxvt*pointerBlank: false
-
+URxvt*internalBorder: 8
+URxvt*externalBorder: 8

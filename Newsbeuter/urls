@@ -1,12 +1,9 @@
 ## NEWS
-https://hackernoon.com/feed "~Hacker Noon" "news"
 https://soylentnews.org/index.rss "~Soylent News" "news"
-https://www.theguardian.com/technology/series/technobile/rss "~The Guardian" "news"
-https://www.theguardian.com/uk/technology/rss "~The Guardian Tech" "news"
 http://rss.slashdot.org/Slashdot/slashdot "~Slashdot" "news"
 https://lobste.rs/rss "~Lobsters" "news"
 https://lobste.rs/comments.rss "~Lobsters Comments" "news"
-http://feeds.washingtonpost.com/rss/blogs/rss_the-switch "~Washington Post" "news"
+https://tedium.co/rss/ "~Tedium"
 
 
 ## UNIX
@@ -40,6 +37,7 @@ http://feeds.codenewbie.org/basecs_podcast.xml "~Base CS podcast"
 https://www.sandimetz.com/blog?format=RSS "~Sandi Metz"
 https://blog.safia.rocks/rss "~Safia Rocks"
 https://utcc.utoronto.ca/~cks/space/blog/?atom "~CKS"
+http://www.mooreds.com/wordpress/feed/ "~Dan Moore"
 
 
 ## GOLANG
@@ -57,28 +55,12 @@ https://medium.com/feed/graphicfacilitation "~Graphic Facilitation"
 https://jsonfeed.org/xml/rss.xml "~JSON Feed"
 https://aphyr.com/posts.atom "~Kyle Kingsbury"
 https://blog.benjojo.co.uk/rss.xml "~Ben Cox"
-https://twitrss.me/twitter_user_to_rss/?user=jessfraz "~jessfraz (Twitter)" "twitter"
-https://twitrss.me/twitter_user_to_rss/?user=partytimeHXLNT "~PartyTimeHXLNT (Twitter)" "twitter"
-https://twitrss.me/twitter_user_to_rss/?user=rakyll "~rakyll (Twitter)" "twitter"
-https://twitrss.me/twitter_user_to_rss/?user=LiliCosic "~lilicosic (Twitter)" "twitter"
-https://twitrss.me/twitter_user_to_rss/?user=peterbourgon "~peterbourgon (Twitter)" "twitter"
-https://twitrss.me/twitter_user_to_rss/?user=NataliePis "~nataliepis (Twitter)" "twitter"
-https://twitrss.me/twitter_user_to_rss/?user=dlsniper "~dlsniper (Twitter)" "twitter"
-https://twitrss.me/twitter_user_to_rss/?user=qrs "~qrs (Twitter)" "twitter"
-https://twitrss.me/twitter_user_to_rss/?user=antifuchs "~antifuchs (Twitter)" "twitter"
-https://twitrss.me/twitter_user_to_rss/?user=davecheney "~davecheney (Twitter)" "twitter"
-https://twitrss.me/twitter_user_to_rss/?user=copyconstruct "~copyconstruct (Twitter)" "twitter"
-https://twitrss.me/twitter_user_to_rss/?user=mattiasgeniar "~mattiasgeniar (Twitter)" "twitter"
-https://twitrss.me/twitter_user_to_rss/?user=x0rg "~x0rg (Twitter)" "twitter"
-https://twitrss.me/twitter_user_to_rss/?user=iamdevloper "~iamdevloper (Twitter)" "twitter"
 http://sircmpwn.github.io/feed.xml "~Sir cmpwn"
 https://blog.acolyer.org/feed/ "~The Morning Paper"
 https://lostetter.wordpress.com/feed/ "~Marina Lostetter"
 http://howivim.com/feed.xml "~How I Vim"
-https://geekdad.com/feed/ "~Geek Dad"
 https://lcamtuf.blogspot.com/feeds/posts/default "~lcamtuf"
 
 
 ## LONG READS
-http://qz.com/feed/ "~Quartz"
 https://thehistoryoftheweb.com/feed/ "~History of the Web"

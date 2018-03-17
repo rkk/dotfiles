@@ -1,0 +1,6 @@
+#!/bin/sh
+#
+# Opens a URXVT terminal with Newsbeuter, optimized for reading.
+#
+
+urxvt -w 120 -e newsbeuter &

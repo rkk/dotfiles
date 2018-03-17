@@ -1,0 +1,12 @@
+#!/bin/sh
+#
+# Changes the font size in URXVT; up to 18 if called without
+# parameters and down to 12 if called with parameters.
+
+font="Go Mono"
+size="12"
+if [ -z ${1} ]; then
+    size="18"
+fi
+
+printf '\e]710;%s\007' "xft:${font}:pixelsize=${size}"

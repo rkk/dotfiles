@@ -4,7 +4,7 @@
 #
 
 openvpn="/usr/local/sbin/openvpn"
-connection="/etc/openvpn/ip.conf"
+connection="/etc/openvpn/default.conf"
 
 if [ ! -f "${openvpn}" ]; then
     echo "ERROR: OpenVPN not installed at ${openvpn}"
@@ -16,5 +16,7 @@ if [ ! -f "${connection}" ]; then
     exit 2
 fi
 
-doas ${openvpn} --config ${connection}
+if [ $(uname -s) = "OpenBSD" ]; then
+    doas ${openvpn} --config ${connection}
+fi
 

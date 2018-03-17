@@ -21,7 +21,7 @@ FONT_ROOT="${HOME}/.local/share/fonts"
 
 packages="${packages} dmenu curl sakura"
 packages="${packages} xclip go redshift"
-packages="${packages} cabextract newsbeuter mc"
+packages="${packages} cabextract newsbeuter mc xbanish"
 
 for package in ${packages}
 do

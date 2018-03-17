@@ -23,8 +23,16 @@ LANG="en_US.UTF-8"
 LC_ALL="en_US.UTF-8"
 export CHARSET LANG LC_ALL
 
+TMPDIR="${HOME}/tmp"
 XDG_CONFIG_HOME="${HOME}/.config"
-export XDG_CONFIG_HOME
+XDG_RUNTIME_DIR="${TMPDIR}/tmp"
+
+export TMPDIR XDG_CONFIG_HOME XDG_RUNTIME_DIR
+
+if [ ! -d "${TMPDIR}" ]; then
+  mkdir -p "${TMPDIR}"
+fi
+
 
 ## OpenBSD fixes.
 if [ "$(uname)" = "OpenBSD" ]; then
@@ -63,7 +71,7 @@ export PATH
 ## ALIAS
 ##
 
-alias l="ls -CoF"
+alias l="ls -1AFo"
 alias la="ls -lAh"
 alias ltr="ls -latr"
 alias a="clear"
