@@ -13,6 +13,16 @@ fi
 TMPDIR=${TMPDIR:-/tmp}
 FONT_ROOT="${HOME}/.local/share/fonts"
 
+
+if [ ! -f "/etc/doas.conf" ]; then
+    echo "permit persist :wheel" > "${TMPDIR}/tmpdoas"
+    echo "ERROR: doas not configured."
+    echo "       Switch to root using 'su -' and run"
+    echo "       the command 'cp ${TMPDIR}/tmpdoas /etc/doas.conf'"
+    echo ""
+    exit 1
+fi
+
 # Requires the file /etc/installurl to contain only the following,
 #
 # https://ftp.openbsd.org/pub/OpenBSD
