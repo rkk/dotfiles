@@ -29,14 +29,20 @@ fi
 #
 # (EOM).
 
-packages="${packages} dmenu curl sakura"
-packages="${packages} xclip go redshift"
-packages="${packages} cabextract newsbeuter mc xbanish"
+if [ ! -f "/etc/installurl" ]; then
+    installtmp="${TMPDIR}/installtmp"
+    echo "https://ftp.openbsd.org/pub/OpenBSD" > "${installtmp}"
+    doas cp "${installtmp}" /etc/installurl
+    rm "${installtmp}"
+fi
+
+packages="${packages} dmenu curl sakura vim-8.0.0987p0-no_x11-perl-python3-ruby"
+packages="${packages} xclip go redshift bash i3 rxvt-unicode"
+packages="${packages} cabextract newsbeuter xbanish"
 
 for package in ${packages}
 do
     doas pkg_add "${package}"
-TMPDIR=${TMPDIR:-/tmp}
     install_res=${?}
     if [ "${install_res}" -ne 0 ]; then
         echo "ERROR: Cannot install package ${package}"
@@ -81,6 +87,25 @@ fi
 if [ ! -d "${HOME}/.fzf" ]; then
     git clone https://github.com/junegunn/fzf.git ~/.fzf
 fi
+
+# XDG directories.
+if [ ! -d "${HOME}/.config" ];
+    mkdir -p "${HOME}/.config"
+fi
+
+# Fixes for Linuxisms and Bashisms.
+if [ ! -f /bin/bash ]; then
+    doas ln -s /usr/local/bin/bash /bin/bash
+    doas ln -s /usr/X11R6/bin/xrdb /usr/bin/xrdb
+fi
+
+# Ports system for that which is not in packages.
+portstmp="${TMPDIR}/ports.tar.gz"
+if [ ! -f ${portstmp} ]; then
+    ftp https://ftp.openbsd.org/pub/OpenBSD/$(uname -r)/ports.tar.gz -o ${portstmp}
+    doas tar xzf ${portstmp} -C /usr
+fi
+
 
 echo "Done."
 
