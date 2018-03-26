@@ -22,6 +22,7 @@ http://www.feyrer.de/NetBSD/bx/blosxom.cgi/index.rss "~Hubertf NetBSD blog" "uni
 https://bentsukun.ch//index.xml "~Ben Tsu Kun"
 https://jcs.org/rss/feeds "~JCS" "unix"
 http://joeyh.name/blog/index.rss "~JoeyH"
+http://akpoff.com/rss.xml "~Poffenberger"
 
 
 ## DEVELOPMENT
@@ -38,6 +39,7 @@ https://www.sandimetz.com/blog?format=RSS "~Sandi Metz"
 https://blog.safia.rocks/rss "~Safia Rocks"
 https://utcc.utoronto.ca/~cks/space/blog/?atom "~CKS"
 http://www.mooreds.com/wordpress/feed/ "~Dan Moore"
+https://rcoh.me/index.xml "~Russel Cohen" "unix"
 
 
 ## GOLANG
@@ -60,7 +62,7 @@ https://blog.acolyer.org/feed/ "~The Morning Paper"
 https://lostetter.wordpress.com/feed/ "~Marina Lostetter"
 http://howivim.com/feed.xml "~How I Vim"
 https://lcamtuf.blogspot.com/feeds/posts/default "~lcamtuf"
-
+https://www.reddit.com/r/opensource/.rss "~Open Source (Reddit)"
 
 ## LONG READS
 https://thehistoryoftheweb.com/feed/ "~History of the Web"
