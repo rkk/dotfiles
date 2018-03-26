@@ -196,7 +196,7 @@ bindsym XF86Launch1 exec 'locker'
 ## EXEC
 ##
 
-xsetroot -solid black
+exec xsetroot -solid black
 
 ## Ensure proper colors, e.g. fix Pink Screen of Death in URXVT.
 exec /usr/X11R6/bin/xrdb -merge $HOME/.Xdefaults
