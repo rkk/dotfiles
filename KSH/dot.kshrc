@@ -98,6 +98,7 @@ alias gll="git log --name-only"
 alias gba="git branch -a"
 alias gnew="git checkout -b"
 alias gfa="git fetch --all"
+alias stenspil="rocksndiamonds"
 
 
 ##
@@ -109,7 +110,7 @@ git_status() {
     if [ "${delta}" = "" ]; then
         exit
     fi
-    print " (!)"
+    print " (x)"
 }
 
 git_branch() {
@@ -124,7 +125,7 @@ exit_code() {
     if [ "${?}" -eq 0 ]; then
         exit
     fi
-    print "(!)"
+    print "(x)"
 }
 
 
