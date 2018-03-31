@@ -37,8 +37,8 @@ if [ ! -f "/etc/installurl" ]; then
 fi
 
 packages="${packages} dmenu curl sakura vim-8.0.0987p0-no_x11-perl-python3-ruby"
-packages="${packages} xclip go redshift bash i3 rxvt-unicode"
-packages="${packages} cabextract newsbeuter xbanish"
+packages="${packages} xclip go redshift bash i3 rxvt-unicode ectags"
+packages="${packages} cabextract newsbeuter xbanish qutebrowser"
 
 for package in ${packages}
 do
@@ -102,7 +102,7 @@ fi
 # Ports system for that which is not in packages.
 portstmp="${TMPDIR}/ports.tar.gz"
 if [ ! -f ${portstmp} ]; then
-    ftp https://ftp.openbsd.org/pub/OpenBSD/$(uname -r)/ports.tar.gz -o ${portstmp}
+    ftp http://ftp.openbsd.org/pub/OpenBSD/$(uname -r)/ports.tar.gz -o ${portstmp}
     doas tar xzf ${portstmp} -C /usr
 fi
 
