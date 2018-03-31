@@ -18,9 +18,9 @@ set $blue     #007fbf
 ## APPLICATIONS
 ##
 
-set $terminal_app     "urxvt -T main-term -name main-term"
+set $terminal_app     "xterm +sb -T main-term -name main-term"
 set $app_launcher     "dmenu_run -l 1 -nb '#002b36' -nf '#657b83' -sb '#002b36' -sf '#859900' -p ':: '"
-
+set $status_app       "i3status"
 
 ##
 ## WORKSPACES
@@ -42,7 +42,7 @@ bar {
         urgent_workspace   $red           $red        $white
     }
     position top
-    status_command i3status
+    status_command $status_app
     modifier Mod1
 }
 
@@ -85,7 +85,6 @@ bindsym ctrl+shift+f [title="Mozilla Firefox"] focus
 bindsym ctrl+shift+b [title="Google Chrome"]   focus
 bindsym ctrl+shift+w [title="qutebrowser"]     focus
 bindsym ctrl+shift+t [title="main-term"]       focus
-bindsym ctrl+shift+l [title="PhpStorm"]        focus
 bindsym ctrl+shift+h [title="Slack"]           focus
 
 
@@ -196,12 +195,12 @@ bindsym XF86Launch1 exec 'locker'
 ## EXEC
 ##
 
-exec xsetroot -solid black
+exec xsetroot -solid $bg_solar
 
 ## Ensure proper colors, e.g. fix Pink Screen of Death in URXVT.
 exec /usr/X11R6/bin/xrdb -merge $HOME/.Xdefaults
 
 ## Allow external hosts, e.g. Docker-based X11-applications.
 exec xhost +
-exec /usr/local/bin/redshift-gtk &
+exec /usr/bin/redshift -l 55.676098:12.568 &
 
