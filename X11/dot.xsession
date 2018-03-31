@@ -4,7 +4,7 @@ if [ -f "${HOME}/bin/setdvorarkk" ]; then
     "${HOME}"/bin/setdvorarkk
 fi
 
-xsetroot -solid black
+xsetroot -solid '#002b36'
 
 if [ -f ~/.Xdefaults ]; then
   /usr/bin/xrdb ~/.Xdefaults
@@ -15,7 +15,7 @@ if [ -f /usr/bin/xfce4-volumed ]; then
 fi
 
 if [ -f /usr/bin/redshift ]; then
-  /usr/bin/redshift &
+  /usr/bin/redshift -l 55.676098:12.568 &
 fi
 
 if [ $(uname -s) = "OpenBSD" ]; then
