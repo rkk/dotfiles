@@ -89,6 +89,8 @@ fi
 # Fixes for Linuxisms and Bashisms.
 if [ ! -f /bin/bash ]; then
     doas ln -s /usr/local/bin/bash /bin/bash
+fi
+if [ ! -f /usr/bin/xrdb ]; then
     doas ln -s /usr/X11R6/bin/xrdb /usr/bin/xrdb
 fi
 
