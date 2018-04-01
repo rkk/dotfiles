@@ -89,7 +89,7 @@ if [ ! -d "${HOME}/.fzf" ]; then
 fi
 
 # XDG directories.
-if [ ! -d "${HOME}/.config" ];
+if [ ! -d "${HOME}/.config" ]; then
     mkdir -p "${HOME}/.config"
 fi
 
