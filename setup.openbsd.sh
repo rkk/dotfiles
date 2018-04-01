@@ -22,12 +22,6 @@ if [ ! -f "/etc/doas.conf" ]; then
     exit 1
 fi
 
-# Requires the file /etc/installurl to contain only the following,
-#
-# https://ftp.openbsd.org/pub/OpenBSD
-#
-# (EOM).
-
 if [ ! -f "/etc/installurl" ]; then
     installtmp="${TMPDIR}/installtmp"
     echo "https://ftp.openbsd.org/pub/OpenBSD" > "${installtmp}"
