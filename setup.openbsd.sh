@@ -96,8 +96,9 @@ fi
 
 # Ports system for that which is not in packages.
 portstmp="${TMPDIR}/ports.tar.gz"
-if [ ! -f ${portstmp} ]; then
-    ftp http://ftp.openbsd.org/pub/OpenBSD/$(uname -r)/ports.tar.gz -o ${portstmp}
+portsdir="/usr/ports"
+if [ ! -d "${portsdir}" ]; then
+    ftp mirrors.dotsrc.org/pub/OpenBSD/$(uname -r)/ports.tar.gz -o ${portstmp}
     doas tar xzf ${portstmp} -C /usr
 fi
 
