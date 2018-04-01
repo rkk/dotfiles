@@ -1,4 +1,4 @@
-#!/bin/ksh
+#!/bin/sh
 #
 # Installs packages in OpenBSD.
 # The script is designed to be idempotent, so no
@@ -12,7 +12,6 @@ fi
 
 TMPDIR=${TMPDIR:-/tmp}
 FONT_ROOT="${HOME}/.local/share/fonts"
-
 
 if [ ! -f "/etc/doas.conf" ]; then
     echo "permit persist :wheel" > "${TMPDIR}/tmpdoas"
