@@ -1,112 +1,75 @@
 !!
-!! SCREENSAVER
+!! COLORS
 !!
 
-xscreensaver.timeout: 5
+*background: #002b36
+*foreground: #657b83
+*cursorColor: #93a1a1
 
-
-!!
-!! COLOR
-!!
-
-#define S_base03        #002b36
-#define S_base02        #073642
-#define S_base01        #586e75
-#define S_base00        #657b83
-#define S_base0         #839496
-#define S_base1         #93a1a1
-#define S_base2         #eee8d5
-#define S_base3         #fdf6e3
-
-*background:            S_base03
-*foreground:            #657b83
-*fadeColor:             S_base03
-*cursorColor:           S_base1
-*pointerColorBackground:S_base01
-*pointerColorForeground:S_base1
-
-#define S_yellow        #b58900
-#define S_orange        #cb4b16
-#define S_red           #dc322f
-#define S_magenta       #d33682
-#define S_violet        #6c71c4
-#define S_blue          #268bd2
-#define S_cyan          #2aa198
-#define S_green         #859900
+*fading:                40
+*fadeColor:             #002b36
+*cursorColor:           #93a1a1
+*pointerColorBackground:#586e75
+*pointerColorForeground:#93a1a1
 
 !! black dark/light
-*color0:                S_base02
-*color8:                S_base03
+*color0:                #073642
+*color8:                #002b36
 
 !! red dark/light
-*color1:                S_red
-*color9:                S_orange
+*color1:                #dc322f
+*color9:                #cb4b16
 
 !! green dark/light
-*color2:                S_green
-*color10:               S_base01
+*color2:                #859900
+*color10:               #586e75
 
 !! yellow dark/light
-*color3:                S_yellow
-*color11:               S_base00
+*color3:                #b58900
+*color11:               #657b83
 
 !! blue dark/light
-*color4:                S_blue
-*color12:               S_base0
+*color4:                #268bd2
+*color12:               #839496
 
 !! magenta dark/light
-*color5:                S_magenta
-*color13:               S_violet
+*color5:                #d33682
+*color13:               #6c71c4
 
 !! cyan dark/light
-*color6:                S_cyan
-*color14:               S_base1
+*color6:                #2aa198
+*color14:               #93a1a1
 
 !! white dark/light
-*color7:                S_base2
-*color15:               S_base3
+*color7:                #eee8d5
+*color15: #fdf6e3
 
 
 !!
-!! TERMINAL SETTINGS
+!! XTERM
 !!
 
-URxvt*scrollBar: false
-!!URxvt.font:     xft:Go Mono:size=12:antialias=true
-URxvt.font:     xft:Go Mono:size=14:antialias=true
-URxvt.boldFont: xft:Go Mono:size=12:antialias=true
+XTerm*loginShell:true
+XTerm*boldColors: false
+XTerm*locale: true
+!! UTF-8 values: 1 or 2
+XTerm*utf8: 1
+!! Copy selection to X CLIPBOARD and X PRIMARY.
+XTerm*selectToClipboard: true
+XTerm*scrollBar: false
 
+XTerm*font: xft:Go Mono:pixelsize=12
+XTerm*font1: xft:Go Mono:pixelsize=9
+XTerm*font2: xft:Go Mono:pixelsize=10
+XTerm*font3: xft:Go Mono:pixelsize=12
+XTerm*font4: xft:Go Mono:pixelsize=16
+XTerm*font5: xft:Go Mono:pixelsize=20
+XTerm*font6: xft:Go Mono:pixelsize=24
 
 !!
-!! TESTING, HERE BE DRAGONS.
+!! TESTING
 !!
 
-!! Enable copy to clipboard on selection in URXVT.
-!! urxvt*perl-ext-common:      default,matcher,urxvt-clipboard,font-size
-
-!! Enable font size switching in URXVT.
-!! See github.com/majutsushi/urxvt-font-size.
-URxvt.keysym.C-Up:     font-size:increase
-URxvt.keysym.C-Down:   font-size:decrease
-URxvt.keysym.C-S-Up:   font-size:incglobal
-URxvt.keysym.C-S-Down: font-size:decglobal
-
-Urxvt*secondaryScroll: true # Enable Shift-PageUp/Down
-
-!! Use Xclip to handle copy/paste.
-URxvt.clipboard.copycmd: xclip -i -selection clipboard
-URxvt.clipboard.pastcmd: xclip -o -selection clipboard
-
-!! Disables the uppercase messages when using Ctrl-Shift-(key).
-URxvt.iso14755:               false
-
-URxvt.keysym.Shift-Control-C: perl:clipboard:copy
-
-!! Limit font spacing.
-Urxvt.letterSpace: -3
-
-!! Launch browser
-URxvt.urlLauncher: firefox
-URxvt*pointerBlank: false
-URxvt*internalBorder: 8
-URxvt*externalBorder: 8
+Xft*antialias: true
+Xft*dpi: 96
+XTerm.vt100.boldFont: xft:Go Mono:pixelsize=12
