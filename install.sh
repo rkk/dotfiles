@@ -106,6 +106,15 @@ case ${os} in
             echo "ERROR: Cannot install X11 source ${xsess_src} to destination ${xsess_dst}"
         fi
     fi
-    ;;
+    qute_config_src="${PWD}/Qutebrowser"
+    qute_config_dst="${HOME}/.config/qutebrowser"
+    if [ ! -d "${qute_config_dst}" ]; then
+        ln -sf "${qute_config_src}" "${qute_config_dst}"
+        link_res="${?}"
+        if [ ${link_res} -ne 0 ]; then
+            echo "ERROR: Cannot install Qutebrowser source ${qute_config_src} to destination ${qute_config_dst}"
+        fi
+    fi
+;;
 esac
 echo "Done."
