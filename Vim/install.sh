@@ -89,3 +89,8 @@ if [ ! -d "${BUNDLE_ROOT}/syntastic" ]; then
     git clone --depth=1 git://github.com/vim-syntastic/syntastic.git "${BUNDLE_ROOT}/syntastic"
 fi
 
+# Supertab
+if [ ! -d "${BUNDLE_ROOT}/supertab" ]; then
+    git clone git://github.com/ervandew/supertab.git "${BUNDLE_ROOT}/supertab"
+fi
+
