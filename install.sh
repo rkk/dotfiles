@@ -1,4 +1,4 @@
-#!/bin/sh 
+#!/bin/sh
 #
 # Installs dotfiles in all platforms.
 # The script is designed to be idempotent, so no
@@ -51,6 +51,12 @@ if [ ! -f "${tmux_config_dst}" ]; then
         echo "ERROR: Cannot install Tmux source ${tmux_config_src} to destination ${tmux_config_dst}"
     fi
 fi
+
+# Vim editor and plugins.
+startDir="${PWD}"
+cd Vim
+./install.sh
+cd "${startDir}"
 
 
 #

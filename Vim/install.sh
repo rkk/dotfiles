@@ -14,7 +14,7 @@ TMP_ROOT="${HOME}/.vim/tmp"
 
 # Assume this repo can be used for Vim.
 if [ ! -d "${VIM_ROOT}" ]; then
-    ln -s "${PWD}" "${VIM_ROOT}"
+    ln -sf "${PWD}" "${VIM_ROOT}"
 fi
 
 if [ ! -d "${BUNDLE_ROOT}" ]; then
