@@ -2,10 +2,12 @@
     /* font-family: "Go Mono" !important; */
     font-family: "Go Regular" !important;
     /* color: #eee8b5 !important; */
+    border: 0px solid #002b36 !important;
     color: #93a1a1 !important;
     background: #002b36 !important;
     font-weight: normal !important;
     font-size: 14px !important;
+    text-decoration: none !important;
 }
 
 h1, h2, h3, h4, h5, h6 {
