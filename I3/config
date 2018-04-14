@@ -18,7 +18,7 @@ set $blue     #007fbf
 ## APPLICATIONS
 ##
 
-set $terminal_app     "xterm +sb -T main-term -name main-term"
+set $terminal_app     "sakura -t main-term"
 set $app_launcher     "dmenu_run -l 1 -nb '#002b36' -nf '#657b83' -sb '#002b36' -sf '#859900' -p ':: '"
 set $status_app       "i3status"
 
