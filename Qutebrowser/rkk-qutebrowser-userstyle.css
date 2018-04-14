@@ -1,5 +1,4 @@
 * {
-    /* font-family: "Go Mono" !important; */
     font-family: "Go Regular" !important;
     /* color: #eee8b5 !important; */
     border: 0px solid #002b36 !important;
@@ -8,6 +7,7 @@
     font-weight: normal !important;
     font-size: 14px !important;
     text-decoration: none !important;
+    text-shadow: unset !important;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -15,6 +15,10 @@ h1, h2, h3, h4, h5, h6 {
     text-transform: uppercase !important;
 }
 
-img, figure {
+img, figure, svg {
+    display: none !important;
+}
+
+iframe {
     display: none !important;
 }
