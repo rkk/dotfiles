@@ -7,7 +7,6 @@ https://tedium.co/rss/ "~Tedium"
 
 
 ## UNIX
-https://www.linux.com/feeds/rss "~Linux.com" "unix"
 https://webopsweekly.com/rss/1hgfip4m "~Webops Weekly" "unix"
 http://www.allthingsdistributed.com/index.xml "~All Things Distributed"
 https://www.tedunangst.com/inks/rss "~Ted Unangst" "unix"
@@ -43,12 +42,12 @@ http://www.mooreds.com/wordpress/feed/ "~Dan Moore"
 https://rcoh.me/index.xml "~Russel Cohen" "unix"
 https://commandercoriander.net/index.xml "~Commander Coriander" "unix"
 
-
 ## GOLANG
 http://golangweekly.com/rss/19m1f3k "~Golang Weekly" "golang"
 http://golangnews.com/index.xml "~Golang News" "golang"
 https://blog.golang.org/feeds/posts/default "~Golang.org Blog" "golang"
 http://www.florinpatan.ro/feeds/posts/default "~Florian Patan" "golang"
+https://dave.cheney.net/feed "~Dave Cheney" "unix" "golang"
 
 
 ## MISC
@@ -66,6 +65,8 @@ http://howivim.com/feed.xml "~How I Vim"
 https://lcamtuf.blogspot.com/feeds/posts/default "~lcamtuf"
 https://www.reddit.com/r/opensource/.rss "~Open Source (Reddit)"
 http://feeds.pinboard.in/rss/u:matthew.mccullough/ "~Matthew McCullough (Pinboard)"
+https://www.reddit.com/r/battletops/.rss "~Battletops (Reddit)"
+https://www.reddit.com/r/workspaces/.rss "~Workspaces (Reddit)"
 
 
 ## LONG READS
