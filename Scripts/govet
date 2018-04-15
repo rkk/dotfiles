@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# A homemade wrapper for the Go Vet command.
+
+go vet ${@}
