@@ -107,8 +107,8 @@ bindsym $mod+Shift+q kill
 ## Application launcher.
 bindsym ctrl+space       exec $app_launcher
 
-## Lock screen using i3lock.
-bindsym ctrl+shift+$mod+l exec --no-startup-id i3lock -c $black
+## Lock screen using xlock.
+bindsym ctrl+shift+$mod+l exec --no-startup-id xlock
 
 ## Toggle window borders.
 bindsym $mod+b border toggle
