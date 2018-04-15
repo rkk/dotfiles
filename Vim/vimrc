@@ -249,7 +249,7 @@ autocmd FileType go nmap <Leader>o <Plug>(go-coverage-toggle)
 autocmd FileType go nmap <Leader>i <Plug>(go-info)
 
 " :GoMetaLinter
-autocmd FileType go nmap <Leader>l <Plug>(go-metalinter)
+autocmd FileType go nmap <Leader>m <Plug>(go-metalinter)
 
 " :GoDef but opens in a vertical split
 autocmd FileType go nmap <Leader>v <Plug>(go-def-vertical)
