@@ -88,10 +88,15 @@ fi
 
 # Fixes for Linuxisms and Bashisms.
 if [ ! -f /bin/bash ]; then
-    doas ln -s /usr/local/bin/bash /bin/bash
+    if [ -f /usr/local/bin/bash ]; then
+        doas ln -s /usr/local/bin/bash /bin/bash
+    fi
 fi
+
 if [ ! -f /usr/bin/xrdb ]; then
-    doas ln -s /usr/X11R6/bin/xrdb /usr/bin/xrdb
+    if [ -f /usr/X11R6/bin/xrdb ]; then
+        doas ln -s /usr/X11R6/bin/xrdb /usr/bin/xrdb
+    fi
 fi
 
 # Ports system for that which is not in packages.
