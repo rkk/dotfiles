@@ -1,0 +1,12 @@
+#!/bin/sh
+#
+# Configures X and monitors for desktop usage.
+
+MON_LAPTOP="eDP-1"
+MON_LEFT="DP-2-3"
+MON_CENTER="DP-2-2"
+
+xrandr \
+    --output "${MON_LAPTOP}" --off \
+    --output "${MON_CENTER}" --auto --primary --right-of "${MON_LEFT}" \
+    --output "${MON_LEFT}"   --auto
