@@ -229,6 +229,9 @@ let g:go_list_type = "quickfix"
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
+let g:go_highlight_interfaces = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_generate_tags = 1
@@ -241,6 +244,7 @@ augroup go
 
 " :GoDoc
 autocmd FileType go nmap <Leader>d <Plug>(go-doc)
+autocmd FileType go nmap <Leader>D <Plug>(go-doc-vertical)
 
 " :GoCoverageToggle
 autocmd FileType go nmap <Leader>o <Plug>(go-coverage-toggle)
