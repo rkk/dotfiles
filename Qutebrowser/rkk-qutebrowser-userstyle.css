@@ -22,3 +22,14 @@ img, figure, svg {
 iframe {
     display: none !important;
 }
+
+::before, ::after, :before, :after {
+    font-family: "Go Regular" !important;
+    border: 0px solid #002b36 !important;
+    color: #93a1a1 !important;
+    background: #002b36 !important;
+    font-weight: normal !important;
+    font-size: 14px !important;
+    text-decoration: none !important;
+    text-shadow: unset !important;
+}

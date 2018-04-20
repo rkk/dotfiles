@@ -1,11 +1,16 @@
-#!/bin/sh -x
+#!/bin/sh
 #
 # Locks the screen.
 
 xlock="/usr/X11R6/bin/xlock"
 
 if [ -f "${xlock}" ]; then
-    "${xlock}"
+    output=$("${xlock}")
+    lock_res="${?}"
+    if [ "${lock_res}" -ne 0 ]; then
+        echo "${output}"
+        exit "${lock_res}"
+    fi
 fi
 
 

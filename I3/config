@@ -1,6 +1,14 @@
 # vi: ft=i3
 
 ##
+## INITIALIZATION
+##
+
+# Ensure that the built-in LCD is disabled.
+exec --no-startup-id setdesktop
+
+
+##
 ## COLORS
 ##
 
@@ -26,10 +34,9 @@ set $status_app       "i3status"
 ## WORKSPACES
 ##
 
-set $term_workspace  term
-set $web_workspace   web
-set $msg_workspace   msg 
-set $extra_workspace extra
+workspace 1 output DP-2-2
+workspace 2 output DP-2-3
+
 
 bar {
     colors {
@@ -37,7 +44,7 @@ bar {
         statusline         $fg_solar
 		separator          $gray
         focused_workspace  $bg_solar      $bg_solar   $brown
-        active_workspace   $white         $fg_solar   $white
+        active_workspace   $bg_solar      $bg_solar   $gray
         inactive_workspace $bg_solar      $bg_solar   $gray
         urgent_workspace   $red           $red        $white
     }
@@ -101,8 +108,8 @@ floating_modifier $mod
 ## Run a terminal.
 bindsym $mod+Shift+Return exec $terminal_app
 
-## Close focused window.
-bindsym $mod+Shift+q kill
+## Close focused window, Mac OS X compatible.
+bindsym $mod+q kill
 
 ## Application launcher.
 bindsym ctrl+space       exec $app_launcher
@@ -132,7 +139,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 ## Split vertical.
-bindsym $mod+k split v
+bindsym $mod+v split v
 
 ## Fullscreen mode
 bindsym $mod+f fullscreen
@@ -149,16 +156,16 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 ## Switch to workspace.
-bindsym $mod+1 workspace $web_workspace
-bindsym $mod+2 workspace $term_workspace
-bindsym $mod+3 workspace $msg_workspace
-bindsym $mod+4 workspace $extra_workspace
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
 
 ## Move focused container to workspace.
-bindsym $mod+Shift+1 move container to workspace $web_workspace
-bindsym $mod+Shift+2 move container to workspace $term_workspace
-bindsym $mod+Shift+3 move container to workspace $msg_workspace
-bindsym $mod+Shift+4 move container to workspace $extra_workspace
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
 
 ## Reload the configuration file
 bindsym $mod+Shift+j reload
@@ -202,5 +209,5 @@ exec /usr/X11R6/bin/xrdb -merge $HOME/.Xdefaults
 
 ## Allow external hosts, e.g. Docker-based X11-applications.
 exec xhost +
-exec /usr/bin/redshift -l 55.676098:12.568 &
+exec /usr/local/bin/redshift -l 55.676098:12.568 &
 
