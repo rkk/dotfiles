@@ -5,7 +5,7 @@
 ##
 
 # Ensure that the built-in LCD is disabled.
-exec --no-startup-id xrandr --output eDP-1 --off
+exec --no-startup-id setdesktop
 
 
 ##
@@ -44,7 +44,7 @@ bar {
         statusline         $fg_solar
 		separator          $gray
         focused_workspace  $bg_solar      $bg_solar   $brown
-        active_workspace   $white         $fg_solar   $white
+        active_workspace   $bg_solar      $bg_solar   $gray
         inactive_workspace $bg_solar      $bg_solar   $gray
         urgent_workspace   $red           $red        $white
     }
