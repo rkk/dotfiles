@@ -1,10 +1,30 @@
 #!/bin/sh
 #
 # Configures X and monitors for desktop usage.
+# Assumes the following monitor layout,
+#
+#    +----------+   +----------+
+#    |          |   |          |
+#    |          |   |          |
+#    +----------+   +----------+
+#      MON_LEFT      MON_CENTER
+#
+# That is, two similar monitors in landscape mode,
+# next to each other. Primary monitor is MON_CENTER.
+# Any laptop monitor is disabled.
 
 MON_LAPTOP="eDP-1"
 MON_LEFT="DP-2-3"
 MON_CENTER="DP-2-2"
+
+# Ensure running on a desktop, with adequate monitors.
+xrandr --current | grep "${MON_CENTER}"
+is_not_desktop="${?}"
+
+if [ "${is_not_desktop}" -eq 1 ]; then
+    echo "ERROR: Not running on a desktop, inadequate monitors found"
+    exit 1
+fi
 
 xrandr \
     --output "${MON_LAPTOP}" --off \
