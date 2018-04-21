@@ -4,6 +4,37 @@
 # The script is designed to be idempotent, so no
 # side effects are expected if run multiple times.
 #
+# The script runs in either desktop or laptop mode, and
+# defaults to desktop.
+
+
+if [ "${#}" -ne 1 ]; then
+    echo "Usage: $(basename ${0}) <desktop|laptop>"
+    echo ""
+    echo "Installs dotfiles in all supported platforms, and is idempotent,"
+    echo "so no side effects are expected if run multiple times."
+    echo""
+    echo "Supported platforms,"
+    echo "  - OpenBSD"
+    echo "  - Linux"
+    echo "  - Mac OS X"
+    echo ""
+    exit 0
+fi
+
+mode="${1}"
+os="$(uname)"
+
+case ${os} in
+    "Linux"|"OpenBSD"|"Darwin")
+        ;;
+     *)
+         echo "ERROR: Unsupported operating system"
+         exit 1
+         ;;
+ esac
+
+
 
 #
 # COMMON FOR ALL PLATFORMS.
@@ -71,6 +102,7 @@ case ${os} in
     # i3 window manager and i3status status panel.
     i3_config_src="${PWD}/I3"
     i3_config_dst="${HOME}/.config/i3"
+    i3_mode_dst="${i3_config_dst}/config"
     status_config_src="${PWD}/I3status"
     status_config_dst="${HOME}/.config/i3status"
 
@@ -79,6 +111,11 @@ case ${os} in
         link_res=${?}
         if [ ${link_res} -ne 0 ]; then
             echo "ERROR: Cannot install i3 source ${i3_config_src} to destination ${i3_config_dst}"
+        fi
+    fi
+    if [ ! -f "${i3_mode_dst}" ]; then
+        if [ -f "${i3_config_src}/config.${mode}" ]; then
+            ln -sf "${i3_config_src}/config.${mode}" "${i3_mode_dst}"
         fi
     fi
     if [ ! -d "${status_config_dst}" ]; then
