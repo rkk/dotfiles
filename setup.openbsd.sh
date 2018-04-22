@@ -30,7 +30,7 @@ if [ ! -f "/etc/installurl" ]; then
 fi
 
 packages="${packages} dmenu curl sakura vim-8.0.0987p0-no_x11-perl-python3-ruby"
-packages="${packages} xclip go redshift bash i3 rxvt-unicode ectags"
+packages="${packages} xclip go redshift bash i3 rxvt-unicode ectags w3m"
 packages="${packages} cabextract newsbeuter xbanish qutebrowser shellcheck"
 
 for package in ${packages}
@@ -103,8 +103,8 @@ fi
 portstmp="${TMPDIR}/ports.tar.gz"
 portsdir="/usr/ports"
 if [ ! -d "${portsdir}" ]; then
-    ftp mirrors.dotsrc.org/pub/OpenBSD/$(uname -r)/ports.tar.gz -o ${portstmp}
-    doas tar xzf ${portstmp} -C /usr
+    ftp "mirrors.dotsrc.org/pub/OpenBSD/$(uname -r)/ports.tar.gz -o ${portstmp}"
+    doas tar xzf "${portstmp}" -C /usr
 fi
 
 
