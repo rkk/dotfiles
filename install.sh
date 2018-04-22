@@ -9,7 +9,8 @@
 
 
 if [ "${#}" -ne 1 ]; then
-    echo "Usage: $(basename ${0}) <desktop|laptop>"
+    name=$(basename "${0}")
+    echo "Usage: ${name} <desktop|laptop>"
     echo ""
     echo "Installs dotfiles in all supported platforms, and is idempotent,"
     echo "so no side effects are expected if run multiple times."
@@ -85,9 +86,9 @@ fi
 
 # Vim editor and plugins.
 startDir="${PWD}"
-cd Vim
+cd Vim || return
 ./install.sh
-cd "${startDir}"
+cd "${startDir}" || return
 
 
 #
