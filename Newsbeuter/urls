@@ -10,7 +10,6 @@ https://tedium.co/rss/ "~Tedium"
 https://webopsweekly.com/rss/1hgfip4m "~Webops Weekly" "unix"
 http://www.allthingsdistributed.com/index.xml "~All Things Distributed"
 https://www.tedunangst.com/inks/rss "~Ted Unangst" "unix"
-https://www.reddit.com/r/i3wm/.rss "~I3WM (Reddit)"
 https://www.reddit.com/r/BSD/.rss "~BSD (Reddit)" "unix"
 http://feeds2.feedburner.com/Command-line-fu "~Command Line Fu" "unix"
 https://newsletter.nixers.net/feed.xml "~Nixers" "unix"
@@ -67,6 +66,9 @@ https://www.reddit.com/r/opensource/.rss "~Open Source (Reddit)"
 http://feeds.pinboard.in/rss/u:matthew.mccullough/ "~Matthew McCullough (Pinboard)"
 https://www.reddit.com/r/battletops/.rss "~Battletops (Reddit)"
 https://www.reddit.com/r/workspaces/.rss "~Workspaces (Reddit)"
+https://www.reddit.com/r/thinkpad/.rss "~Thinkpad (Reddit)"
+https://www.reddit.com/r/linuxonthinkpad/.rss "~Linux on Thinkpad (Reddit)" "unix"
+https://www.reddit.com/r/thinkpadsetups/.rss "~Thinkpad Setups (Reddit)"
 
 
 ## LONG READS

@@ -12,6 +12,11 @@ brew_packages="${brew_packages} shellcheck mksh ctags docker"
 brew_cmd="/usr/local/bin/brew"
 FONT_ROOT="${HOME}/Library/Fonts"
 
+if [ "$(uname)" != "Darwin" ]; then
+    echo "Unsupported operating system"
+    exit 2
+fi
+
 if [ ! -f ${brew_cmd} ]; then
   echo "ERROR: Homebrew is not installed"
   exit 1
