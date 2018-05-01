@@ -40,6 +40,10 @@ https://utcc.utoronto.ca/~cks/space/blog/?atom "~CKS"
 http://www.mooreds.com/wordpress/feed/ "~Dan Moore"
 https://rcoh.me/index.xml "~Russel Cohen" "unix"
 https://commandercoriander.net/index.xml "~Commander Coriander" "unix"
+https://medium.freecodecamp.org/feed "~Free Code Camp"
+https://medium.com/feed/caspervonb "~Casper Beyer"
+https://zwischenzugs.com/feed/ "~Zwichen Zugs"
+
 
 ## GOLANG
 http://golangweekly.com/rss/19m1f3k "~Golang Weekly" "golang"
