@@ -15,7 +15,8 @@ also tested on Mac OS X (10.10+), where applicable and feasible.
 
 ## Installation
 Run the setup script pertaining to your platform, eg. `setup.linux.sh`
-for Linux, `setup.openbsd.sh` for OpenBSD and such.  
+for Linux, `setup.openbsd.sh` for OpenBSD and such.  This will set up
+all needed software.  
 The script is idempotent, so running it numerous times will do no harm.
 
 Once setup has run, install the dotfiles by means of running the installation
