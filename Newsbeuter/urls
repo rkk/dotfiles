@@ -22,6 +22,7 @@ https://jcs.org/rss/feeds "~JCS" "unix"
 http://joeyh.name/blog/index.rss "~JoeyH"
 http://akpoff.com/rss.xml "~Poffenberger"
 http://bsdly.blogspot.com/feeds/posts/default?alt=rss "Grumpy BSD Guy" "unix"
+https://twitrss.me/twitter_user_to_rss/?user=vimgifs "~Vim GIFs (Twitter)"
 
 
 ## DEVELOPMENT
@@ -43,6 +44,10 @@ https://commandercoriander.net/index.xml "~Commander Coriander" "unix"
 https://medium.freecodecamp.org/feed "~Free Code Camp"
 https://medium.com/feed/caspervonb "~Casper Beyer"
 https://zwischenzugs.com/feed/ "~Zwichen Zugs"
+https://blog.iamthefij.com/rss/ "~Ian Fijolek"
+http://readings.shubheksha.com/index.xml "~Shubheksa: Reading"
+https://medium.com/feed/shubheksha "~Shubheksa"
+https://medium.com/feed/caspervonb "~Casper Beyer"
 
 
 ## GOLANG
@@ -72,6 +77,7 @@ https://www.reddit.com/r/workspaces/.rss "~Workspaces (Reddit)"
 https://www.reddit.com/r/thinkpad/.rss "~Thinkpad (Reddit)"
 https://www.reddit.com/r/linuxonthinkpad/.rss "~Linux on Thinkpad (Reddit)" "unix"
 https://www.reddit.com/r/thinkpadsetups/.rss "~Thinkpad Setups (Reddit)"
+https://twitrss.me/twitter_user_to_rss/?user=dmofengineering "DM of Engineering (Twitter)"
 
 
 ## LONG READS
