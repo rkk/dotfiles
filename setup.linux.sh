@@ -21,7 +21,7 @@ apt_packages="${apt_packages} network-manager-openvpn-gnome"
 apt_packages="${apt_packages} whois autotools-dev automake libevent-dev"
 apt_packages="${apt_packages} libncurses5-dev exuberant-ctags"
 apt_packages="${apt_packages} python-pip xclip golang redshift"
-apt_packages="${apt_packages} cabextract"
+apt_packages="${apt_packages} cabextract openssh-server"
 
 sudo apt-get update
 for package in ${apt_packages}
