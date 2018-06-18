@@ -45,21 +45,25 @@ fi
 if [ ! -d "${FONT_ROOT}" ]; then
     mkdir -p "${FONT_ROOT}"
 fi
-font_tar="${TMPDIR}/ttfs.tar.gz"
-curl -sS "https://go.googlesource.com/image/+archive/master/font/gofont/ttfs.tar.gz" > "${font_tar}"
-tar xzf "${font_tar}" -C "${FONT_ROOT}"
-if [ -f "${font_tar}" ]; then
-    rm -f "${font_tar}"
+if [ ! -f "${FONT_ROOT}/Go-Mono.ttf" ]; then
+    font_tar="${TMPDIR}/ttfs.tar.gz"
+    curl -sS "https://go.googlesource.com/image/+archive/master/font/gofont/ttfs.tar.gz" > "${font_tar}"
+    tar xzf "${font_tar}" -C "${FONT_ROOT}"
+    if [ -f "${font_tar}" ]; then
+        rm -f "${font_tar}"
+    fi
 fi
 
 # Microsoft core fonts.
-if [ ! -d "${TMPDIR}/corefonts" ]; then
-    git clone https://github.com/pushcx/corefonts "${TMPDIR}/corefonts"
+if [ ! -f "${FONT_ROOT}/verdana.ttf" ]; then
+    if [ ! -d "${TMPDIR}/corefonts" ]; then
+        git clone https://github.com/pushcx/corefonts "${TMPDIR}/corefonts"
     for f in ${TMPDIR}/corefonts/*exe
     do
         cabextract -d "${FONT_ROOT}" -q -L -F "*.TTF" "${f}"
     done
     rm -rf "${TMPDIR}/corefonts"
+    fi
 fi
 
 # Fuzzy Finder (fzf).
