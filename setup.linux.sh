@@ -14,14 +14,14 @@ fi
 TMPDIR=${TMPDIR:-/tmp}
 FONT_ROOT="${HOME}/.local/share/fonts"
 
-apt_packages="tmux vim ruby git-core i3-wm i3-lock"
+apt_packages="tmux vim ruby git-core i3-wm i3-lock i3status"
 apt_packages="${apt_packages} dmenu curl sakura"
 apt_packages="${apt_packages} network-manager network-manager-openvpn"
 apt_packages="${apt_packages} network-manager-openvpn-gnome"
 apt_packages="${apt_packages} whois autotools-dev automake libevent-dev"
 apt_packages="${apt_packages} libncurses5-dev exuberant-ctags"
 apt_packages="${apt_packages} python-pip xclip golang redshift"
-apt_packages="${apt_packages} cabextract openssh-server"
+apt_packages="${apt_packages} cabextract openssh-server docker-compose"
 
 sudo apt-get update
 for package in ${apt_packages}
