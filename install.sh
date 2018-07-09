@@ -90,6 +90,17 @@ cd Vim || return
 ./install.sh
 cd "${startDir}" || return
 
+# Bin directory
+bin_src="${PWD}/Scripts"
+bin_dst="${HOME}/bin"
+
+if [ ! -d "${bin_dst}" ]; then
+    ln -sf "${bin_src}" "${bin_dst}"
+    link_res="${?}"
+    if [ ${link_res} -ne 0 ]; then
+        echo "ERROR: Cannot install Scripts source ${bin_src} to destination ${bin_dst}"
+    fi
+fi
 
 #
 # SPECIFIC PLATFORMS.
