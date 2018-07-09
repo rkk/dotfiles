@@ -69,7 +69,7 @@ let g:go_list_type = "quickfix"
 "
 " APPEARANCE
 "
-set background=dark
+set background=light
 colorscheme solarized
 
 " Reset values.
@@ -81,6 +81,7 @@ hi clear Statement
 hi clear Normal
 hi clear Constant
 hi clear Operator
+hi clear Comment
 
 "
 " COLOR NAMES
@@ -107,9 +108,9 @@ hi clear Operator
 
 
 " OpenBSD terminal requires ctermbg=NONE or equivalent.
-hi Normal ctermfg=12 ctermbg=8
-highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE
-hi string ctermfg=10 ctermbg=DarkGrey
+hi Normal ctermfg=NONE ctermbg=NONE
+highlight LineNr cterm=NONE ctermfg=NONE ctermbg=NONE
+hi string ctermfg=NONE ctermbg=NONE
 
 " au VimEnter * syntax keyword Statement lambda conceal cchar=λ
 " au VimEnter * hi! link Conceal Statement
@@ -138,6 +139,7 @@ hi link shDerefVar     String
 hi link Identifier     Normal
 hi link Special        Normal
 hi link Statement      Normal
+hi link goComment      Comment
 
 hi Special ctermfg=12 ctermbg=8
 hi! Operator ctermfg=Blue ctermbg=8
