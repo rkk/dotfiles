@@ -54,31 +54,23 @@
 !! cyan dark/light
 *color6:                S_cyan
 *color14:               S_base1
-!
+ 
 !! white dark/light
 *color7:                S_base2
 *color15: S_base3
+
 
 !!
 !! XTERM
 !!
 
-XTerm*loginShell:true
 XTerm*boldColors: false
 XTerm*locale: true
 !! UTF-8 values: 1 or 2
-XTerm*utf8: 1
 !! Copy selection to X CLIPBOARD and X PRIMARY.
 XTerm*selectToClipboard: true
 XTerm*scrollBar: false
 
-XTerm*font: xft:Go Mono:pixelsize=12
-XTerm*font1: xft:Go Mono:pixelsize=9
-XTerm*font2: xft:Go Mono:pixelsize=10
-XTerm*font3: xft:Go Mono:pixelsize=12
-XTerm*font4: xft:Go Mono:pixelsize=16
-XTerm*font5: xft:Go Mono:pixelsize=20
-XTerm*font6: xft:Go Mono:pixelsize=24
 
 !!
 !! TESTING
@@ -86,11 +78,6 @@ XTerm*font6: xft:Go Mono:pixelsize=24
 
 Xft*antialias: true
 Xft*dpi: 96
-XTerm.vt100.boldFont: xft:Go Mono:pixelsize=12
-
-urxvt*font: xft:Go Mono:pixelsize=10
-! Disable bold font, revent to standard font.
-urxvt.boldFont:
 urxvt.scrollBar: false
 urxvt*tintColor: Gray
 urxvt*shading: 20
