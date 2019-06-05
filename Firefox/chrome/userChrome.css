@@ -1,0 +1,16 @@
+/* hides the native tabs */
+#TabsToolbar, #titlebar {
+    visibility: collapse;
+}
+
+#sidebar-header {
+    visibility: collapse !important;
+}
+
+/*
+ * This will hide the address bar.
+ */
+/*
+#navigator-toolbox {visibility: collapse;}
+browser {margin-right: -14px; margin-bottom: -14px;}
+*/
