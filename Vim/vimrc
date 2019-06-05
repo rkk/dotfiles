@@ -18,10 +18,20 @@ call pathogen#infect('custom_bundles{}')
 syntax on
 filetype plugin indent on
 
+" Faster keypresses and terminal response.
+set ttyfast
+set ttimeout
+set ttimeoutlen=50
+
+" Split right, then bottom.
+set splitright
+set splitbelow
+
 set hidden
 set encoding=utf-8
 set showcmd
-set wildmode=list:longest
+set wildmenu
+set wildmode=longest:full,full
 set backupdir=~/.vim/backup
 set directory=~/.vim/tmp
 
@@ -34,7 +44,10 @@ set laststatus=2
 " StatusLine format: <Syntax check> %= <Filename> : <Line number>, <Character>
 set statusline=%{SyntasticStatuslineFlag()}\ \ %=%t%m\:%l\,%c
 
-let NERDTreeShowHidden=1
+" Use built-in Netrw instead of Nerdtree, but mimic Nerdtree behavior.
+let g:netrw_banner=0
+let g:netrw_winsize=20
+let g:netrw_liststyle=3
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -70,7 +83,7 @@ let g:go_list_type = "quickfix"
 " APPEARANCE
 "
 set background=light
-colorscheme solarized
+colorscheme vacme
 
 " Reset values.
 hi clear goTypeName
@@ -110,18 +123,11 @@ hi clear Comment
 " OpenBSD terminal requires ctermbg=NONE or equivalent.
 hi Normal ctermfg=NONE ctermbg=NONE
 highlight LineNr cterm=NONE ctermfg=NONE ctermbg=NONE
-hi string ctermfg=NONE ctermbg=NONE
-
-" au VimEnter * syntax keyword Statement lambda conceal cchar=λ
-" au VimEnter * hi! link Conceal Statement
-" au VimEnter * set conceallevel=2
-
+hi string ctermfg=NONE ctermbg=LightGrey
 hi StatusLine                  ctermfg=3     ctermbg=NONE     cterm=NONE
-" hi markdownItalic              ctermfg=NONE ctermbg=NONE cterm=NONE
-hi goString ctermfg=11 ctermbg=0 cterm=NONE
 
-hi goFunction ctermfg=2 ctermbg=NONE
-hi goTypeName ctermfg=2 ctermbg=NONE
+hi goFunction ctermfg=black ctermbg=NONE
+hi goTypeName ctermfg=black ctermbg=NONE
 hi link goDecimalInt   Normal
 hi link goSignedInts   Normal
 hi link goUnsignedInts Normal
@@ -137,12 +143,17 @@ hi link markdownItalic Normal
 hi link PreProc        String
 hi link shDerefVar     String
 hi link Identifier     Normal
-hi link Special        Normal
+hi! link Special        Normal
+hi link phpParent      Normal
+hi link phpDefine      Normal
+hi link phpDocTags     Normal
+hi link phpBackslashSingleQuote Normal
 hi link Statement      Normal
 hi link goComment      Comment
 
 hi Special ctermfg=12 ctermbg=8
-hi! Operator ctermfg=Blue ctermbg=8
+hi! Operator ctermfg=NONE ctermbg=NONE
+hi! Comment ctermfg=NONE ctermbg=NONE
 
 " Tagbar
 hi TagbarKind ctermfg=NONE cterm=NONE
@@ -157,11 +168,10 @@ hi ErrorMsg ctermfg=NONE cterm=NONE
 
 let mapleader = "\<Space>"
 
-map <leader>g :Commentary<cr>
 
 " File, tag and buffer management
 map <leader>/ :TagbarToggle<cr>
-map <leader>n :NERDTreeToggle<cr>
+map <leader>n :Lexplore<cr>
 map <leader>. :bn<cr>
 map <leader>m :bp<cr>
 map <leader>, :bp<cr>
@@ -181,6 +191,7 @@ nnoremap <leader>P :cprevious<CR>
 
 "" Go settings
 au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>g :GoDef<cr>
 
 " Use JavaScript syntax highlighting for JSON
 autocmd BufNewFile,BufRead *.json set ft=javascript
@@ -219,6 +230,12 @@ map <leader>k <C-w>k
 set fillchars+=vert:\|
 hi clear VertSplit
 hi clear StatusLineNC
+
+
+" split style, no vertical filler character.
+set fillchars=vert:\  
+
+
 
 " Do not use swapfiles or backup files.
 "
@@ -263,14 +280,23 @@ autocmd FileType go nmap <Leader>v <Plug>(go-def-vertical)
 autocmd FileType go nmap <Leader>s <Plug>(go-def-split)
 augroup END
 
+augroup ft_markdown
+  au!
+  au BufNewFile,BufRead *.md setlocal filetype=markdown
+  au BufNewFile,BufRead *.md setlocal textwidth=72
+  au BufNewFile,BufRead *.md setlocal smartindent
+augroup END
 
-" Tmux {{{
-" allows cursor change in tmux mode
-if exists('$TMUX')
-    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-else
-    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-endif
-" }}}
+
+" Move sanely through wrapped lines
+nnoremap k gk
+nnoremap j gj
+
+" Search for matching lines, display in a menu.
+map <Leader>s :Lines<cr>
+
+" Read external file changes automatically.
+set autoread
+
+" Switch between last two open buffers.
+nnoremap <Leader><Leader> <c-^>
