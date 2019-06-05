@@ -4,7 +4,7 @@
 # i3blocks or i3status.
 
 if [ $(uname -s) = "Linux" ]; then
-    cmd='acpi -b | grep "^Battery" | cut -d, -f3 | cut -d: --fields=1,2'
+    cmd='upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep state'
 fi
 
 
