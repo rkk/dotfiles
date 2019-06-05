@@ -41,7 +41,7 @@ if [ ! -d "${XDG_RUNTIME_DIR}" ]; then
   mkdir -p "${XDG_RUNTIME_DIR}"
 fi
 
-if [ ! -z DISPLAY ]; then
+if [ ! -z "${DISPLAY}" ]; then
   DISPLAY=":0"
   export DISPLAY
 fi
@@ -56,17 +56,17 @@ fi
 ##
 ## PATHS
 ##
-case `uname -s` in
-  'Darwin')
+case $(uname -s) in
+  "Darwin")
     PATH="/usr/local/bin:$PATH"
     PATH="${PATH}:${HOME}/bin"
     ## Gems for Ruby 1.9 are in the Brew Ruby directory
     PATH="${PATH}:/usr/local/Cellar/ruby/2.0.0-p247/bin"
   ;;
-  'Linux')
-  PATH="${PATH}:/usr/local/go/bin:~/bin"
+  "Linux")
+  PATH="${PATH}:/usr/local/go/bin:${HOME}/bin"
   ;;
-  'OpenBSD')
+  "OpenBSD")
   PATH="${PATH}:${HOME}/bin"
   ;;
 esac
@@ -89,9 +89,9 @@ alias p="pwd"
 alias dk="docker"
 alias doco="docker-compose"
 alias ig="grep -i"
-alias v="${EDITOR}"
-alias vi="${EDITOR}"
-alias view="${EDITOR}"
+alias v="\${EDITOR}"
+alias vi="\${EDITOR}"
+alias view="\${EDITOR}"
 alias gtt="git status"
 alias grr="git remote -v show"
 alias gll="git log --name-only"
@@ -99,6 +99,12 @@ alias gba="git branch -a"
 alias gnew="git checkout -b"
 alias gfa="git fetch --all"
 alias stenspil="rocksndiamonds"
+
+case $(uname -s) in
+  "Linux"|"OpenBSD")
+      alias open="xdg-open"
+      ;;
+esac
 
 
 ##
@@ -118,21 +124,31 @@ git_branch() {
     if [ "${name}" = "" ]; then
         exit
     fi
-    print ${name}
+    print "${name}"
 }
 
 exit_code() {
+    # shellcheck disable=SC2181
     if [ "${?}" -eq 0 ]; then
         exit
     fi
     print "(x)"
 }
 
-
-PS1="\$(tput setaf 2)::\$(tput sgr0)\$(exit_code) \$(git_branch)\$(git_status) \$(basename \${PWD})\$(tput sgr0)# "
+PS1="${PWD}# "
 PS2=">> "
 PS3=">>> "
 PS4=">>>> "
+
+if [ "${0}" = "ksh" ]; then
+    PS1="\$(tput setaf 2)::\$(tput sgr0)\$(exit_code) \$(git_branch)\$(git_status) \$(basename \${PWD})\$(tput sgr0)# "
+fi
+
+
+if [ "${0}" = "bash" ]; then
+    PS1="`tput setaf 2`::`tput sgr0` `git_branch` `git_status` `basename \${PWD}``tput sgr0`# "
+fi
+
 export PS1 PS2 PS3 PS4
 
 
@@ -147,8 +163,8 @@ if [ -d ${GOROOT} ]; then
 fi
 
 GOPATH="${HOME}/Go"
-if [ ! -d ${GOPATH} ]; then
-  mkdir -p ${GOPATH}/bin
+if [ ! -d "${GOPATH}" ]; then
+  mkdir -p "${GOPATH}/bin"
 fi
 export GOPATH
 
