@@ -6,6 +6,7 @@
 
 SESSION=""
 
+# Allow quick attach without arguments if there is only one session.
 if tmux ls 2> /dev/null; then
     tmux attach
 fi
