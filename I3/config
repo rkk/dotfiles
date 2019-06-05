@@ -1,0 +1,216 @@
+# vi: ft=i3
+
+##
+## INITIALIZATION
+##
+
+##
+## COLORS
+##
+
+set $bg_solar #002b36
+set $fg_solar #657b83
+set $gray     #666666
+set $brown    #b58900
+set $white    #ffffff
+set $black    #000000
+set $red      #990000
+set $blue     #007fbf
+
+set $bg_cde     #fff7e9
+set $cde_pink   #b24d7a
+set $cde_purple #afadbf
+set $cde_dim    #202020
+set $cde_bg_dim #9e9caf
+
+##
+## APPLICATIONS
+##
+
+set $terminal_app     "xterm -T main-term -fa 'GoMono' -fg '#657b83' -bg '#fdf6e3'"
+#set $app_launcher     "dmenu_run -l 1 -nb '#002b36' -nf '#657b83' -sb '#002b36' -sf '#859900' -p ':: '"
+set $app_launcher     "dmenu_run -l 1 -nb '#9e9caf' -nf '#ffffff' -sb '#9e9caf' -sf '#ffffff' -p ':: '"
+set $status_app       "i3status"
+
+##
+## WORKSPACES
+##
+
+set $term_workspace  workspace 1
+set $web_workspace   workspace 2
+set $msg_workspace   workspace 3
+set $extra_workspace workspace 4
+
+bar {
+    font pango:Noto Sans Regular 6
+    colors {
+        background         $cde_pink
+        statusline         $white
+		separator          $cde_pink
+        focused_workspace  $cde_pink      $cde_pink $white
+        active_workspace   $cde_pink      $cde_pink $white
+        inactive_workspace $cde_pink      $cde_pink $cde_dim
+        urgent_workspace   $red           $red        $white
+    }
+    position top
+    status_command $status_app
+    modifier Mod1
+    workspace_buttons yes
+}
+
+#                BORDER BACKGROUND  TEXT    INDICATOR    CHILD-BORDER
+client.focused   $blue  $cde_bg_dim       $white
+client.unfocused $gray  $gray       $white
+client.urgent    $red   $red        $white
+
+## Hide borders, use 1 px if displayed.
+hide_edge_borders	both
+new_window	        pixel 0
+
+## Standard font.
+font xft:Go 8
+
+##
+## APPLICATION BEHAVIOR
+##
+
+## Workspace layout:
+##   1: Terminals
+##   2: Browsers
+##   3: Messaging
+
+
+assign [class="Firefox"]               $web_workspace
+assign [class="TelegramDesktop"]       $msg_workspace
+assign [class="Slack"]                 $msg_workspace
+assign [class="Signal"]                $msg_workspace
+
+
+##
+## DIRECT APPLICATION SHORTCUT KEYS
+##
+
+## See http://i3wm.org/docs/userguide.html#_scratchpad.
+bindsym ctrl+shift+f [title="Firefox"] focus
+bindsym ctrl+shift+b [title="Google Chrome"]   focus
+bindsym ctrl+shift+t [title="main-term"]       focus
+bindsym ctrl+shift+h [title="Slack"]           focus
+bindsym ctrl+shift+m [title="Signal"]          focus
+
+
+##
+## KEYS
+##
+
+## Use Alt as main modifier.
+set $mod Mod1
+
+## Drag floating windows using Mouse+$mod.
+floating_modifier $mod
+
+## Run a terminal.
+bindsym $mod+Shift+Return exec $terminal_app
+
+## Close focused window, Mac OS X compatible.
+bindsym $mod+q kill
+
+## Application launcher.
+bindsym ctrl+space       exec $app_launcher
+
+## Lock screen using xlock.
+bindsym ctrl+shift+$mod+l exec --no-startup-id xlock
+
+## Toggle window borders.
+bindsym $mod+b border toggle
+
+## Change focus.
+bindsym $mod+h focus left
+bindsym $mod+t focus down
+bindsym $mod+n focus up
+bindsym $mod+s focus right
+
+## Move focused window.
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+t move down
+bindsym $mod+Shift+n move up
+bindsym $mod+Shift+s move right
+
+## Alternatively, use cursor keys.
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+## Split vertical.
+bindsym $mod+v split v
+
+## Fullscreen mode
+bindsym $mod+f fullscreen
+
+## Change container layout.
+bindsym $mod+o layout      stacking
+bindsym $mod+comma layout  tabbed
+bindsym $mod+period layout toggle split
+
+## Toggle floating.
+bindsym $mod+Shift+space floating toggle
+
+## Change focus between tiling/floating windows.
+bindsym $mod+space focus mode_toggle
+
+## Switch to workspace.
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+
+## Move focused container to workspace.
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+
+## Reload the configuration file
+bindsym $mod+Shift+j reload
+
+## Restart i3.
+bindsym $mod+Shift+p restart
+
+## Exit i3.
+bindsym $mod+Shift+period exec "i3-nagbar -t warning -m 'Exit i3?' -b 'Yes, exit i3' 'i3-msg exit'"
+
+## Resize mode.
+bindsym $mod+r mode "resize"
+mode "resize" {
+    ## Same key bindings as focus.
+    bindsym h resize shrink width 10 px or 10 ppt
+    bindsym t resize grow height 10 px or 10 ppt
+    bindsym n resize shrink height 10 px or 10 ppt
+    bindsym s resize grow width 10 px or 10 ppt
+
+    ## Arrow keys, resize 10 px.
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
+
+    ## End resize mode.
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym XF86Launch1 exec 'locker'
+
+##
+## EXEC
+##
+
+exec xsetroot -solid $bg_solar
+
+## Ensure proper colors, e.g. fix Pink Screen of Death in URXVT.
+exec /usr/bin/xrdb -merge $HOME/.Xdefaults
+
+## Allow external hosts, e.g. Docker-based X11-applications.
+exec xhost +
+exec /usr/local/bin/redshift -l 55.676098:12.568 &
+
