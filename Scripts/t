@@ -1,0 +1,49 @@
+#!/bin/sh
+#
+# Tmux session wrapper.
+# Attaches to the given session name, creating it if needed.
+# Creates Tmux windows for specific hosts.
+
+SESSION=""
+
+if tmux ls 2> /dev/null; then
+    tmux attach
+fi
+
+if [ -z "${1}" ]; then
+    echo "Usage: $(basename "${0}") SESSION-NAME"
+    echo ""
+    echo "Attach to Tmux SESSION-NAME if it exists; create if needed."
+    echo ""
+    exit 0
+fi
+
+
+if [ ! -z "${1}" ]; then
+    SESSION="${1}"
+fi
+
+# shellcheck disable=SC2034
+tmp=$(tmux has-session -t "${SESSION}" 2> /dev/null)
+has="${?}"
+
+if [ ${has} -eq 0 ]; then
+    tmux attach -t "${SESSION}"
+fi
+
+# Start detached to allow configuration
+tmux -2 new-session -d -s "${SESSION}"
+
+if [ "$(hostname)" = "C" ]; then
+    tmux new-window -t "${SESSION}:1" -n RSS "TERM=vt100 newsbeuter"
+    tmux new-window -t "${SESSION}:2" -n Mail "TERM=vt100 mutt"
+    tmux new-window -t "${SESSION}:3" -n Slack "TERM=vt100 weechat"
+    tmux new-window -t "${SESSION}:4" -n Git "cd ~/Private/Git"
+fi
+
+if [ "$(hostname)" = "X" ]; then
+    tmux new-window -t "${SESSION}:1" -n Globus -c "${HOME}/Private/Git/Globus"
+    tmux new-window -t "${SESSION}:2" -n Git -c "${HOME}/Private/Git"
+fi
+
+tmux attach -t "${SESSION}"
