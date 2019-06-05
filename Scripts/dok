@@ -28,6 +28,7 @@ if [ ${#} -ne 1 ]; then
   echo "  spotify    - Spotify music player"
   echo "  iceweasel  - Iceweasel browser"
   echo "  newsbeuter - Newsbeuter"
+  echo "  boat       - Newsboat (fork of Newsbeuter)"
   echo "  rainbow    - Rainbow Twitter client"
   echo "  privoxy    - Privoxy privacy proxy"
   echo ""
@@ -42,6 +43,8 @@ function start_chrome() {
     --net host \
     --cpuset-cpus 0 \
     --memory 512mb \
+    --privileged \
+    --cap-add=SYS_ADMIN \
     -v /etc/hosts:/etc/hosts \
     -v /dev/shm:/dev/shm \
     -v /etc/localtime:/etc/localtime:ro \
@@ -50,7 +53,6 @@ function start_chrome() {
     -v "${HOME}/Downloads:/root/Downloads" \
     -v "${HOME}/.config/google-chrome/:/data" \
     -v /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket \
-    --security-opt seccomp=$HOME/chrome.json \
     --name chrome \
     ${DOCKER_REPO} --user-data-dir=/data
 }
@@ -63,11 +65,11 @@ function start_chromium() {
     -v /dev/shm:/dev/shm \
     -v /etc/localtime:/etc/localtime:ro \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
-    -e DISPLAY=${DISPLAY} \
+    -e DISPLAY="${DISPLAY}" \
     -v "${HOME}/Downloads:/root/Downloads" \
     -v "${HOME}/.chrome:/data" \
     --name chromium \
-    ${DOCKER_REPO} --user-data-dir=/data 2>&1 > /dev/null
+    ${DOCKER_REPO} --user-data-dir=/data 2>&1
 }
 
 
@@ -81,7 +83,7 @@ function start_firefox() {
     -e GDK_SCALE -e GPD_DPI_SCALE \
     -e "DISPLAY=${DISPLAY}" \
     --name dockerfirefox \
-    ${DOCKER_REPO} 2>&1 > /dev/null
+    ${DOCKER_REPO} 2>&1
 }
 
 
@@ -134,7 +136,19 @@ function start_newsbeuter() {
     -ti \
     --rm \
     --name newsbeuter \
-    -v ${HOME}/.config/newsbeuter:/home/newsbeuter/.newsbeuter \
+    -v "${HOME}/Frameworks/Dotfiles/Newsbeuter:/home/newsbeuter/.newsbeuter" \
+    ${DOCKER_REPO}
+}
+
+
+function start_newsboat() {
+  del_stopped newsboat
+  local DOCKER_REPO="newsboat"
+  docker run \
+    -ti \
+    --rm \
+    --name newsboat \
+    -v "${HOME}/Frameworks/Dotfiles/Newsbeuter:/home/newsbeuter/.newsbeuter" \
     ${DOCKER_REPO}
 }
 
@@ -145,7 +159,7 @@ function start_privoxy() {
     --restart always \
     --link torproxy:torproxy \
         -v /etc/localtime:/etc/localtime:ro \
-        -v ${HOME}/.config/privoxy/user.action:/etc/privoxy/user.action \
+        -v "${HOME}/.config/privoxy/user.action:/etc/privoxy/user.action" \
         -p 8118:8118 \
         --name privoxy \
         ${DOCKER_REPO}
@@ -159,8 +173,8 @@ function start_rainbow() {
     --rm \
     --name rainbowstream \
     -v /etc/localtime:/etc/localtime:ro \
-    -v ${HOME}/.rainbow_oauth:/root/.rainbow_oauth \
-    -v ${HOME}/.rainbow_config.json:/root/.rainbow_config.json \
+    -v "${HOME}/.rainbow_oauth:/root/.rainbow_oauth" \
+    -v "${HOME}/.rainbow_config.json:/root/.rainbow_config.json" \
     ${DOCKER_REPO}
 }
 
@@ -193,6 +207,9 @@ case ${target} in
      ;;
    "nb")
      start_newsbeuter
+     ;;
+   "boat")
+     start_newsboat
      ;;
    "rainbow")
      start_rainbow
