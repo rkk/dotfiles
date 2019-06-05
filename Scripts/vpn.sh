@@ -20,3 +20,7 @@ if [ $(uname -s) = "OpenBSD" ]; then
     doas ${openvpn} --config ${connection}
 fi
 
+if [ $(uname -s) = "Linux" ]; then
+    sudo ${openvpn} --config ${connection}
+fi
+
