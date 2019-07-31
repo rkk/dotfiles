@@ -11,6 +11,8 @@ if [ -f "${xlock}" ]; then
         echo "${output}"
         exit "${lock_res}"
     fi
+    exit 0
 fi
 
-
+# Ubuntu has no xlock, default to blanking screens.
+/usr/bin/xset dpms force suspend

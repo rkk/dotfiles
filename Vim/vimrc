@@ -69,8 +69,9 @@ let g:go_list_type = "quickfix"
 "
 " APPEARANCE
 "
-set background=dark
-colorscheme solarized
+set background=light
+" colorscheme solarized
+colorscheme vacme
 
 " Reset values.
 hi clear goTypeName
@@ -109,7 +110,7 @@ hi clear Operator
 " OpenBSD terminal requires ctermbg=NONE or equivalent.
 hi Normal ctermfg=12 ctermbg=8
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE
-hi string ctermfg=10 ctermbg=DarkGrey
+" hi string ctermfg=12 ctermbg=0
 
 " au VimEnter * syntax keyword Statement lambda conceal cchar=λ
 " au VimEnter * hi! link Conceal Statement
@@ -117,9 +118,13 @@ hi string ctermfg=10 ctermbg=DarkGrey
 
 hi StatusLine                  ctermfg=3     ctermbg=NONE     cterm=NONE
 " hi markdownItalic              ctermfg=NONE ctermbg=NONE cterm=NONE
-hi goString ctermfg=11 ctermbg=0 cterm=NONE
+hi string ctermfg=NONE ctermbg=NONE cterm=NONE
 
-hi goFunction ctermfg=2 ctermbg=NONE
+hi goFunction ctermfg=NONE   ctermbg=NONE cterm=NONE
+hi goComment  ctermfg=7      ctermbg=NONE cterm=NONE
+" hi goString   ctermfg=NONE ctermbg=NONE cterm=italic
+hi goString   ctermfg=NONE ctermbg=NONE cterm=underline
+
 hi goTypeName ctermfg=2 ctermbg=NONE
 hi link goDecimalInt   Normal
 hi link goSignedInts   Normal
@@ -140,7 +145,7 @@ hi link Special        Normal
 hi link Statement      Normal
 
 hi Special ctermfg=12 ctermbg=8
-hi! Operator ctermfg=Blue ctermbg=8
+hi! Operator ctermfg=black  ctermbg=NONE cterm=NONE
 
 " Tagbar
 hi TagbarKind ctermfg=NONE cterm=NONE
@@ -155,7 +160,6 @@ hi ErrorMsg ctermfg=NONE cterm=NONE
 
 let mapleader = "\<Space>"
 
-map <leader>g :Commentary<cr>
 
 " File, tag and buffer management
 map <leader>/ :TagbarToggle<cr>
@@ -179,6 +183,7 @@ nnoremap <leader>P :cprevious<CR>
 
 "" Go settings
 au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>g <Plug>(go-def)
 
 " Use JavaScript syntax highlighting for JSON
 autocmd BufNewFile,BufRead *.json set ft=javascript
@@ -262,13 +267,10 @@ autocmd FileType go nmap <Leader>s <Plug>(go-def-split)
 augroup END
 
 
-" Tmux {{{
-" allows cursor change in tmux mode
-if exists('$TMUX')
-    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-else
-    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-endif
-" }}}
+map <Tab> :bn<cr>
+map Shift-<Tab> :bp<cr>
+map <Leader>e :GoAlternate<cr>
+
+
+" And again, just to be sure
+colorscheme vacme

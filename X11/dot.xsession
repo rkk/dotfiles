@@ -29,3 +29,7 @@ fi
 if [ $(uname -s) = "OpenBSD" ]; then
   /usr/local/bin/i3
 fi
+
+if [ $(uname -s) = "Linux" ]; then
+  /usr/bin/i3
+fi

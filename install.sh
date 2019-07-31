@@ -137,7 +137,7 @@ case ${os} in
     fi
     xsess_src="${PWD}/X11/dot.xsession"
     xsess_dst="${HOME}/.xsession"
-    if [ -f "{xsess_dst}" ]; then
+    if [ ! -f "{xsess_dst}" ]; then
         ln -sf "${xsess_src}" "${xsess_dst}"
         link_res="${?}"
         if [ ${link_res} -ne 0 ]; then
@@ -151,6 +151,15 @@ case ${os} in
         link_res="${?}"
         if [ ${link_res} -ne 0 ]; then
             echo "ERROR: Cannot install Qutebrowser source ${qute_config_src} to destination ${qute_config_dst}"
+        fi
+    fi
+    scripts_src="${PWD}/Scripts"
+    scripts_dst="${HOME}/bin"
+    if [ ! -d "${scripts_dst}" ]; then
+        ln -sf "${scripts_src}" "${scripts_dst}"
+        link_res="${?}"
+        if [ ${link_res} -ne 0 ]; then
+            echo "ERROR: Cannot link Scripts source ${scripts_src} to destination ${scripts_dst}"
         fi
     fi
 ;;

@@ -17,6 +17,10 @@ if [ $(uname -s) = "OpenBSD" ]; then
     cmd="apm -m"
 fi
 
+if [ $(uname -s) = "Darwin" ]; then
+    cmd="pmset -g batt | grep -Eo '([0-9][0-9][0-9]):[0-5][0-9]'"
+fi
+
 output=$(${cmd})
 echo ${output}
 

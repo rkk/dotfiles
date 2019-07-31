@@ -82,6 +82,7 @@ alias l="ls -1AFo"
 alias la="ls -lAh"
 alias ltr="ls -latr"
 alias a="clear"
+alias aaa="~/bin/setdvorarkk"
 alias c="cd"
 alias mp="mkdir -p"
 alias g="git"
@@ -99,6 +100,12 @@ alias gba="git branch -a"
 alias gnew="git checkout -b"
 alias gfa="git fetch --all"
 alias stenspil="rocksndiamonds"
+
+case `uname -s` in
+  'Linux')
+      alias doas="sudo"
+      ;;
+esac
 
 
 ##

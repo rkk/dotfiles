@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+# Sets the displays according to hostname.
+
+
+hostname="$(hostname)"
+
+
+#
+# HOST: C
+#
+# Desktop with two Philips Brilliance 240 P displays, left one in portrait mode.
+if [ "${hostname}" = "C" ]; then
+    xrandr --output DVI-0 --auto --primary --output HDMI-0 --left-of DVI-0 --rotate left
+fi

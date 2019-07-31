@@ -3,7 +3,7 @@
 # Starts an OpenVPN connection.
 #
 
-openvpn="/usr/local/sbin/openvpn"
+openvpn="/usr/sbin/openvpn"
 connection="/etc/openvpn/default.conf"
 
 if [ ! -f "${openvpn}" ]; then
@@ -20,3 +20,6 @@ if [ $(uname -s) = "OpenBSD" ]; then
     doas ${openvpn} --config ${connection}
 fi
 
+if [ $(uname -s) = "Linux" ]; then
+    sudo ${openvpn} --config ${connection}
+fi

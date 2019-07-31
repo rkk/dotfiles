@@ -1,13 +1,3 @@
-# vi: ft=i3
-
-##
-## INITIALIZATION
-##
-
-# Ensure that the built-in LCD is disabled.
-exec --no-startup-id setdesktop
-
-
 ##
 ## COLORS
 ##
@@ -21,31 +11,44 @@ set $black    #000000
 set $red      #990000
 set $blue     #007fbf
 
+set $bg_cde #fff7e9
+set $cde_pink   #b24d7a
+set $cde_purple #afadbf
+set $cde_dim    #202020
 
 ##
 ## APPLICATIONS
 ##
 
-set $terminal_app     "sakura -t main-term"
-set $app_launcher     "dmenu_run -l 1 -nb '#002b36' -nf '#657b83' -sb '#002b36' -sf '#859900' -p ':: '"
+set $terminal_app     "xterm -T main-term"
+set $alt_terminal_app "sakura -t alt-term"
+set $app_launcher     "dmenu_run -l 1 -nb '#b24d7a' -nf '#ffffff' -sb '#b24d7a' -sf '#ffffff' -p ':: '"
 set $status_app       "i3status"
+
 
 ##
 ## WORKSPACES
 ##
 
-workspace 1 output DP-2-2
-workspace 2 output DP-2-3
+set $term_workspace   workspace 1
+set $web_workspace  workspace 2
+set $msg_workspace   workspace 3
+set $extra_workspace workspace 4
+
+#workspace 1      output DP-2-3
+$web_workspace    output DP-2-3
+#workspace 2      output DP-2-2
+$term_workspace   output DP-2-2
 
 
 bar {
     colors {
-        background         $bg_solar
-        statusline         $fg_solar
-		separator          $gray
-        focused_workspace  $bg_solar      $bg_solar   $brown
-        active_workspace   $bg_solar      $bg_solar   $gray
-        inactive_workspace $bg_solar      $bg_solar   $gray
+        background         $cde_pink
+        statusline         $cde_dim
+		separator          $cde_pink
+        focused_workspace  $cde_pink      $cde_pink $white
+        active_workspace   $cde_pink      $cde_pink $white
+        inactive_workspace $cde_pink      $cde_pink $cde_dim
         urgent_workspace   $red           $red        $white
     }
     position top
@@ -53,7 +56,7 @@ bar {
     modifier Mod1
 }
 
-#                BORDER BACKGROUND  TEXT    INDICATOR    CHILD-BORDER
+# ITEM           BORDER BACKGROUND  TEXT    INDICATOR    CHILD-BORDER
 client.focused   $blue  $blue       $white
 client.unfocused $gray  $gray       $white
 client.urgent    $red   $red        $white
@@ -66,33 +69,19 @@ new_window	        pixel 0
 font xft:Go Mono 8
 
 
-##
-## APPLICATION BEHAVIOR
-##
-
-## Workspace layout:
-##   1: Browsers
-##   2: Terminals
-##   3: Messaging
-
-
-#assign [class="Firefox"]              $web_workspace
-assign [class="Google-chrome-beta"]   $web_workspace
-#assign [class="qutebrowser"]          $web_workspace
-assign [class="TelegramDesktop"]      $msg_workspace
-assign [class="Slack"]                $msg_workspace
-
 
 ##
 ## DIRECT APPLICATION SHORTCUT KEYS
 ##
 
 ## See http://i3wm.org/docs/userguide.html#_scratchpad.
-bindsym ctrl+shift+f [title="Mozilla Firefox"] focus
+bindsym ctrl+shift+f [title="Firefox"] focus
 bindsym ctrl+shift+b [title="Google Chrome"]   focus
 bindsym ctrl+shift+w [title="qutebrowser"]     focus
 bindsym ctrl+shift+t [title="main-term"]       focus
+bindsym ctrl+$mod+shift+t [title="alt-term"]    focus
 bindsym ctrl+shift+h [title="Slack"]           focus
+bindsym ctrl+shift+m [title="Signal"]          focus
 
 
 ##
@@ -202,12 +191,12 @@ bindsym XF86Launch1 exec 'locker'
 ## EXEC
 ##
 
+# Dual monitors, DVI is primary in normal orientation; HDMI is rotated and left hand side.
+exec xrandr --output DVI-0 --auto --primary --output HDMI-0 --left-of DVI-0 --auto --rotate left
+
 exec xsetroot -solid $bg_solar
-
-## Ensure proper colors, e.g. fix Pink Screen of Death in URXVT.
-exec /usr/X11R6/bin/xrdb -merge $HOME/.Xdefaults
-
-## Allow external hosts, e.g. Docker-based X11-applications.
+exec /usr/bin/xrdb -merge $HOME/.Xdefaults
+exec /home/rkk/bin/setdvorarkk
 exec xhost +
 exec /usr/local/bin/redshift -l 55.676098:12.568 &
 

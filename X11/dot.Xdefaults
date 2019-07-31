@@ -2,69 +2,83 @@
 !! COLORS
 !!
 
-*background: #002b36
-*foreground: #657b83
-*cursorColor: #93a1a1
+#define S_base03        #002b36
+#define S_base02        #073642
+#define S_base01        #586e75
+#define S_base00        #657b83
+#define S_base0         #839496
+#define S_base1         #93a1a1
+#define S_base2         #eee8d5
+#define S_base3         #fdf6e3
 
-*fading:                40
-*fadeColor:             #002b36
-!*cursorColor:           #93a1a1
-*pointerColorBackground:#586e75
-*pointerColorForeground:#93a1a1
+*background:            S_base3
+*foreground:            S_base00
+*fadeColor:             S_base3
+*cursorColor:           S_base01
+*pointerColorBackground:S_base1
+*pointerColorForeground:S_base01
+
+#define S_yellow        #b58900
+#define S_orange        #cb4b16
+#define S_red           #dc322f
+#define S_magenta       #d33682
+#define S_violet        #6c71c4
+#define S_blue          #268bd2
+#define S_cyan          #2aa198
+#define S_green         #859900
 
 !! black dark/light
-*color0:                #073642
-*color8:                #002b36
+*color0:                S_base02
+*color8:                S_base03
 
 !! red dark/light
-*color1:                #dc322f
-*color9:                #cb4b16
+*color1:                S_red
+*color9:                S_orange
 
 !! green dark/light
-*color2:                #859900
-*color10:               #586e75
+*color2:                S_green
+*color10:               S_base01
 
 !! yellow dark/light
-*color3:                #b58900
-*color11:               #657b83
+*color3:                S_yellow
+*color11:               S_base00
 
 !! blue dark/light
-*color4:                #268bd2
-*color12:               #839496
+*color4:                S_blue
+*color12:               S_base0
 
 !! magenta dark/light
-*color5:                #d33682
-*color13:               #6c71c4
+*color5:                S_magenta
+*color13:               S_violet
 
 !! cyan dark/light
-*color6:                #2aa198
-*color14:               #93a1a1
-
+*color6:                S_cyan
+*color14:               S_base1
+ 
 !! white dark/light
-*color7:                #eee8d5
-*color15: #fdf6e3
+*color7:                S_base2
+*color15: S_base3
 
 
 !!
 !! XTERM
 !!
 
-XTerm*loginShell:true
 XTerm*boldColors: false
+XTerm*allowBoldFonts: false
+XTerm*boldMode: false
+XTerm*boldFont: Go Mono
 XTerm*locale: true
 !! UTF-8 values: 1 or 2
-XTerm*utf8: 1
 !! Copy selection to X CLIPBOARD and X PRIMARY.
 XTerm*selectToClipboard: true
 XTerm*scrollBar: false
+xterm*facesize: 10
+XTerm*faceName: Go Mono
+XTerm*font: Go Mono
+XTerm*background: #fdf6e3
+XTerm*foreground: #657b83
 
-XTerm*font: xft:Go Mono:pixelsize=12
-XTerm*font1: xft:Go Mono:pixelsize=9
-XTerm*font2: xft:Go Mono:pixelsize=10
-XTerm*font3: xft:Go Mono:pixelsize=12
-XTerm*font4: xft:Go Mono:pixelsize=16
-XTerm*font5: xft:Go Mono:pixelsize=20
-XTerm*font6: xft:Go Mono:pixelsize=24
 
 !!
 !! TESTING
@@ -72,12 +86,8 @@ XTerm*font6: xft:Go Mono:pixelsize=24
 
 Xft*antialias: true
 Xft*dpi: 96
-XTerm.vt100.boldFont: xft:Go Mono:pixelsize=12
-
-urxvt*font: xft:Go Mono:pixelsize=10
-! Disable bold font, revent to standard font.
-urxvt.boldFont:
 urxvt.scrollBar: false
 urxvt*tintColor: Gray
 urxvt*shading: 20
 urxvt*fading: 0
+
