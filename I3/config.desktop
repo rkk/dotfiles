@@ -96,6 +96,7 @@ floating_modifier $mod
 
 ## Run a terminal.
 bindsym $mod+Shift+Return exec $terminal_app
+bindsym $mod+Shift+Ctrl+Return exec $alt_terminal_app
 
 ## Close focused window, Mac OS X compatible.
 bindsym $mod+q kill
