@@ -29,9 +29,9 @@ if [ ! -f "/etc/installurl" ]; then
     rm "${installtmp}"
 fi
 
-packages="${packages} dmenu curl sakura vim-8.0.0987p0-no_x11-perl-python3-ruby"
-packages="${packages} xclip go redshift bash i3 rxvt-unicode ectags w3m"
-packages="${packages} cabextract newsbeuter xbanish qutebrowser shellcheck"
+packages="${packages} dmenu curl vim-8.0.0987p0-no_x11-perl-python3-ruby"
+packages="${packages} xclip go bash i3 rxvt-unicode ectags w3m"
+packages="${packages} cabextract newsbeuter xbanish shellcheck"
 
 for package in ${packages}
 do
