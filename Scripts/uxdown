@@ -1,6 +1,0 @@
-#!/bin/sh
-#
-# Changes the font size in URXVT; up to 18 if called without
-# parameters and down to 12 if called with parameters.
-
-uxup down
