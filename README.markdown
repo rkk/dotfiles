@@ -19,7 +19,7 @@ for Linux, `setup.openbsd.sh` for OpenBSD and such.
 The script is idempotent, so running it numerous times will do no harm.
 
 Once setup has run, install the dotfiles by means of running the installation
-script `install.sh`, in either `desktop` or `laptop` mode. Desktop mode expects
+script `install-symlink.sh`, in either `desktop` or `laptop` mode. Desktop mode expects
 multiple displays and cares little about power management options. Laptop
 mode is the opposite.
 
