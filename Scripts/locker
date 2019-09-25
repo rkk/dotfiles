@@ -5,23 +5,18 @@
 
 
 ## MAC OS X
-if [ $(uname) = "Darwin" ]; then
+os="$(uname)"
+if [ "x${os}" = "xDarwin" ]; then
   /System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend
 fi
 
-## LINUX (I3)
-if [ $(uname) = "Linux" ]; then
+if [ "x${os}" = "xLinux" ]; then
   locker="/usr/bin/i3lock"
-  image="${HOME}/Private/Git/privatedotfiles/Wallpaper/statue.png"
   if [ ! -f $locker ];then
-    echo "ERROR: ${locker} not available"
-    exit 1
-  fi
-
-  if [ -f ${image} ]; then
-    ${locker} -i ${image}
-  else
-    ${locker} -c 000000
+      # Just blank screens.
+      /usr/bin/xset dpms force suspend
+      exit 0
   fi
 fi
 
+${locker} -c 000000
