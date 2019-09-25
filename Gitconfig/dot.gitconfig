@@ -1,0 +1,14 @@
+[alias]
+    b = branch
+    ba = branch -ar
+    new = checkout -b
+    co = checkout
+    fa = fetch --all
+    st = status
+    t = status
+    tt = status
+    d = diff
+    l = log --decorate --oneline
+    r = remote -v show
+    rr = remote -v show
+

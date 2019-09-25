@@ -41,26 +41,34 @@ case ${os} in
 # COMMON FOR ALL PLATFORMS.
 #
 
-# Korn shell.
-ksh_config_src="${PWD}/KSH/dot.kshrc"
-ksh_config_dst="${HOME}/.kshrc"
+bash_config_src="${PWD}/Bash/dot.bashrc"
+bash_config_dst="${HOME}/.bashrc"
 
-if [ ! -f "${ksh_config_dst}" ]; then
-    ln -sf "${ksh_config_src}" "${ksh_config_dst}"
+if [ ! -f "${bash_config_dst}" ]; then
+    ln -sf "${bash_config_src}" "${bash_config_dst}"
     link_res=${?}
     if [ ${link_res} -ne 0 ]; then
-        echo "ERROR: Cannot install ksh source ${ksh_config_src} to destination ${ksh_config_dst}"
+        echo "ERROR: Cannot install Bash source ${bash_config_src} to destination ${bash_config_dst}"
     fi
 fi
 if [ ! -f "${HOME}/.profile" ]; then
-    ln -sf "${ksh_config_src}" "${HOME}/.profile"
+    ln -sf "${bash_config_src}" "${HOME}/.profile"
     profile_res=${?}
     if [ ${profile_res} -ne 0 ]; then
-        echo "ERROR: Cannot install ksh source ${ksh_config_src} to destination ~/.profile"
+        echo "ERROR: Cannot install Bash source ${bash_config_src} to destination ~/.profile"
     fi 
 fi
 
-# Newsbeuter RSS client.
+git_config_src="${PWD}/Gitconfig/dot.gitconfig"
+git_config_dst="${HOME}/.gitconfig"
+if [ ! -f "${git_config_dst}" ]; then
+    ln -sf "${git_config_src}" "${git_config_dst}"
+    link_res=${?}
+    if [ ${link_res} -ne 0 ]; then
+        echo "ERROR: Cannot install Git source ${git_config_src} to destination ${git_config_dst}"
+    fi
+fi
+
 news_config_src="${PWD}/Newsbeuter"
 news_config_dst="${HOME}/.config/newsbeuter"
 
@@ -144,15 +152,7 @@ case ${os} in
             echo "ERROR: Cannot install X11 source ${xsess_src} to destination ${xsess_dst}"
         fi
     fi
-    qute_config_src="${PWD}/Qutebrowser"
-    qute_config_dst="${HOME}/.config/qutebrowser"
-    if [ ! -d "${qute_config_dst}" ]; then
-        ln -sf "${qute_config_src}" "${qute_config_dst}"
-        link_res="${?}"
-        if [ ${link_res} -ne 0 ]; then
-            echo "ERROR: Cannot install Qutebrowser source ${qute_config_src} to destination ${qute_config_dst}"
-        fi
-    fi
+
     scripts_src="${PWD}/Scripts"
     scripts_dst="${HOME}/bin"
     if [ ! -d "${scripts_dst}" ]; then
