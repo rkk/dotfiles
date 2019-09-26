@@ -1,3 +1,7 @@
+[user]
+	name = Rasmus K. Kristiansen
+	email = rasmus%rasmus.kr@localhost
+
 [alias]
     b = branch
     ba = branch -ar
