@@ -14,13 +14,13 @@ fi
 TMPDIR=${TMPDIR:-/tmp}
 FONT_ROOT="${HOME}/.local/share/fonts"
 
-apt_packages="tmux vim git-core i3-wm i3-lock i3status"
+apt_packages="tmux vim git-core i3-wm i3status"
 apt_packages="${apt_packages} dmenu curl"
 apt_packages="${apt_packages} network-manager network-manager-openvpn"
-apt_packages="${apt_packages} network-manager-openvpn-gnome"
+#apt_packages="${apt_packages} network-manager-openvpn-gnome"
 apt_packages="${apt_packages} whois autotools-dev automake libevent-dev"
 apt_packages="${apt_packages} libncurses5-dev exuberant-ctags"
-apt_packages="${apt_packages} python-pip xclip golang"
+apt_packages="${apt_packages} python-pip xclip"
 apt_packages="${apt_packages} cabextract net-tools w3m"
 
 sudo apt-get update
@@ -32,7 +32,7 @@ do
         echo "ERROR: Cannot install Apt package ${package}"
     fi
 done
-
+sudo apt autoremove
 
 # Dvorarkk keyboard layout.
 dvorarkk_dir="${HOME}/Frameworks/Dvorarkk"
@@ -46,10 +46,9 @@ if [ ! -d "${FONT_ROOT}" ]; then
     mkdir -p "${FONT_ROOT}"
 fi
 font_tar="${TMPDIR}/ttfs.tar.gz"
-curl -sS "https://go.googlesource.com/image/+archive/master/font/gofont/ttfs.tar.gz" > "${font_tar}"
-tar xzf "${font_tar}" -C "${FONT_ROOT}"
-if [ -f "${font_tar}" ]; then
-    rm -f "${font_tar}"
+if [ ! -f "${font_tar}" ]; then
+    curl -sS "https://go.googlesource.com/image/+archive/master/font/gofont/ttfs.tar.gz" > "${font_tar}"
+    tar xzf "${font_tar}" -C "${FONT_ROOT}"
 fi
 
 # Microsoft core fonts.
@@ -59,7 +58,6 @@ if [ ! -d "${TMPDIR}/corefonts" ]; then
     do
         cabextract -d "${FONT_ROOT}" -q -L -F "*.TTF" "${f}"
     done
-    rm -rf "${TMPDIR}/corefonts"
 fi
 
 # Fuzzy Finder (fzf).
@@ -67,6 +65,22 @@ if [ ! -d "${HOME}/.fzf" ]; then
     git clone https://github.com/junegunn/fzf.git ~/.fzf
 fi
 
+# Go (golang).
+if [ x"${GOROOT}" = "x" ]; then
+    GOROOT="/usr/local/go"
+fi
+
+if [ ! -f "${GOROOT}/bin/go" ]; then
+    go_tar="${TMPDIR}/golang.tar.gz"
+    curl -sS "https://dl.google.com/go/go1.12.9.linux-amd64.tar.gz" > "${go_tar}"
+    sudo tar xzf "${go_tar}" --strip-components=1 -C "${GOROOT}"
+fi
+GOPATH="${HOME}/Go"
+mkdir -p "${GOPATH}"
+
+
+# Fuzzy Finder (fzf).
+go get github.com/junegunn/fzf
 
 echo "Done."
 
