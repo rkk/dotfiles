@@ -101,6 +101,6 @@ fi
 
 # Rainbow delimiters
 if [ ! -d "${BUNDLE_ROOT}/rainbow_parentheses" ]; then
-    git clone git://github.com/kien/rainbow_parentheses.vim.git" ${BUNDLE_ROOT}/rainbow_parentheses"
+    git clone git://github.com/kien/rainbow_parentheses.vim.git "${BUNDLE_ROOT}/rainbow_parentheses"
 fi
 
