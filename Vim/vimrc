@@ -274,3 +274,6 @@ map <Leader>e :GoAlternate<cr>
 
 " And again, just to be sure
 colorscheme vacme
+
+hi clear Delimiter
+hi clear Special
