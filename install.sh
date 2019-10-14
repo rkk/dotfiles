@@ -162,6 +162,15 @@ case ${os} in
             echo "ERROR: Cannot link Scripts source ${scripts_src} to destination ${scripts_dst}"
         fi
     fi
+    sxhkd_src="${PWD}/SXHKD"
+    sxhkd_dst="${HOME}/.config/sxhkd"
+    if [ ! -d "${sxhkd_dst}" ]; then
+        ln -sf "${sxhkd_src}" "${sxhkd_dst}"
+        link_res="${?}"
+        if [ ${link_res} -ne 0 ]; then
+            echo "ERROR: Cannot link SXHKD source ${sxhkd_src} to destination ${sxhkd_dst}"
+        fi
+    fi
 ;;
 esac
 echo "Done."

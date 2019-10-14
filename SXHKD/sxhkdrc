@@ -1,0 +1,32 @@
+super + shift + Return
+    sakura
+
+super + Return
+    xterm
+
+super + Escape
+    pkill -USR1 -x sxhkd
+
+control + shift + f
+    xdotool search --name Mozilla windowactivate
+
+control + shift + t
+    xdotool search --class xterm windowactivate
+
+control + shift + m
+    xdotool search --onlyvisible --classname Signal windowactivate
+
+super + q
+    xdotool getactivewindow windowkill
+
+ctrl + q   
+    xdotool getactivewindow windowkill
+
+super + shift + 1
+    xdotool getactivewindow windowmove 0 0
+
+super + shift + 2
+    xdotool getactivewindow windowmove 1206 0
+    xdotool getactivewindow windowsize I<window> 50% 100%
+
+
