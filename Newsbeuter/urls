@@ -26,6 +26,7 @@ https://www.dragonflydigest.com/feed          "~DragonflyBSD"
 https://nixers.net/syndication.php            "~Nixers feed"
 https://linuxrig.com/feed/                    "~The Linux Rig"
 https://www.romanzolotarev.com/rss.xml        "~Roman Zolotarev"
+https://inbox.vuxu.org/tuhs/new.atom          "~The Unix Heritage Society"
 
 
 # DEVELOPMENT
@@ -86,6 +87,7 @@ https://lcamtuf.blogspot.com/feeds/posts/default "~lcamtuf"
 https://hackaday.com/blog/feed/               "~Hack a Day"
 https://www.instructables.com/tag/type-id//rss.xml "~Instructables: Recent"
 https://usesthis.com/feed.atom                "~Uses This"
+https://www.reddit.com/r/exoplanets/.rss      "~Exoplanets (Reddit)"
 
 
 # LONG READS
