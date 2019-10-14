@@ -1,4 +1,4 @@
-#/bin/bash
+#/bin/bash -x
 ##
 ## Configures the keyboard layout to Dvorarkk and swaps
 ## the Caps Lock and Control keys.
@@ -11,9 +11,14 @@ if [ ! -f ${layout} ]; then
     exit 1
 fi
 
-## setxkbmap resets to US layout, so run xmodmap after.
-setxkbmap -option ctrl:nocaps
-xmodmap ${layout}
+if [ -z "$DISPLAY" ]; then
+    DISPLAY=":0.0"
+fi
+
+# setxkbmap resets to US layout, so run xmodmap after.
+# For some reason, there is a 30 second delay when executed in Udev rules.
+setxkbmap -option ctrl:nocaps -display ${DISPLAY}
+xmodmap -display ${DISPLAY} ${layout}
 
 ## Apple external keyboard have keys in other locations.
 if [ ${#} -eq 1 ]; then
