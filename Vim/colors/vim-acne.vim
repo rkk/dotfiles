@@ -1,25 +1,12 @@
 " This is a Vim color scheme named "vim-acne".
 "
-" It features no syntax highlighting, and no colors of its own,
-" but uses the default colors from the terminal.
-" Using a Solarized Light or ACME color scheme in the terminal
-" is highy recommended.
-" Instead of syntax highlighting, this scheme provides structural
-" highlighting, where few, key structural elements are highlighted.
+" It features no syntax highlighting and uses only the default
+" terminal colors. Solarized Light, ACME or similar terminal color
+" schemes are highly recommended.
 "
-" This scheme tries to reset as many options as possible, but
-" may miss ones, especially ones defined by plugins. The following
-" specific plugins and languages are however handled,
-"
-"   - Tagbar
-"   - Go (vim-go)
-"   - Markdown
-"
-" Others may be added at a later time.
-" The name is a portmanteau of the ACME editor, famous for not supporting
-" any syntax highlighting and the skin condition acne, which is
-" unwanted highlighting.
-
+" The name refers to ACME, the text editor famous for not supporting
+" any syntax highlighting, and the similar named skin condition,
+" representing another kind of unwanted highlighting.
 
 hi clear
 if exists('syntax on')
@@ -40,27 +27,25 @@ let g:inverse_items = ['StatusLine', 'StatusLineNC', 'Visual', 'Search', 'IncSea
 let g:underline_items = ['TagbarHighlight']
 
 
-" Normalize item on all terminal and GUI options.
+" Normalize item highlighting.
 function! s:normalize(item)
-  execute "hi clear" a:item
-  execute "highlight" a:item "term=NONE cterm=NONE ctermfg=NONE ctermbg=NONE gui=NONE guifg=NONE guibg=NONE"
-  execute "hi link" a:item "Normal"
+  execute "highlight" a:item "term=NONE cterm=NONE ctermfg=NONE ctermbg=NONE"
 endfunction
 
 
-" Invert item, terminal options only.
+" Invert item.
 function! s:invert(item)
   execute "highlight" a:item "cterm=inverse"
 endfunction
 
 
-" Underline item, terminal options only.
+" Underline item.
 function! s:underline(item)
   execute "highlight" a:item "cterm=underline"
 endfunction
 
 
-" Provide hacks for difficult items.
+" Hack the item, if it is being difficult.
 function! s:postfix_hack()
     " This is a hack to avoid filling the status line on non-current
     " buffers (StatusNC) with the visual indicator "^^^^": add a
