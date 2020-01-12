@@ -6,8 +6,8 @@
 
 ## Brew packages to install.
 brew_packages="tmux watch gnu-tar reattach-to-user-namespace"
-brew_packages="${brew_packages} tig w3m wget"
-brew_packages="${brew_packages} shellcheck mksh ctags docker"
+brew_packages="${brew_packages} w3m wget"
+brew_packages="${brew_packages} shellcheck ctags docker"
 
 brew_cmd="/usr/local/bin/brew"
 FONT_ROOT="${HOME}/Library/Fonts"
@@ -37,17 +37,6 @@ do
     echo "ERROR: Cannot install brew package ${p}"
   fi
 done
-
-TMUX_HIGHLIGHT_HOME="${HOME}/Frameworks/tmux-prefix-highlight"
-if [ ! -d "${TMUX_HIGHLIGHT_HOME}" ]; then
-  mkdir -p "${TMUX_HIGHLIGHT_HOME}"
-  git clone https://github.com/tmux-plugins/tmux-prefix-highlight.git "${TMUX_HIGHLIGHT_HOME}"
-  clone_res="${?}"
-  if [ "${clone_res}" -ne 0 ]; then
-    echo "ERROR: Cannot clone tmux-prefix-highlight repository"
-  fi
-fi
-
 
 if [ ! -d "${FONT_ROOT}" ]; then
     mkdir -p "${FONT_ROOT}"
