@@ -1,7 +1,0 @@
-#!/bin/bash
-##
-## Sets the i3 layout to vertical.
-##
-
-/usr/bin/i3-msg split vertical
-
