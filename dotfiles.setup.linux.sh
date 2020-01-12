@@ -20,7 +20,7 @@ apt_packages="${apt_packages} whois autotools-dev automake libevent-dev"
 apt_packages="${apt_packages} libncurses5-dev exuberant-ctags"
 apt_packages="${apt_packages} python-pip xclip redshift"
 apt_packages="${apt_packages} cabextract openssh-server"
-apt_packages="${apt_packages} shellcheck"
+apt_packages="${apt_packages} shellcheck sxhkd rofi"
 
 sudo apt-get update
 for package in ${apt_packages}
