@@ -3,35 +3,32 @@
 Unix-style configuration files for a terminal-centric working
 environment,
 
-  - [Mir Korn Shell](https://www.mirbsd.org/mksh.htm) running in [Tmux](https://github.com/tmux/tmux/wiki) terminal multiplexer
-  - [i3 tiling window manager](https://i3wm.org/) and Sakura terminal emulator using [Solarized Dark](http://ethanschoonover.com/solarized)
+  - [i3 tiling window manager](https://i3wm.org/) and Sakura terminal emulator using [Solarized Light](http://ethanschoonover.com/solarized)
   - Vim editor with code navigation features and Git integration, focused on [Golang](https://golang.org/) development
   - Custom programming-optimized [keyboard layout](https://github.com/rkk/Dvorarkk)
   - Programming and Unix-oriented feeds in [Newsbeuter](https://newsbeuter.org/) terminal RSS client
 
 ## Platforms
-The primary platforms are OpenBSD and Ubuntu Linux, but contents are
+The primary platforms are Debian Linux, but contents are
 also tested on Mac OS X (10.10+), where applicable and feasible.
 
 ## Installation
-Run the setup script pertaining to your platform, eg. `setup.linux.sh`
-for Linux, `setup.openbsd.sh` for OpenBSD and such.  This will set up
-all needed software.  
-The script is idempotent, so running it numerous times will do no harm.
+Installing these dotfiles consists of checking out this repository
+into your home directory and running the setup scripts to install
+and set up the needed packages. The scripts are idempotent, so
+running them multiple times will do no harm.
 
-Once setup has run, install the dotfiles by means of running the installation
-script `install.sh`, in either `desktop` or `laptop` mode.
+All configuration items have the default file names and locations,
+so once the repository has been checked out, the configuration will
+be activated the next time you log in.
 
-### Manual installation
-Manual installation of is also supported, by means of copying or symlinking
-the respective directory contents to your local files, e.g,
+In other words,
 
-    $ git clone git@github.com:rkk/dotfiles.git $HOME/dotfiles
-    $ ln -s ~/dotfiles/Tmux/dot.tmux.conf ~/.tmux.conf
+    $ git clone git@github.com:rkk/dotfiles.git $HOME
+    $ ~/dotfiles.setup.PLATFORM.sh
+    $ ~/.vim/install.sh
 
-If more elaborate installation steps are required, consult the README
-in the respective subdirectory, if available.
-
+Replace `PLATFORM` with the appropriate platform you're running.
 
 ## Bug reports
 Bug reports, suggestions and feedback is highly appreciated.  
