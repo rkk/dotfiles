@@ -1,0 +1,20 @@
+keymap gg BEGIN
+keymap G  END
+
+keymap }  NEXT_PAGE
+keymap {  PREV_PAGE
+keymap 0  LINE_BEGIN
+keymap $  LINE_END
+keymap w  NEXT_WORD
+keymap b  PREV_WORD
+
+keymap /  ISEARCH
+keymap ?  ISEARCH_BACK
+keymap n  SEARCH_NEXT
+keymap N  SEARCH_PREV
+
+keymap :w SAVE
+keymap :e LOAD
+keymap :o GOTO
+
+keymap :q QUIT
