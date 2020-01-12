@@ -1,27 +1,20 @@
 #!/bin/bash
-##
-## Locks the screen using i3lock or the Mac OS X system locker.
-##
+#
+# Locks the screen using i3lock or the Mac OS X system locker.
+#
 
 
-## MAC OS X
 if [ $(uname) = "Darwin" ]; then
   /System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend
 fi
 
-## LINUX (I3)
 if [ $(uname) = "Linux" ]; then
   locker="/usr/bin/i3lock"
-  image="${HOME}/Private/Git/privatedotfiles/Wallpaper/statue.png"
   if [ ! -f $locker ];then
     echo "ERROR: ${locker} not available"
     exit 1
   fi
 
-  if [ -f ${image} ]; then
-    ${locker} -i ${image}
-  else
-    ${locker} -c 000000
-  fi
+  ${locker} -c 000000
 fi
 
