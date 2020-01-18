@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Installs Apt packages in Ubuntu.
+# Installs Apt packages in Debian.
 # The script is designed to be idempotent, so no
 # side effects are expected if run multiple times.
 #
@@ -14,13 +14,18 @@ fi
 TMPDIR=${TMPDIR:-/tmp}
 FONT_ROOT="${HOME}/.local/share/fonts"
 
-apt_packages="tmux vim ruby git-core i3-wm i3-lock i3status"
+if [ ! -d "${TMPDIR}" ]; then
+    mkdir -p "${TMPDIR}"
+fi
+
+apt_packages="tmux vim ruby git-core i3-wm i3status"
 apt_packages="${apt_packages} dmenu curl mutt"
 apt_packages="${apt_packages} whois autotools-dev automake libevent-dev"
 apt_packages="${apt_packages} libncurses5-dev exuberant-ctags"
-apt_packages="${apt_packages} python-pip xclip redshift"
+apt_packages="${apt_packages} python-pip xclip"
 apt_packages="${apt_packages} cabextract openssh-server"
 apt_packages="${apt_packages} shellcheck sxhkd rofi"
+apt_packages="${apt_packages} sakura xterm"
 
 sudo apt-get update
 for package in ${apt_packages}
@@ -57,7 +62,7 @@ fi
 if [ ! -f "${FONT_ROOT}/verdana.ttf" ]; then
     if [ ! -d "${TMPDIR}/corefonts" ]; then
         git clone https://github.com/pushcx/corefonts "${TMPDIR}/corefonts"
-    for f in ${TMPDIR}/corefonts/*exe
+    for f in "${TMPDIR}"/corefonts/*exe
     do
         cabextract -d "${FONT_ROOT}" -q -L -F "*.TTF" "${f}"
     done
