@@ -1,8 +1,8 @@
 #!/bin/bash
 #
-# Installs Apt packages in Debian.
-# The script is designed to be idempotent, so no
-# side effects are expected if run multiple times.
+# Installs the packages and tools that make up the environment.
+# The script is designed to be idempotent, so no side effects
+# are expected, if run multiple times.
 #
 
 if [ "$(uname)" != "Linux" ]; then
@@ -18,14 +18,16 @@ if [ ! -d "${TMPDIR}" ]; then
     mkdir -p "${TMPDIR}"
 fi
 
-apt_packages="tmux vim ruby git-core i3-wm i3status"
+apt_packages="tmux vim ruby git i3-wm i3status i3lock"
 apt_packages="${apt_packages} dmenu curl mutt"
 apt_packages="${apt_packages} whois autotools-dev automake libevent-dev"
 apt_packages="${apt_packages} libncurses5-dev exuberant-ctags"
 apt_packages="${apt_packages} python-pip xclip"
 apt_packages="${apt_packages} cabextract openssh-server"
 apt_packages="${apt_packages} shellcheck sxhkd rofi"
-apt_packages="${apt_packages} sakura xterm"
+apt_packages="${apt_packages} sakura xterm newsbeuter"
+apt_packages="${apt_packages} firefox qutebrowser jq net-tools"
+apt_packages="${apt_packages} dnsutils coreutils gzip zip unzip bzip2 xz-utils"
 
 sudo apt-get update
 for package in ${apt_packages}
@@ -37,6 +39,9 @@ do
     fi
 done
 
+sudo apt autoremove
+sudo apt autoclean
+sudo apt clean
 
 # Dvorarkk keyboard layout.
 dvorarkk_dir="${HOME}/Frameworks/Dvorarkk"
@@ -75,6 +80,35 @@ if [ ! -d "${HOME}/.fzf" ]; then
     git clone https://github.com/junegunn/fzf.git ~/.fzf
 fi
 
+# Install Go (golang), latest version for AMD64.
+# Shamelessly adapted from github.com/jessfraz/dotfiles/bin/install.sh.
+GO_SRC="/usr/local/go"
+if [ ! -d "${GO_SRC}" ]; then
+    GO_VERSION=$(curl -sSL "https://golang.org/VERSION?m=text")
+    GO_VERSION=${GO_VERSION#go}
+    (
+    kernel=$(uname -s | tr '[:upper:]' '[:lower:]')
+    curl -sSL "https://storage.googleapis.com/golang/go${GO_VERSION}.${kernel}-amd64.tar.gz" | sudo tar -v -C /usr/local -xz
+    )
+
+    export PATH="${PATH}:/usr/local/go/bin"
+    go get golang.org/x/lint/golint
+    go get golang.org/x/tools/cmd/cover
+    go get golang.org/x/review/git-codereview
+    go get golang.org/x/tools/cmd/goimports
+    go get golang.org/x/tools/cmd/gorename
+    go get golang.org/x/tools/cmd/guru
+    go get github.com/jstemmer/gotags
+    go get github.com/nsf/gocode
+    go get github.com/rogpeppe/godef
+fi
+
+# Post-install fixes.
+if [ -d "${HOME}/.config/newsbeuter" ]; then
+    if [ ! -d "${HOME}/.local/share/newsbeuter" ]; then
+        ln -s "${HOME}/.config/newsbeuter" "${HOME}/.local/share/newsbeuter"
+    fi
+fi
 
 echo "Done."
 
