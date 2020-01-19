@@ -79,7 +79,7 @@ font xft:Go 6
 
 
 assign [class="xterm|gnome-terminal|sakura"]  $term_workspace
-assign [class="Firefox|Chromium"]             $web_workspace
+assign [class="Firefox|Chromium|qutebrowser"] $web_workspace
 assign [class="TelegramDesktop|Slack|Signal"] $msg_workspace
 
 
@@ -87,8 +87,7 @@ assign [class="TelegramDesktop|Slack|Signal"] $msg_workspace
 # DIRECT APPLICATION SHORTCUT KEYS
 #
 
-bindsym ctrl+shift+f [title="Firefox"]         focus
-bindsym ctrl+shift+b [title="Google Chrome"]   focus
+bindsym ctrl+shift+f [title="qutebrowser"]     focus
 bindsym ctrl+shift+t [class="sakura|Sakura|xterm|gnome-terminal"]          focus
 bindsym ctrl+shift+h [title="Slack"]           focus
 bindsym ctrl+shift+m [title="Signal"]          focus
