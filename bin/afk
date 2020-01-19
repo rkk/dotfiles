@@ -1,16 +1,19 @@
 #!/bin/sh
 #
-# Locks the screen.
+# Locks the screen, using whatever tools are
+# available (xlock, i3lock, lxlock).
 
-xlock="/usr/X11R6/bin/xlock"
+lockers='/usr/bin/X11R6/bin/xlock /usr/bin/i3lock /usr/bin/lxlock'
 
-if [ -f "${xlock}" ]; then
-    output=$("${xlock}")
-    lock_res="${?}"
-    if [ "${lock_res}" -ne 0 ]; then
-        echo "${output}"
-        exit "${lock_res}"
+for cmd in ${lockers}
+do
+    if [ -f "${cmd}" ]; then
+        if [ "${cmd}" = "/usr/bin/i3lock" ]; then
+            cmd="${cmd} --color 000000"
+        fi
+        ${cmd}
+        exit ${?}
     fi
-fi
+done
 
-
+echo "ERROR: No lock tool available"
