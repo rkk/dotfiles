@@ -28,6 +28,7 @@ apt_packages="${apt_packages} shellcheck sxhkd rofi"
 apt_packages="${apt_packages} sakura xterm newsbeuter"
 apt_packages="${apt_packages} firefox qutebrowser jq net-tools"
 apt_packages="${apt_packages} dnsutils coreutils gzip zip unzip bzip2 xz-utils"
+apt_packages="${apt_packages} weechat weechat-python python-websocket"
 
 sudo apt-get update
 for package in ${apt_packages}
@@ -109,6 +110,19 @@ if [ -d "${HOME}/.config/newsbeuter" ]; then
         ln -s "${HOME}/.config/newsbeuter" "${HOME}/.local/share/newsbeuter"
     fi
 fi
+
+if [ ! -d "${HOME}/.weechat/python/autoload" ]; then
+    mkdir -p "${HOME}/.weechat/python/autoload"
+    curl -sSL "https://raw.githubusercontent.com/wee-slack/wee-slack/master/wee_slack.py" > "${HOME}/.weechat/python/wee_slack.py"
+    ln -s "${HOME}/.weechat/python/wee_slack.py" "${HOME}/.weechat/python/autoload/wee_slack.py"
+    echo "IMPORTANT: Weechat needs your Slack API keys"
+    echo "IMPORTANT: Run 'weechat', load the wee_slack module: '/python load wee_slack.py'"
+    echo "IMPORTANT: In Weechat, open the register URL: '/slack register'"
+    echo "IMPORTANT: Copy the 'code' URL parameter from the failing URL (is expected) in your browser"
+    echo "IMPORTANT: In Weechat, register the code: '/slack register <paste the code>'"
+    echo ""
+fi
+
 
 echo "Done."
 
