@@ -26,7 +26,7 @@ apt_packages="${apt_packages} python-pip xclip"
 apt_packages="${apt_packages} cabextract openssh-server"
 apt_packages="${apt_packages} shellcheck sxhkd rofi"
 apt_packages="${apt_packages} sakura xterm newsbeuter"
-apt_packages="${apt_packages} firefox qutebrowser jq net-tools"
+apt_packages="${apt_packages} firefox qutebrowser w3m jq net-tools"
 apt_packages="${apt_packages} dnsutils coreutils gzip zip unzip bzip2 xz-utils"
 apt_packages="${apt_packages} weechat weechat-python python-websocket"
 
