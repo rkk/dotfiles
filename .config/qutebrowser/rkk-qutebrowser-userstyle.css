@@ -2,8 +2,9 @@
     font-family: "Go Regular" !important;
     /* color: #eee8b5 !important; */
     border: 0px solid #002b36 !important;
-    color: #93a1a1 !important;
-    background: #002b36 !important;
+    /* color: #93a1a1 !important; */
+    color: #002b36 !important;
+    background: #fdf6e3 !important;
     font-weight: normal !important;
     font-size: 14px !important;
     text-decoration: none !important;
@@ -15,10 +16,11 @@ h1, h2, h3, h4, h5, h6 {
     text-transform: uppercase !important;
 }
 
+/*
 img, figure, svg {
     display: none !important;
 }
-
+*/
 iframe {
     display: none !important;
 }
@@ -26,8 +28,8 @@ iframe {
 ::before, ::after, :before, :after {
     font-family: "Go Regular" !important;
     border: 0px solid #002b36 !important;
-    color: #93a1a1 !important;
-    background: #002b36 !important;
+    color: black !important;
+    background: #fdf6e3 !important;
     font-weight: normal !important;
     font-size: 14px !important;
     text-decoration: none !important;
