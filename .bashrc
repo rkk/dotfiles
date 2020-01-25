@@ -42,7 +42,7 @@ alias gba="git branch -a"
 alias gnew="git checkout -b"
 alias gfa="git fetch --all"
 
-secrets="/home/rkk/Frameworks/Secrets/secrets.env.sh"
+secrets="${HOME}/Frameworks/Secrets/secrets.sh"
 
 if [ -f "${secrets}" ]; then
     # shellcheck source=/dev/null
