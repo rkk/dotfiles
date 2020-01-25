@@ -1,0 +1,107 @@
+{
+    "workbench.colorTheme": "Go - Playground",
+    "editor.minimap.enabled": false,
+    "go.gopath": "/home/rkk/Go",
+    "workbench.tips.enabled": false,
+    "telemetry.enableCrashReporter": false,
+    "telemetry.enableTelemetry": false,
+    "vim.leader": "<Space>",
+    "vim.easymotion": true,
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": ["<leader>", "w"],
+            "commands": [
+                "workbench.action.files.save"
+            ]
+        },
+        {
+            "before": ["<leader>", "c"],
+            "commands": [
+                "editor.action.commentLine"
+            ]
+        },
+        {
+            "before": ["<leader>", "g"],
+            "commands": [
+                "editor.action.revealDefinition"
+            ]
+        },
+        {
+            "before": ["<leader>", "t"],
+            "commands": [
+                "go.test.cursor"
+            ]
+        },
+        {
+            "before": ["<leader>", "l"],
+            "commands": [
+                "go.test.previous"
+            ]
+        },
+        {
+            "before": ["<leader>", "T"],
+            "commands": [
+                "go.test.package"
+            ]
+        },
+        {
+            "before": ["<leader>", "G"],
+            "commands": [
+                "go.test.generate.function"
+            ]
+        },
+        {
+            "before": ["<leader>", "e"],
+            "commands": [
+                "go.toggle.test.file"
+            ]
+        }
+    ],
+    "editor.cursorBlinking": "solid",
+    "workbench.activityBar.visible": false,
+    "workbench.startupEditor": "newUntitledFile",
+    "editor.colorDecorators": false,
+    "editor.dragAndDrop": false,
+    "go.formatTool": "goimports",
+    "editor.highlightActiveIndentGuide": false,
+    "editor.fontSize": 12,
+    "editor.lineHeight": 15,
+    "editor.fontFamily": "Go Mono",
+    "workbench.colorCustomizations": {
+    "sideBar.background": "#ffffdd",
+    "sideBar.border": "#dfdfdf",
+    "list.hoverBackground": "#41a6d9",
+    "tab.inactiveBackground": "#ffffdd",
+    "tab.inactiveForeground": "#777777",
+    // "tab.activeBackground": "#B2D7F0",
+    "tab.activeBackground": "#ffffdd",
+    "tab.activeForeground": "#000000",
+    "statusBar.background": "#ffffdd",
+    "statusBar.foreground": "#666666",
+    "statusBar.border": "#dfdfdf",
+    "editorLineNumber.foreground": "#666666",
+    // "editor.wordHighlightBackground": "#ffffdd",
+    // "editor.wordHighlightStrongBackground": "#ffffdd" 
+},
+"editor.renderIndentGuides": false,
+"window.menuBarVisibility": "toggle",
+"search.location": "panel",
+"editor.occurrencesHighlight": false,
+"editor.renderLineHighlight": "none",
+"editor.codeLens": false,
+"editor.lineNumbers": "off",
+"editor.links": false,
+"editor.roundedSelection": false,
+"workbench.enableExperiments": false,
+"workbench.iconTheme": null,
+"breadcrumbs.icons": false,
+"workbench.editor.showIcons": false,
+"explorer.enableDragAndDrop": false,
+"explorer.decorations.badges": false,
+"outline.icons": false,
+"search.smartCase": true,
+"search.useGlobalIgnoreFiles": true,
+"terminal.integrated.drawBoldTextInBrightColors": false,
+"breadcrumbs.enabled": false,
+"workbench.editor.highlightModifiedTabs": true
+}
