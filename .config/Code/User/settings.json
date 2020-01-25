@@ -1,4 +1,18 @@
 {
+    // Requires the following extensions installed,
+    //
+    //   - mikegleasonjr.theme-go
+    //   - ms-vscode.Go
+    //   - premparihar.gotestexplorer
+    //   - vscodevim.vim
+    //
+    //   Install these using the CLI,
+    //
+    //     code --install-extension NAME
+    //
+    //   Substitute NAME with each of the extensions
+    //   listed above.
+    //
     "workbench.colorTheme": "Go - Playground",
     "editor.minimap.enabled": false,
     "go.gopath": "/home/rkk/Go",
