@@ -123,6 +123,19 @@ if [ ! -d "${HOME}/.weechat/python/autoload" ]; then
     echo ""
 fi
 
+# Set up Git aliases; avoid changing the Git config file directly.
+git config --global alias.b "branch"
+git config --global alias.ba "branch -ar"
+git config --global alias.c "checkout"
+git config --global alias.d "diff --word-diff"
+git config --global alias.f "fetch --all"
+git config --global alias.n "log --name-only"
+git config --global alias.new "checkout -b"
+git config --global alias.l "log --decorate --oneline"
+git config --global alias.s "status"
+git config --global alias.r "remote -v show"
+git config --global alias.unstage "reset HEAD --"
+
 
 echo "Done."
 
