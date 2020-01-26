@@ -25,10 +25,8 @@ be activated the next time you log in.
 In other words,
 
     $ git clone git@github.com:rkk/dotfiles.git $HOME
-    $ ~/dotfiles.setup.PLATFORM.sh
+    $ ~/dotfiles.install.sh
     $ ~/.vim/install.sh
-
-Replace `PLATFORM` with the appropriate platform you're running.
 
 ## Bug reports
 Bug reports, suggestions and feedback is highly appreciated.  
