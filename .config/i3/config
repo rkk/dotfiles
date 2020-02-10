@@ -26,7 +26,8 @@ set $cde_bg_dim #9e9caf
 #
 
 set $terminal_app     "sakura"
-set $app_launcher     "rofi -show run"
+#set $app_launcher     "rofi -show run"
+set $app_launcher     "dmenu_run -nb '#ffffdd' -nf '#000000' -sb '#000000' -sf '#ffffbb' -fn 'GoMono' -l 50"
 set $status_app       "i3status"
 
 
@@ -92,6 +93,7 @@ bindsym ctrl+shift+f [title="qutebrowser"]     focus
 bindsym ctrl+shift+t [class="sakura|Sakura|xterm|gnome-terminal"]          focus
 bindsym ctrl+shift+h [title="Slack"]           focus
 bindsym ctrl+shift+m [title="Signal"]          focus
+bindsym ctrl+shift+l [class="Code"]            focus
 
 
 #
