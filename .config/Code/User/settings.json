@@ -120,5 +120,11 @@
 "search.useGlobalIgnoreFiles": true,
 "terminal.integrated.drawBoldTextInBrightColors": false,
 "breadcrumbs.enabled": false,
-"workbench.editor.highlightModifiedTabs": true
+"workbench.editor.highlightModifiedTabs": true,
+"terminal.integrated.fontSize": 12,
+"terminal.integrated.fontWeightBold": "normal",
+"workbench.settings.editor": "json",
+"go.useLanguageServer": true,
+// Do not use tab to show each open file; avoids gray background on tab bar.
+"workbench.editor.showTabs": false
 }
