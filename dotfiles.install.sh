@@ -49,6 +49,7 @@ function install_linux {
     setup_newsbeuter
     setup_weechat_slack
     setup_git_aliases
+    setup_qutebrowser
 
     echo ""
     echo "Done."
@@ -281,6 +282,12 @@ function setup_git_aliases {
     git config --global alias.s "status"
     git config --global alias.r "remote -v show"
     git config --global alias.unstage "reset HEAD --"
+}
+
+
+# Set up Qutebrowser as default browser.
+function setup_qutebrowser {
+    xdg-settings set default-web-browser qutebrowser.desktop
 }
 
 
