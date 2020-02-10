@@ -5,6 +5,7 @@
 #
 
 set $bg_solar #fdf6e3
+set $bg_porter #ffffdd
 set $fg_solar #657b83
 set $gray     #666666
 set $brown    #b58900
@@ -44,12 +45,12 @@ bar {
     hidden_state hide
     font pango:Noto Sans Regular 6
     colors {
-        background         $bg_solar
+        background         $bg_porter
         statusline         $fg_solar
-		separator          $bg_solar
-        focused_workspace  $fg_solar      $bg_solar $fg_solar
-        active_workspace   $bg_solar      $bg_solar $fg_solar
-        inactive_workspace $bg_solar      $bg_solar $cde_dim
+		separator          $bg_porter
+        focused_workspace  $fg_solar      $bg_porter $fg_solar
+        active_workspace   $bg_porter     $bg_porter $fg_solar
+        inactive_workspace $bg_porter     $bg_porter $cde_dim
         urgent_workspace   $red           $red        $white
     }
     position top
@@ -59,8 +60,8 @@ bar {
 }
 
 #                BORDER BACKGROUND  TEXT    INDICATOR    CHILD-BORDER
-client.focused   $bg_solar  $bg_solar       $white
-client.unfocused $bg_solar  $bg_solar       $white
+client.focused   $bg_porter  $bg_porter       $white
+client.unfocused $bg_porter  $bg_porter       $white
 client.urgent    $red   $red        $white
 
 hide_edge_borders	both
