@@ -34,10 +34,15 @@
                 "editor.action.commentLine"
             ]
         },
-        {
+         {
             "before": ["<leader>", "g"],
             "commands": [
                 "editor.action.revealDefinition"
+            ]
+        },       {
+            "before": ["<leader>", "G"],
+            "commands": [
+                "editor.action.peekDefinition"
             ]
         },
         {
@@ -59,7 +64,7 @@
             ]
         },
         {
-            "before": ["<leader>", "G"],
+            "before": ["<leader>", "F"],
             "commands": [
                 "go.test.generate.function"
             ]
