@@ -27,7 +27,7 @@ set $cde_bg_dim #9e9caf
 
 set $terminal_app     "sakura"
 #set $app_launcher     "rofi -show run"
-set $app_launcher     "dmenu_run -nb '#ffffdd' -nf '#000000' -sb '#000000' -sf '#ffffbb' -fn 'GoMono' -l 50"
+set $app_launcher     "dmenu_run -nb '#ffffdd' -nf '#000000' -sb '#000000' -sf '#ffffbb' -fn 'GoMono' -l 7"
 set $status_app       "i3status"
 
 
@@ -54,7 +54,7 @@ bar {
         inactive_workspace $bg_porter     $bg_porter $cde_dim
         urgent_workspace   $red           $red        $white
     }
-    position top
+    position bottom
     status_command $status_app
     modifier Mod1
     workspace_buttons yes
