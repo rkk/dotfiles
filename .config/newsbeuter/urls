@@ -1,9 +1,9 @@
-## NEWS
-https://soylentnews.org/index.rss "~Soylent News" "news"
-http://rss.slashdot.org/Slashdot/slashdot "~Slashdot" "news"
-https://lobste.rs/rss "~Lobsters" "news"
-https://lobste.rs/comments.rss "~Lobsters Comments" "news"
-https://tedium.co/rss/ "~Tedium"
+# NEWS
+#https://soylentnews.org/index.rss "~Soylent News" "news"
+#http://rss.slashdot.org/Slashdot/slashdot "~Slashdot" "news"
+#https://lobste.rs/rss "~Lobsters" "news"
+#https://lobste.rs/comments.rss "~Lobsters Comments" "news"
+#https://tedium.co/rss/ "~Tedium"
 
 
 ## UNIX
