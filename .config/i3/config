@@ -5,7 +5,7 @@
 #
 
 set $bg_solar #fdf6e3
-set $bg_porter #ffffdd
+set $bg_porter #ffffea
 set $fg_solar #657b83
 set $gray     #666666
 set $brown    #b58900
@@ -37,12 +37,12 @@ set $status_app       "i3status"
 
 set $term_workspace  workspace 1
 set $web_workspace   workspace 2
-set $msg_workspace   workspace 3
-set $extra_workspace workspace 4
+#set $msg_workspace   workspace 3
+#set $extra_workspace workspace 4
 
 bar {
     # Options: dock hide invisible
-    # mode dock 
+    # mode dock
     hidden_state hide
     font pango:Noto Sans Regular 6
     colors {
@@ -80,16 +80,16 @@ font xft:Go 6
 #   3: Messaging
 
 
-assign [class="xterm|gnome-terminal|sakura"]  $term_workspace
-assign [class="Firefox|Chromium|qutebrowser"] $web_workspace
-assign [class="TelegramDesktop|Slack|Signal"] $msg_workspace
+#assign [class="xterm|gnome-terminal|sakura"]  $term_workspace
+#assign [class="Firefox|Chromium|qutebrowser"] $web_workspace
+#assign [class="TelegramDesktop|Slack|Signal"] $msg_workspace
 
 
 #
 # DIRECT APPLICATION SHORTCUT KEYS
 #
 
-bindsym ctrl+shift+f [title="qutebrowser"]     focus
+bindsym ctrl+shift+f [class="Firefox"]     focus
 bindsym ctrl+shift+t [class="sakura|Sakura|xterm|gnome-terminal"]          focus
 bindsym ctrl+shift+h [title="Slack"]           focus
 bindsym ctrl+shift+m [title="Signal"]          focus
@@ -195,6 +195,7 @@ bindsym XF86Launch1 exec 'locker'
 #
 
 exec --no-startup-id xsetroot -solid black
+exec --no-startup-id xautolock -locker $HOME/bin/afk
 
 exec /usr/bin/xrdb -merge $HOME/.Xdefaults
 exec xhost +
