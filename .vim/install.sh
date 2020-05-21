@@ -94,3 +94,8 @@ if [ ! -d "${BUNDLE_ROOT}/supertab" ]; then
     git clone git://github.com/ervandew/supertab.git "${BUNDLE_ROOT}/supertab"
 fi
 
+# Porter
+if [ ! -d "${BUNDLE_ROOT}/porter" ]; then
+    git clone git://github.com/rkk/porter.git "${BUNDLE_ROOT}/porter"
+fi
+
