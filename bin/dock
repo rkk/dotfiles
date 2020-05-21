@@ -1,0 +1,50 @@
+#!/bin/bash -x
+#
+# Dock the computer, configure the displays in the
+# following layouts,
+#
+#
+# Office:
+#
+#             +-----+
+#    +------+ | TWO |
+#    | ONE  | |     |
+#    |      | |     |
+#    +------+ +-----+
+#
+# Built-in display disabled.
+#
+# Home:
+#
+#   +-------+
+#   | MON-1 |
+#   +-------+
+#
+# Built-in display disabled.
+#
+
+DISPLAY_INTERNAL="eDP-1"
+DISPLAY_EXTERNAL_ONE="HDMI-2"
+
+DISPLAY_EXTERNAL_OFFICE_ONE="DP-2-3"
+DISPLAY_EXTERNAL_OFFICE_TWO="DP-2-2"
+
+
+if [ "x${1}" = "xhome" ]; then
+    echo "Home mode enabled."
+    xrandr --output "${DISPLAY_INTERNAL}" --off --output "${DISPLAY_EXTERNAL_ONE}" --primary
+    ~/bin/setdvorarkk
+    exit 0
+fi
+
+if [ "x${1}" = "xoffice" ]; then
+	echo "Office mode enabled"
+	xrandr \
+		--output "${DISPLAY_EXTERNAL_OFFICE_ONE}" --auto --primary --right-of "${DISPLAY_INTERNAL}" \
+		--output "${DISPLAY_EXTERNAL_OFFICE_TWO}" --auto --right-of "${DISPLAY_EXTERNAL_OFFICE_ONE}" --rotate left \
+		--output ${DISPLAY_INTERNAL} --off
+	~/bin/setdvorarkk
+	~/bin/setmouse
+	exit 0
+fi
+

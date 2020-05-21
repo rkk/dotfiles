@@ -1,0 +1,11 @@
+#!/bin/bash
+#
+# Undock the computer, disconnecting any monitors.
+
+DISPLAY_INTERNAL="eDP-1"
+DISPLAY_EXTERNAL_ONE="HDMI-2"
+
+echo "Undocking..."
+xrandr --output ${DISPLAY_INTERNAL} --auto --output ${DISPLAY_EXTERNAL_ONE} --off
+~/bin/setdvorarkk
+echo "Done."
