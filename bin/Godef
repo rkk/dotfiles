@@ -1,0 +1,2 @@
+#!/usr/bin/env rc
+/home/rkk/Go/bin/godef -acme $*

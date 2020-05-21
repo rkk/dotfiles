@@ -1,0 +1,6 @@
+#!/usr/bin/env rc
+# Write the contents of Hacker News et al to a new buffer in ACME.
+congo -a | 9p write acme/new/body
+namelast News
+
+
