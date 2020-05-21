@@ -1,0 +1,29 @@
+#!/bin/bash
+
+
+function usage() {
+    echo "Usage: wifi OPTION"
+    echo ""
+    echo "Valid options:"
+    echo "  on   Enable wifi radio link"
+    echo "  off  Disable wifi radio link"
+    echo ""
+}
+
+if [ $# -ne 1 ]; then
+    usage
+    exit 0
+fi
+
+if [ "${1}" = "on" ]; then
+    sudo nmcli radio wifi on
+    exit
+fi
+
+if [ "${1}" = "off" ]; then
+    sudo nmcli radio wifi off
+    exit
+fi
+
+usage
+exit 1

@@ -1,0 +1,6 @@
+#!/bin/bash
+#
+# *nix copy of the pbcopy command from Mac OS X.
+# Copies from STDIN to the clipboard.
+
+cat - | xclip -i -selection clipboard
