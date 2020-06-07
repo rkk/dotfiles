@@ -6,6 +6,8 @@
 
 set $bg_solar #fdf6e3
 set $bg_porter #ffffea
+set $fg_porter #121212
+set $contrast_porter #eaffff
 set $fg_solar #657b83
 set $gray     #666666
 set $brown    #b58900
@@ -26,8 +28,7 @@ set $cde_bg_dim #9e9caf
 #
 
 set $terminal_app     "sakura"
-#set $app_launcher     "rofi -show run"
-set $app_launcher     "dmenu_run -nb '#ffffdd' -nf '#000000' -sb '#000000' -sf '#ffffbb' -fn 'GoMono' -l 7"
+set $app_launcher     "dmenu_run -nb '#ffffea' -nf '#000000' -sb '#eaffff' -sf '#121212' -fn 'GoRegular' -l 10"
 set $status_app       "i3status"
 
 
@@ -47,12 +48,12 @@ bar {
     font pango:Noto Sans Regular 6
     colors {
         background         $bg_porter
-        statusline         $fg_solar
+        statusline         $fg_porter
 		separator          $bg_porter
-        focused_workspace  $fg_solar      $bg_porter $fg_solar
-        active_workspace   $bg_porter     $bg_porter $fg_solar
-        inactive_workspace $bg_porter     $bg_porter $cde_dim
-        urgent_workspace   $red           $red        $white
+        focused_workspace  $fg_porter     $contrast_porter       $fg_solar
+        active_workspace   $bg_porter     $bg_porter             $fg_porter
+        inactive_workspace $bg_porter     $bg_porter             $cde_dim
+        urgent_workspace   $red           $red                   $white
     }
     position bottom
     status_command $status_app
@@ -65,8 +66,8 @@ client.focused   $bg_porter  $bg_porter       $white
 client.unfocused $bg_porter  $bg_porter       $white
 client.urgent    $red   $red        $white
 
-hide_edge_borders	both
-new_window	        pixel 0
+#hide_edge_borders	both
+new_window	        pixel 3
 
 font xft:Go 6
 
@@ -80,22 +81,6 @@ font xft:Go 6
 #   3: Messaging
 
 
-#assign [class="xterm|gnome-terminal|sakura"]  $term_workspace
-#assign [class="Firefox|Chromium|qutebrowser"] $web_workspace
-#assign [class="TelegramDesktop|Slack|Signal"] $msg_workspace
-
-
-#
-# DIRECT APPLICATION SHORTCUT KEYS
-#
-
-bindsym ctrl+shift+f [class="Firefox"]     focus
-bindsym ctrl+shift+t [class="sakura|Sakura|xterm|gnome-terminal"]          focus
-bindsym ctrl+shift+h [title="Slack"]           focus
-bindsym ctrl+shift+m [title="Signal"]          focus
-bindsym ctrl+shift+l [class="Code"]            focus
-
-
 #
 # KEYS
 #
@@ -106,10 +91,11 @@ set $mod Mod1
 # Drag floating windows using Mouse+$mod.
 floating_modifier $mod
 
-bindsym $mod+Shift+Return exec $terminal_app
+# Moved to sxhkd.
+#bindsym $mod+Shift+Return exec $terminal_app
 
 # Close focused window, Mac OS X compatible.
-bindsym $mod+q kill
+#bindsym $mod+q kill
 
 # Application launcher.
 bindsym ctrl+space       exec $app_launcher
@@ -150,7 +136,7 @@ bindsym $mod+period layout toggle split
 
 bindsym $mod+Shift+space floating toggle
 
-bindsym $mod+space focus mode_toggle
+bindsym $mod+Return move scratchpad
 
 bindsym $mod+1 workspace 1
 bindsym $mod+2 workspace 2
@@ -200,4 +186,7 @@ exec --no-startup-id xautolock -locker $HOME/bin/afk
 exec /usr/bin/xrdb -merge $HOME/.Xdefaults
 exec xhost +
 exec /home/rkk/bin/setdvorarkk
+# Simple X Hotkey Daemon (sxhkd) now handles all generic WM and application keys.
+exec /usr/bin/sxhkd &
+
 
