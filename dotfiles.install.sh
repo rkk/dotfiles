@@ -22,7 +22,7 @@ function install_linux {
     apt_packages="${apt_packages} cabextract openssh-server"
     apt_packages="${apt_packages} shellcheck sxhkd xdotool rofi"
     apt_packages="${apt_packages} sakura xterm newsbeuter"
-    apt_packages="${apt_packages} firefox qutebrowser w3m jq net-tools"
+    apt_packages="${apt_packages} firefox-esr qutebrowser w3m jq net-tools"
     apt_packages="${apt_packages} dnsutils coreutils gzip zip unzip bzip2 xz-utils"
     apt_packages="${apt_packages} weechat weechat-python python-websocket xautolock"
     apt_packages="${apt_packages} mc firmware-misc-nonfree libx11-dev brightnessctl".
@@ -264,9 +264,8 @@ function install_vscode_linux {
 
 # Install Dvorarkk keyboard layout.
 function install_dvorarkk {
-    dvorarkk_dir="${HOME}/Frameworks/Dvorarkk"
+    dvorarkk_dir="${XDG_CONFIG_HOME}/dvorarkk"
     if [ ! -d "${dvorarkk_dir}" ]; then
-        mkdir -p "${dvorarkk_dir}"
         git clone https://github.com/rkk/Dvorarkk.git "${dvorarkk_dir}"
     fi
 }
@@ -274,9 +273,9 @@ function install_dvorarkk {
 
 # Set up the needed config directories for Newsbeuter.
 function setup_newsbeuter {
-    if [ -d "${HOME}/.config/newsbeuter" ]; then
+    if [ -d "${XDG_CONFIG_HOME}/newsbeuter" ]; then
         if [ ! -d "${HOME}/.local/share/newsbeuter" ]; then
-            ln -s "${HOME}/.config/newsbeuter" "${HOME}/.local/share/newsbeuter"
+            ln -s "${XDG_CONFIG_HOME}/newsbeuter" "${HOME}/.local/share/newsbeuter"
         fi
     fi
 }
@@ -417,6 +416,18 @@ function setup_vscode {
 }
 
 
+# Set up XDG (XDG_CONFIG_HOME).
+function setup_xdg {
+    if [ "x$XDG_CONFIG_HOME" = "x" ]; then
+        XDG_CONFIG_HOME="${HOME}/.config"
+    fi
+    if [ ! -d "${XDG_CONFIG_HOME}" ]; then
+        mkdir -p "${XDG_CONFIG_HOME}"
+    fi
+    export XDG_CONFIG_HOME
+}
+
+
 #
 # MAIN
 #
@@ -425,9 +436,11 @@ os=$(uname)
 
 case "${os}" in
     "Linux")
+        setup_xdg
         install_linux
         ;;
     "OpenBSD")
+        setup_xdg
         install_openbsd
         ;;
     "Darwin")
