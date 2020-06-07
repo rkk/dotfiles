@@ -1,24 +1,39 @@
+# Simple X Hotkey Daemon (sxhkd) configuration for an almost window manager
+# agnostic experience. Depends on xdotool, custom scripts and is aimed at
+# a specific collection of applications, see "windowactivate" parts.
+
+alt + shift + Return
+	sakura
+
+super + shift + Return
+    sakura
+
+control + space
+    dmenu_run -nb '#ffffea' -nf '#000000' -sb '#eaffff' -sf '#121212' -fn 'GoRegular' -l 10
+
+# Note that i3 supports --onlyvisible on all desktops, but BSPWM interprets this as searching
+# only the current desktop.
 control + shift + f
-    xdotool search --onlyvisible --classname Chromium windowactivate
+    xdotool search --classname Chromium windowactivate
 
 control + shift + t
-    xdotool search --onlyvisible --class Sakura windowactivate
+    xdotool search --classname Sakura windowactivate
 
 control + shift + h
-    xdotool search --onlyvisible --classname Slack windowactivate
+    xdotool search --classname Slack windowactivate
 
 control + shift + l
-    xdotool search --onlyvisible --classname Code windowactivate
+    xdotool search --classname Code windowactivate
 
 control + shift + z
-    xdotool search --onlyvisible --classname Zathura windowactivate
+    xdotool search  --classname Zathura windowactivate
 
 control + shift + b
     xdotool search --name qutebrowser windowactivate
 
 control + shift + g
-    xdotool search --onlyvisible --name "outlook" windowactivate
-    
+    xdotool search --name "outlook" windowactivate
+
 control + shift + c
 	xdotool search --classname acme windowactivate
 
@@ -26,10 +41,10 @@ super + F1
     amixer set Master toggle
 
 super + F2
-    amixer set Master '10%-'
+    amixer set Master '5%-'
 
 super + F3
-    amixer set Master '10%+'
+    amixer set Master '5%+'
 
 super + F8
     brightnessctl set 10%-
@@ -43,15 +58,78 @@ super + q
 super + Escape
     pkill -USR1 -x sxhkd
 
-XF86PowerOff
-    afk
 
-XF86Sleep
-    afk
+#
+# CUSTOM CONFIG: BSPWM
+#
 
-XF86Suspend
-    afk
+super + w
+	bspc node -c
 
-# RESERVED KEYBINDINGS
-# super + l: Lock screen (CWM)
+super + f
+	bspc desktop -l next
+
+super + g
+	bspc node -s biggest
+
+super + {h,j,k,l}
+	bspc node -f {west,south,north,east}
+
+super + shift + {h,j,k,l}
+	bspc node -s {west,south,north,east}
+
+{super,alt} + {_,shift +} Tab
+	bspc {desktop,node} -f {next,prev}.local
+
+# Move windows to the First, Second or Third (fst) desktop.
+super + space ; {f,s,t}
+    { \
+    bspc node -d ^1 --follow, \
+    bspc node -d ^2 --follow, \
+    bspc node -d ^3 --follow, \
+    }
+
+# Switch to the First, Second or Third (FST) desktop.
+super + space ; {F,S,T}
+	{\
+	bspc desktop -f ^1, \
+	bspc desktop -f ^2, \
+	bspc desktop -f ^3, \
+	}
+
+super + {Left,Right}
+    bspc desktop -f {next,prev}
+
+super + space ; {r,R}
+    bspc node @/ --rotate {90,-90}
+
+super + space ; g
+    bspc node -t ~floating
+
+super + space ; {h,j,k,l}
+	bspc node -s {west,south,north,east}
+
+# Dynamic gaps.
+super + space ; {p,P}
+	bspc config -d window_gap "$(($(bspc config -d window_gap) {-,+} 5 ))"
+
+super + space ; b
+	{ \
+	bspc config top_padding 0
+	bspc config right_padding 0
+	bspc config bottom_padding 0
+	bspc config left_padding 0
+	bspc config window_gap 0
+	bspc config border_width 0
+	}
+
+super + shift + Escape
+    sh ~/.config/bspwm/bspwmrc
+
+-button1
+    bspc pointer -g focus
+
+super + button1
+    bspc pointer -g resize_corner
+
 
