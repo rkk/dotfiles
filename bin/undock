@@ -1,11 +1,22 @@
 #!/bin/bash
 #
-# Undock the computer, disconnecting any monitors.
+# Undock the computer, disabling external monitors.
 
 DISPLAY_INTERNAL="eDP-1"
-DISPLAY_EXTERNAL_ONE="HDMI-2"
+echo "Moving desktops to internal display..."
+i3-msg "move workspace fyrsta to output ${DISPLAY_INTERNAL}"
+i3-msg "move workspace annað to output ${DISPLAY_INTERNAL}"
+i3-msg "move workspace þriðja to output ${DISPLAY_INTERNAL}"
+i3-msg "move workspace fjórða to output ${DISPLAY_INTERNAL}"
 
-echo "Undocking..."
-xrandr --output ${DISPLAY_INTERNAL} --auto --output ${DISPLAY_EXTERNAL_ONE} --off
+echo "Disabling external monitors"
+monitors=$(xrandr -q | grep " connected" | cut -d\  -f1)
+for i in ${monitors}; do
+    if [ ! "${i}" = "${DISPLAY_INTERNAL}" ]; then
+        xrandr --output "${i}" --off
+    fi
+done
+xrandr --output ${DISPLAY_INTERNAL} --auto --primary
+echo "Configuring keyboard..."
 ~/bin/setdvorarkk
 echo "Done."
