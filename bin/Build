@@ -1,5 +1,0 @@
-#!/bin/bash
-#
-# Builds the current directory of Go source code.
-
-go build .
