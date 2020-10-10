@@ -70,7 +70,7 @@ let g:go_list_type = "quickfix"
 " APPEARANCE
 "
 set background=light
-colorscheme solarized
+colorscheme porter
 
 " Reset values.
 hi clear goTypeName
