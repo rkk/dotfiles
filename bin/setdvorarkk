@@ -4,7 +4,7 @@
 ## the Caps Lock and Control keys.
 ##
 
-layout="$HOME/Frameworks/Dvorarkk/X11/dvorarkk.xmodmap"
+layout="$HOME/.config/dvorarkk/X11/dvorarkk.xmodmap"
 
 if [ ! -f ${layout} ]; then
     echo "ERROR: Cannot locate Dvorarkk layout file"
