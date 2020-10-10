@@ -30,7 +30,7 @@ setup_prompt() {
 setup_go() {
 	GOROOT="/usr/local/go"
 	GOPATH="${HOME}/go"
-	PATH="${PATH}:${GOPATH}/bin"
+	PATH="${PATH}:${GOROOT}/bin:${GOPATH}/bin"
 	export GOROOT GOPATH PATH
 }
 
