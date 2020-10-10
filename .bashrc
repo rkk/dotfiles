@@ -43,9 +43,9 @@ setup_plan9() {
 
 
 setup_alias() {
-	alias l="/usr/bin/ls -1AFo"
-	alias la="/usr/bin/ls -lAh"
-	alias la="/usr/bin/ls -latr"
+	alias l="/bin/ls -1AFo"
+	alias la="/bin/ls -lAh"
+	alias la="/bin/ls -latr"
 	alias a="clear"
 	alias c="cd"
 	alias mp="mkdir -p"
