@@ -16,7 +16,9 @@ if [ ! -f "${connection}" ]; then
     exit 2
 fi
 
-if [ $(uname -s) = "OpenBSD" ]; then
+if [ "$(uname -s)" = "OpenBSD" ]; then
     doas ${openvpn} --config ${connection}
+    exit 0
 fi
 
+sudo "${openvpn}" --config "${connection}"
