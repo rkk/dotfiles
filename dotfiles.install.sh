@@ -25,8 +25,8 @@ function install_linux {
     apt_packages="${apt_packages} firefox-esr qutebrowser w3m jq net-tools"
     apt_packages="${apt_packages} dnsutils coreutils gzip zip unzip bzip2 xz-utils"
     apt_packages="${apt_packages} weechat weechat-python python-websocket xautolock"
-    apt_packages="${apt_packages} mc firmware-misc-nonfree libx11-dev brightnessctl".
-    apt_packages="${apt_packages} pandoc lemonbar"
+    apt_packages="${apt_packages} mc firmware-misc-nonfree libx11-dev brightnessctl"
+    apt_packages="${apt_packages} pandoc lemonbar xorg-dev"
 
     sudo apt-get update
     for package in ${apt_packages}
@@ -48,6 +48,7 @@ function install_linux {
     install_fzf
     install_go_linux
     install_vscode_linux
+    install_plan9port_linux
 
     setup_newsbeuter
     setup_weechat_slack
@@ -55,6 +56,7 @@ function install_linux {
     setup_firefox
     setup_vim
     setup_vscode
+    setup_plan9port
 
     echo ""
     echo "Done."
@@ -262,6 +264,21 @@ function install_vscode_linux {
 }
 
 
+# Install Plan9port.
+function install_plan9port_linux {
+    clone_url="https://github.com/9fans/plan9port"
+    plan9port_root="/usr/local/plan9"
+    if [ -d "${plan9port_root}" ]; then
+        return
+    fi
+    sudo mkdir -p "${plan9port_root}"
+    u="$(id -u -n)"
+    g="$(id -g -n)"
+    sudo chown "${u}:${g}" "${plan9port_root}"
+    git clone "${clone_url}" "${plan9port_root}"
+}
+
+
 # Install Dvorarkk keyboard layout.
 function install_dvorarkk {
     dvorarkk_dir="${XDG_CONFIG_HOME}/dvorarkk"
@@ -426,6 +443,22 @@ function setup_xdg {
     fi
     export XDG_CONFIG_HOME
 }
+
+
+# Set up Plan9port.
+function setup_plan9port {
+    plan9port_root="/usr/local/plan9"
+    if [ ! -d "${plan9port_root}" ]; then
+        return
+    fi
+    if [ -f "${plan9port_root}/bin/acme" ]; then
+        return
+    fi
+    start_dir="$(pwd)"
+    cd "${plan9port_root}" && ./INSTALL 
+    cd "${start_dir}" || return
+}
+
 
 
 #
