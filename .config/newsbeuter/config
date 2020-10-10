@@ -6,8 +6,8 @@ reload-threads 4
 show-read-feeds no
 cleanup-on-quit yes
 
-cache-file "~/.newsbeuter/cache.db"
-error-log "~/.newsbeuter/error.log"
+cache-file "~/.config/newsbeuter/cache.db"
+error-log "~/.config/newsbeuter/error.log"
 
 
 ##

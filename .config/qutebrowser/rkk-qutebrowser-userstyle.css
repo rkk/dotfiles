@@ -4,7 +4,7 @@
     border: 0px solid #002b36 !important;
     /* color: #93a1a1 !important; */
     color: #002b36 !important;
-    background: #ffffdd !important;
+    background: #ffffea !important;
     font-weight: normal !important;
     font-size: 14px !important;
     text-decoration: none !important;
@@ -14,7 +14,9 @@
 h1, h2, h3, h4, h5, h6 {
     font-size: 100% !important;
     text-transform: uppercase !important;
+    background: #eaffff !important;
 }
+
 
 /*
 img, figure, svg {
@@ -29,7 +31,7 @@ iframe {
     font-family: "Go Regular" !important;
     border: 0px solid #002b36 !important;
     color: black !important;
-    background: #ffffdd !important;
+    background: #ffffea !important;
     font-weight: normal !important;
     font-size: 14px !important;
     text-decoration: none !important;

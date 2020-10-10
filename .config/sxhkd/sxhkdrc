@@ -1,0 +1,57 @@
+control + shift + f
+    xdotool search --onlyvisible --classname Chromium windowactivate
+
+control + shift + t
+    xdotool search --onlyvisible --class Sakura windowactivate
+
+control + shift + h
+    xdotool search --onlyvisible --classname Slack windowactivate
+
+control + shift + l
+    xdotool search --onlyvisible --classname Code windowactivate
+
+control + shift + z
+    xdotool search --onlyvisible --classname Zathura windowactivate
+
+control + shift + b
+    xdotool search --name qutebrowser windowactivate
+
+control + shift + g
+    xdotool search --onlyvisible --name "outlook" windowactivate
+    
+control + shift + c
+	xdotool search --classname acme windowactivate
+
+super + F1
+    amixer set Master toggle
+
+super + F2
+    amixer set Master '10%-'
+
+super + F3
+    amixer set Master '10%+'
+
+super + F8
+    brightnessctl set 10%-
+
+super + F9
+    brightnessctl set +10%
+
+super + q
+    xdotool getactivewindow windowkill
+
+super + Escape
+    pkill -USR1 -x sxhkd
+
+XF86PowerOff
+    afk
+
+XF86Sleep
+    afk
+
+XF86Suspend
+    afk
+
+# RESERVED KEYBINDINGS
+# super + l: Lock screen (CWM)
+

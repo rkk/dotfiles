@@ -1,0 +1,14 @@
+#!/bin/bash
+#
+# Outputs text used as input by the bottombar-start script.
+
+battery() {
+    #pct=$(acpi --battery | cut -d, -f2)
+    pct=$(acpi --battery)
+    echo "${pct}   "
+}
+
+while true; do
+    echo "%{r}$(battery)"
+    sleep 10;
+done

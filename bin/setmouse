@@ -1,0 +1,39 @@
+#!/bin/bash
+mouse_id=$(xinput list | grep Evoluent | grep -o 'id=[0-9]*' | grep -o '[0-9]*')
+
+# Layout of Evoluent VerticalMouse 3 vs. Xinput positions,
+#
+# Top button near the thumb : 9
+# Top index finger button   : 1
+# Scroll wheel click        : 2
+# Scroll wheel downwards    : 5
+# Scroll wheel upwards      : 4
+# Middle finger button      : 3
+# Ring finger bottom button : 8
+#
+# Layout of the Xinput button actions vs numerical IDs,
+#
+# No action    : 0
+# Normal click : 1
+# Right click  : 2
+# Middle click : 3
+# Scroll up    : 4
+# Scroll down  : 5
+
+
+# Reset all buttons.
+xinput set-button-map "${mouse_id}" 0 0 0 0 0 0 0 0 0 
+
+# Set the needed buttons.
+xinput set-button-map "${mouse_id}" 1 0 2 4 5 0 0 3 2 
+#                                 | | | | | | | | |
+#  POSITION: BUTTON NAME          | | | | | | | | |
+#  1: Top button -----------------+ | | | | | | | |
+#  2: Scroll wheel click -----------+ | | | | | | |
+#  3: Middle finger button -----------+ | | | | | |
+#  4: Scroll wheel upwards -------------+ | | | | |
+#  5: Scroll wheel downwards -------------+ | | | |
+#  6: None ---------------------------------+ | | |
+#  7: None -----------------------------------+ | |
+#  8: Ring finger bottom button ----------------+ |
+#  9: Top button near the thumb ------------------+

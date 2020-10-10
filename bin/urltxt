@@ -1,0 +1,5 @@
+#!/bin/bash
+#
+# Dumps a web page as plain text, follow redirects if needed.
+
+curl --location -s "${*}" | htmltxt

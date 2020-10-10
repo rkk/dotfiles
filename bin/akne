@@ -1,0 +1,41 @@
+#!/bin/bash
+#
+# Launches ACME with specific fonts, plumbing rules, etc.
+
+dumpfile="${HOME}/acme.dump"
+fixedfont="/mnt/font/GoMono/10a/font"
+variablefont="/mnt/font/GoRegular/12a/font"
+
+
+export SHELL="/bin/bash"
+export GOPATH="${HOME}/go"
+export acmeshell="/bin/bash"
+export PATH="${HOME}/bin:/usr/local/plan9/bin:/usr/local/go/bin:${GOPATH}/bin:${PATH}"
+export path="${PATH}"
+export home="${HOME}"
+export pwd="${PWD}"
+export tabstop=4
+export PAGER=nobs
+export TERM=dumb
+
+if [ "$(pgrep plumber)" ]; then
+	echo "Plumber is running"
+else
+	echo "Starting plumber..."
+	plumber
+	cat /usr/local/plan9/plumb/basic | 9p write plumb/rules
+fi
+
+if [ "$(pgrep fontsrv)" ]; then
+	echo "Fontserver is running"
+else
+	echo "Starting Fontserver..."
+	fontsrv &
+fi
+
+dumpparm=""
+if [ -f "${dumpfile}" ]; then
+	dumpparm="-l ${dumpfile}"
+fi
+
+acme -a -b -f "${fixedfont}" -F "${variablefont}" ${dumpparm} "$1" &

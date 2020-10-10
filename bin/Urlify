@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+# Dumps the text output of URL into a new ACME window
+# named "Web". Requires w3m and the namelast script.
+
+url="${1}"
+script="$(basename ${0})"
+
+if [ "x${url}" = "x" ]; then
+	echo "Usage: ${script} URL"
+	echo ""
+	exit 0
+fi
+
+w3m -dump ${url} | 9p write acme/new/body
+namelast "Web"

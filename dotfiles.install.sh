@@ -20,11 +20,13 @@ function install_linux {
     apt_packages="${apt_packages} libncurses5-dev exuberant-ctags"
     apt_packages="${apt_packages} python-pip xclip"
     apt_packages="${apt_packages} cabextract openssh-server"
-    apt_packages="${apt_packages} shellcheck sxhkd rofi"
+    apt_packages="${apt_packages} shellcheck sxhkd xdotool rofi"
     apt_packages="${apt_packages} sakura xterm newsbeuter"
-    apt_packages="${apt_packages} firefox qutebrowser w3m jq net-tools"
+    apt_packages="${apt_packages} firefox-esr qutebrowser w3m jq net-tools"
     apt_packages="${apt_packages} dnsutils coreutils gzip zip unzip bzip2 xz-utils"
-    apt_packages="${apt_packages} weechat weechat-python python-websocket"
+    apt_packages="${apt_packages} weechat weechat-python python-websocket xautolock"
+    apt_packages="${apt_packages} mc firmware-misc-nonfree libx11-dev brightnessctl".
+    apt_packages="${apt_packages} pandoc lemonbar"
 
     sudo apt-get update
     for package in ${apt_packages}
@@ -45,11 +47,14 @@ function install_linux {
     install_microsoft_fonts
     install_fzf
     install_go_linux
+    install_vscode_linux
 
     setup_newsbeuter
     setup_weechat_slack
     setup_git_aliases
-    setup_qutebrowser
+    setup_firefox
+    setup_vim
+    setup_vscode
 
     echo ""
     echo "Done."
@@ -96,10 +101,7 @@ function install_openbsd {
     install_microsoft_fonts
     install_fzf
     setup_git_aliases
-
-    if [ ! -d "${HOME}/.config" ]; then
-        mkdir -p "${HOME}/.config"
-    fi
+    setup_vim
 
     # Fixes for Linuxisms and Bashisms.
     if [ ! -f /bin/bash ]; then
@@ -169,6 +171,7 @@ function install_mac {
     install_dvorarkk
     install_fzf
     setup_git_aliases
+    setup_vim
 
     echo ""
     echo "Done."
@@ -223,6 +226,12 @@ function install_go_linux {
             curl -sSL "https://storage.googleapis.com/golang/go${GO_VERSION}.${kernel}-amd64.tar.gz" | sudo tar -v -C /usr/local -xz
         )
         export PATH="${PATH}:/usr/local/go/bin"
+        export GOPATH="${HOME}/go"
+        if [ ! -f "${GOPATH}" ]; then
+            mkdir -p "${GOPATH}"
+            # Backwards compability with prior Go location.
+            ln -sf "${GOPATH}" "${HOME}/Go"
+        fi
         go get golang.org/x/lint/golint
         go get golang.org/x/tools/cmd/cover
         go get golang.org/x/review/git-codereview
@@ -232,14 +241,31 @@ function install_go_linux {
         go get github.com/jstemmer/gotags
         go get github.com/nsf/gocode
         go get github.com/rogpeppe/godef
+        # Private tools written in Go, but not needed by Go.
+        go get github.com/rkk/teleprompt
     fi
 }
 
+# Install Visual Studio Code.
+function install_vscode_linux {
+    pkg_url="https://az764295.vo.msecnd.net/stable/c47d83b293181d9be64f27ff093689e8e7aed054/code_1.42.1-1581432938_amd64.deb"
+    pkg_file="${TMPDIR}/code_1.42.1-1581432938_amd64.deb"
+    if [ -f "${pkg_file}" ]; then
+        return
+    fi
+    curl -sSL "${pkg_url}" > "${pkg_file}"
+    if [ -f "${pkg_file}" ]; then
+        sudo dpkg -i "${pkg_file}"
+    fi
+
+
+}
+
+
 # Install Dvorarkk keyboard layout.
 function install_dvorarkk {
-    dvorarkk_dir="${HOME}/Frameworks/Dvorarkk"
+    dvorarkk_dir="${XDG_CONFIG_HOME}/dvorarkk"
     if [ ! -d "${dvorarkk_dir}" ]; then
-        mkdir -p "${dvorarkk_dir}"
         git clone https://github.com/rkk/Dvorarkk.git "${dvorarkk_dir}"
     fi
 }
@@ -247,9 +273,9 @@ function install_dvorarkk {
 
 # Set up the needed config directories for Newsbeuter.
 function setup_newsbeuter {
-    if [ -d "${HOME}/.config/newsbeuter" ]; then
+    if [ -d "${XDG_CONFIG_HOME}/newsbeuter" ]; then
         if [ ! -d "${HOME}/.local/share/newsbeuter" ]; then
-            ln -s "${HOME}/.config/newsbeuter" "${HOME}/.local/share/newsbeuter"
+            ln -s "${XDG_CONFIG_HOME}/newsbeuter" "${HOME}/.local/share/newsbeuter"
         fi
     fi
 }
@@ -291,6 +317,117 @@ function setup_qutebrowser {
 }
 
 
+# Set up Firefox as default browser.
+function setup_firefox {
+    xdg-settings set default-web-browser firefox.desktop
+}
+
+
+# Set up Vi(m).
+function setup_vim {
+    BUNDLE_ROOT="${HOME}/.vim/bundle"
+    AUTOLOAD_ROOT="${HOME}/.vim/autoload"
+    PATHOGEN_VIM="${AUTOLOAD_ROOT}/pathogen.vim"
+    BACKUP_ROOT="${HOME}/.vim/backup"
+    TMP_ROOT="${HOME}/.vim/tmp"
+
+    if [ ! -d "${BUNDLE_ROOT}" ]; then
+        mkdir -p "${BUNDLE_ROOT}"
+    fi
+
+    if [ ! -d "${AUTOLOAD_ROOT}" ]; then
+        mkdir -p "${AUTOLOAD_ROOT}"
+    fi
+
+    if [ ! -d "${BACKUP_ROOT}" ]; then
+        mkdir -p "${BACKUP_ROOT}"
+    fi
+
+    if [ ! -d "${TMP_ROOT}" ]; then
+        mkdir -p "${TMP_ROOT}"
+    fi
+
+    if [ ! -f "${PATHOGEN_VIM}" ]; then
+        curl -LSso "${PATHOGEN_VIM}" https://tpo.pe/pathogen.vim
+    fi
+
+    if [ ! -d "${BUNDLE_ROOT}/vim-fugitive" ]; then
+        git clone git://github.com/tpope/vim-fugitive.git "${BUNDLE_ROOT}/vim-fugitive"
+    fi
+
+    if [ ! -d "${BUNDLE_ROOT}/tagbar" ]; then
+        git clone git://github.com/majutsushi/tagbar.git "${BUNDLE_ROOT}/tagbar"
+    fi
+
+    if [ ! -d "${BUNDLE_ROOT}/goyo" ]; then
+        git clone git://github.com/junegunn/goyo.vim.git "${BUNDLE_ROOT}/goyo"
+    fi
+
+    if [ ! -d "${BUNDLE_ROOT}/vim-commentary" ]; then
+        git clone git://github.com/tpope/vim-commentary.git "${BUNDLE_ROOT}/vim-commentary"
+    fi
+
+    # Fuzzy Finder for Vim (FZF), requires FZF Github repo to
+    # be checked out in ~/.fzf and ~/.fzf/install.sh being run beforehand.
+    if [ ! -d "${BUNDLE_ROOT}/fzf" ]; then
+        git clone git://github.com/junegunn/fzf.vim "${BUNDLE_ROOT}/fzf"
+    fi
+
+    if [ ! -d "${BUNDLE_ROOT}/vim-go" ]; then
+        git clone git://github.com/fatih/vim-go.git "${BUNDLE_ROOT}/vim-go"
+    fi
+
+    if [ ! -d "${BUNDLE_ROOT}/nerdtree" ]; then
+        git clone git://github.com/scrooloose/nerdtree "${BUNDLE_ROOT}/nerdtree"
+    fi
+
+    if [ ! -d "${BUNDLE_ROOT}/vim-gitgutter" ]; then
+        git clone git://github.com/airblade/vim-gitgutter.git "${BUNDLE_ROOT}/vim-gitgutter"
+    fi
+
+    if [ ! -d "${BUNDLE_ROOT}/vim-colors-solarized" ]; then
+        git clone git://github.com/altercation/vim-colors-solarized "${BUNDLE_ROOT}/vim-colors-solarized"
+    fi
+
+    if [ ! -d "${BUNDLE_ROOT}/syntastic" ]; then
+        git clone --depth=1 git://github.com/vim-syntastic/syntastic.git "${BUNDLE_ROOT}/syntastic"
+    fi
+
+    if [ ! -d "${BUNDLE_ROOT}/supertab" ]; then
+        git clone git://github.com/ervandew/supertab.git "${BUNDLE_ROOT}/supertab"
+    fi
+
+    if [ ! -d "${BUNDLE_ROOT}/porter" ]; then
+        git clone git://github.com/rkk/porter.git "${BUNDLE_ROOT}/porter"
+    fi
+
+    if [ ! -d "${BUNDLE_ROOT}/vim-minisnip" ]; then
+        git clone git://github.com/eemed/vim-minisnip "${BUNDLE_ROOT}/vim-minisnip"
+    fi
+}
+
+
+# Set up Visual Studio Code.
+function setup_vscode {
+    code --install-extension mikegleasonjr.theme-go
+    code --install-extension ms-vscode.Go
+    code --install-extension premparihar.gotestexplorer
+    code --install-extension vscodevim.vim
+}
+
+
+# Set up XDG (XDG_CONFIG_HOME).
+function setup_xdg {
+    if [ "x$XDG_CONFIG_HOME" = "x" ]; then
+        XDG_CONFIG_HOME="${HOME}/.config"
+    fi
+    if [ ! -d "${XDG_CONFIG_HOME}" ]; then
+        mkdir -p "${XDG_CONFIG_HOME}"
+    fi
+    export XDG_CONFIG_HOME
+}
+
+
 #
 # MAIN
 #
@@ -299,9 +436,11 @@ os=$(uname)
 
 case "${os}" in
     "Linux")
+        setup_xdg
         install_linux
         ;;
     "OpenBSD")
+        setup_xdg
         install_openbsd
         ;;
     "Darwin")

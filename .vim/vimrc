@@ -24,6 +24,8 @@ set showcmd
 set wildmode=list:longest
 set backupdir=~/.vim/backup
 set directory=~/.vim/tmp
+set noswapfile
+set nobackup
 
 set expandtab
 set tabstop=4 shiftwidth=4
@@ -31,7 +33,6 @@ set backspace=indent,eol,start
 
 set scrolloff=5
 set laststatus=2
-" StatusLine format: <Syntax check> %= <Filename> : <Line number>, <Character>
 set statusline=%{SyntasticStatuslineFlag()}\ \ %=%t%m\:%l\,%c
 
 let NERDTreeShowHidden=1
@@ -48,7 +49,6 @@ let g:syntastic_auto_jump=0
 let g:syntastic_sh_checkers = ['sh', 'shellcheck']
 let g:syntastic_go_checkers = ['go', 'gofmt', 'golint']
 
-" FZF (replaces Ctrl-P, FuzzyFinder and Command-T)
 " Requires FZF Github repo checked out in ~/.fzf.
 set rtp+=~/.fzf
 
@@ -64,6 +64,19 @@ autocmd BufEnter * syn match ErrorMsg /[^\x00-\x7F]/
 " using :cnext and :cprevious everywhere, rather than having
 " to use :lnext and :lprevious in location list windows.
 let g:go_list_type = "quickfix"
+let g:go_fmt_command = "goimports"
+let g:go_autodetect_gopath = 1
+let g:go_list_type = "quickfix"
+
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_interfaces = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_generate_tags = 1
 
 
 "
@@ -83,73 +96,8 @@ hi clear Constant
 hi clear Operator
 hi clear Comment
 
-"
-" COLOR NAMES
-"
+set fillchars+=vert:\|
 
-" NR-16   NR-8    Color name
-" --------------------------
-" 0       0       Black
-" 1       4       DarkBlue
-" 2       2       DarkGreen
-" 3       6       DarkCyan
-" 4       1       DarkRed
-" 5       5       DarkMagenta
-" 6       3       Brown, DarkYellow
-" 7       7       LightGray, LightGrey, Gray, Grey
-" 8       0*      DarkGray, DarkGrey
-" 9       4*      Blue, LightBlue
-" 10      2*      Green, LightGreen
-" 11      6*      Cyan, LightCyan
-" 12      1*      Red, LightRed
-" 13      5*      Magenta, LightMagenta
-" 14      3*      Yellow, LightYellow
-" 15      7*      White
-
-
-" OpenBSD terminal requires ctermbg=NONE or equivalent.
-hi Normal ctermfg=NONE ctermbg=NONE
-highlight LineNr cterm=NONE ctermfg=NONE ctermbg=NONE
-hi string ctermfg=NONE ctermbg=NONE
-
-" au VimEnter * syntax keyword Statement lambda conceal cchar=λ
-" au VimEnter * hi! link Conceal Statement
-" au VimEnter * set conceallevel=2
-
-hi StatusLine                  ctermfg=3     ctermbg=NONE     cterm=NONE
-" hi markdownItalic              ctermfg=NONE ctermbg=NONE cterm=NONE
-hi goString ctermfg=11 ctermbg=0 cterm=NONE
-
-hi goFunction ctermfg=2 ctermbg=NONE
-hi goTypeName ctermfg=2 ctermbg=NONE
-hi link goDecimalInt   Normal
-hi link goSignedInts   Normal
-hi link goUnsignedInts Normal
-hi link goBoolean      Normal
-hi link goType         Normal
-hi link goTypeConstructor Normal
-hi link goReceivertype    Normal
-hi link goRawString    String
-hi link Constant       String
-hi link goFormatSpecifier Normal
-hi link goEscapeC      Normal
-hi link markdownItalic Normal
-hi link PreProc        String
-hi link shDerefVar     String
-hi link Identifier     Normal
-hi link Special        Normal
-hi link Statement      Normal
-hi link goComment      Comment
-
-hi Special ctermfg=12 ctermbg=8
-hi! Operator ctermfg=Blue ctermbg=8
-
-" Tagbar
-hi TagbarKind ctermfg=NONE cterm=NONE
-hi TagbarScope ctermfg=NONE cterm=NONE
-hi TagbarSignature ctermfg=NONE cterm=NONE
-hi TagbarType ctermfg=NONE cterm=NONE
-hi ErrorMsg ctermfg=NONE cterm=NONE
 
 "
 " KEYS
@@ -157,9 +105,8 @@ hi ErrorMsg ctermfg=NONE cterm=NONE
 
 let mapleader = "\<Space>"
 
-map <leader>g :Commentary<cr>
+map <leader>c :Commentary<cr>
 
-" File, tag and buffer management
 map <leader>/ :TagbarToggle<cr>
 map <leader>n :NERDTreeToggle<cr>
 map <leader>. :bn<cr>
@@ -178,67 +125,14 @@ nnoremap <leader>a :cclose<CR>
 nnoremap <leader>N :cnext<CR>
 nnoremap <leader>P :cprevious<CR>
 
-
-"" Go settings
-au FileType go nmap <leader>r <Plug>(go-run)
-
-" Use JavaScript syntax highlighting for JSON
-autocmd BufNewFile,BufRead *.json set ft=javascript
-
-
-""
-"" FUNCTIONS
-""
-
-function! GetSyntaxID()
-  return synID(line('.'), col('.'), 1)
-endfunction
-
-function! GetSyntaxParentID()
-  return synIDtrans(GetSyntaxID())
-endfunction
-
-function! GetSyntax()
-  echo synIDattr(GetSyntaxID(), 'name')
-  exec "hi ".synIDattr(GetSyntaxParentID(), 'name')
-endfunction
-
-
-""
-"" TESTING AREA
-""
-
-map <leader>c :Commentary<cr>
-map <leader>t :GoTest<cr>
-"" Navigate splits using <leader>{h,l,j,k}
 map <leader>h <C-w>h
 map <leader>l <C-w>l
 map <leader>j <C-w>j
 map <leader>k <C-w>k
 
-set fillchars+=vert:\|
-hi clear VertSplit
-hi clear StatusLineNC
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>t :GoTest<cr>
 
-" Do not use swapfiles or backup files.
-"
-set noswapfile
-set nobackup
-let g:go_fmt_command = "goimports"
-let g:go_autodetect_gopath = 1
-let g:go_list_type = "quickfix"
-
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_interfaces = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_generate_tags = 1
-
-" Open :GoDeclsDir with ctrl-g
 nmap <C-g> :GoDeclsDir<cr>
 imap <C-g> <esc>:<C-u>GoDeclsDir<cr>
 augroup go
@@ -263,14 +157,28 @@ autocmd FileType go nmap <Leader>v <Plug>(go-def-vertical)
 autocmd FileType go nmap <Leader>s <Plug>(go-def-split)
 augroup END
 
+autocmd BufNewFile,BufRead *.json set ft=javascript
 
-" Tmux {{{
-" allows cursor change in tmux mode
-if exists('$TMUX')
-    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-else
-    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-endif
-" }}}
+
+"
+" FUNCTIONS
+"
+
+function! GetSyntaxID()
+  return synID(line('.'), col('.'), 1)
+endfunction
+
+function! GetSyntaxParentID()
+  return synIDtrans(GetSyntaxID())
+endfunction
+
+function! GetSyntax()
+  echo synIDattr(GetSyntaxID(), 'name')
+  exec "hi ".synIDattr(GetSyntaxParentID(), 'name')
+endfunction
+
+
+"
+" TESTING AREA
+"
+
