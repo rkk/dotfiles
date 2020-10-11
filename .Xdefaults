@@ -37,7 +37,7 @@
 !! cyan dark/light
 *color6:                #259286
 *color14:               #819090
- 
+
 !! white dark/light
 *color7:                #eae3cb
 *color15:               #fcf4dc
@@ -49,7 +49,6 @@
 
 XTerm*boldColors: false
 XTerm*locale: true
-!! UTF-8 values: 1 or 2
 !! Copy selection to X CLIPBOARD and X PRIMARY.
 XTerm*selectToClipboard: true
 XTerm*scrollBar: false
@@ -61,7 +60,22 @@ XTerm*scrollBar: false
 
 Xft*antialias: true
 Xft*dpi: 96
-urxvt.scrollBar: false
-urxvt*tintColor: Gray
-urxvt*shading: 20
-urxvt*fading: 0
+
+URxvt.scrollBar: false
+URxvt.tintColor: Gray
+URxvt*shading: 20
+URxvt*fading: 0
+URxvt.boldColors: false
+URxvt.letterSpace: 0
+URxvt.font: xft:Go Mono:size=10
+URxvt.boldFont: xft:Go Mono:size=10
+URxvt.iso14755: false
+URxvt.iso14755_52: false
+URxvt*internalBorder:       8
+URxvt*matcher.button:       3
+URxvt*matcher.rend.0:       Uline Bold fg5
+
+!urxvt*perl-lib: /home/rkk/lib/urxvt
+URxvt.perl-ext: matcher,plumb
+URxvt.perl-ext-common: selection-to-clipboard
+URxvt.url-launcher: /usr/bin/xdg-open
