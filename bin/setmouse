@@ -1,39 +1,33 @@
 #!/bin/bash
+#
+# Configure an Evoluent VerticalMouse 3 mouse for use in X11. Does nothing
+# if no Evoluent mouse is found.
+#
+# The buttons on the Evoluent VerticalMouse are unusually delicate
+# to configure in X11 using Xinput as both button actions and button
+# IDs are numerical, and Xinput thus uses positional arguments which
+# is awful.
+
+# Xinput action IDs.
+NO_ACTION="0"
+LEFT_CLICK="1"
+RIGHT_CLICK="2"
+MIDDLE_CLICK="3"
+SCROLL_UP="4"
+SCROLL_DOWN="5"
+
+has_evo="$(xinput list | grep Evoluent)"
+if [ "${?}" -eq 1 ]; then
+	exit 0
+fi
+
 mouse_id=$(xinput list | grep Evoluent | grep -o 'id=[0-9]*' | grep -o '[0-9]*')
+if [ "x${mouse_id}" = "x" ]; then
+	exit 0
+fi
 
-# Layout of Evoluent VerticalMouse 3 vs. Xinput positions,
-#
-# Top button near the thumb : 9
-# Top index finger button   : 1
-# Scroll wheel click        : 2
-# Scroll wheel downwards    : 5
-# Scroll wheel upwards      : 4
-# Middle finger button      : 3
-# Ring finger bottom button : 8
-#
-# Layout of the Xinput button actions vs numerical IDs,
-#
-# No action    : 0
-# Normal click : 1
-# Right click  : 2
-# Middle click : 3
-# Scroll up    : 4
-# Scroll down  : 5
+# Button position                  | Top button   | Scroll click | Middle         | Scroll up   | Scroll down    | None         | None         | Ring finger    | Top thumb
+# ---------------------------------|--------------|--------------|----------------|-------------|----------------|--------------|--------------|----------------|------------------
+xinput set-button-map "${mouse_id}"  ${NO_ACTION}   ${NO_ACTION}   ${NO_ACTION}     ${NO_ACTION}  ${NO_ACTION}     ${NO_ACTION}   ${NO_ACTION}   ${NO_ACTION}     ${NO_ACTION}
+xinput set-button-map "${mouse_id}"  ${LEFT_CLICK}  ${NO_ACTION}   ${RIGHT_CLICK}   ${SCROLL_UP}  ${SCROLL_DOWN}   ${NO_ACTION}   ${NO_ACTION}   ${MIDDLE_CLICK}  ${RIGHT_CLICK}
 
-
-# Reset all buttons.
-xinput set-button-map "${mouse_id}" 0 0 0 0 0 0 0 0 0 
-
-# Set the needed buttons.
-xinput set-button-map "${mouse_id}" 1 0 2 4 5 0 0 3 2 
-#                                 | | | | | | | | |
-#  POSITION: BUTTON NAME          | | | | | | | | |
-#  1: Top button -----------------+ | | | | | | | |
-#  2: Scroll wheel click -----------+ | | | | | | |
-#  3: Middle finger button -----------+ | | | | | |
-#  4: Scroll wheel upwards -------------+ | | | | |
-#  5: Scroll wheel downwards -------------+ | | | |
-#  6: None ---------------------------------+ | | |
-#  7: None -----------------------------------+ | |
-#  8: Ring finger bottom button ----------------+ |
-#  9: Top button near the thumb ------------------+
