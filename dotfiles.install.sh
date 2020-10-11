@@ -15,7 +15,7 @@ function install_linux {
     fi
 
     apt_packages="tmux vim ruby git i3-wm i3status i3lock"
-    apt_packages="${apt_packages} dmenu curl mutt"
+    apt_packages="${apt_packages} dmenu curl"
     apt_packages="${apt_packages} whois autotools-dev automake libevent-dev"
     apt_packages="${apt_packages} libncurses5-dev exuberant-ctags"
     apt_packages="${apt_packages} python-pip xclip"
@@ -24,9 +24,8 @@ function install_linux {
     apt_packages="${apt_packages} sakura xterm newsbeuter"
     apt_packages="${apt_packages} firefox-esr qutebrowser w3m jq net-tools"
     apt_packages="${apt_packages} dnsutils coreutils gzip zip unzip bzip2 xz-utils"
-    apt_packages="${apt_packages} weechat weechat-python python-websocket xautolock"
-    apt_packages="${apt_packages} mc firmware-misc-nonfree libx11-dev brightnessctl".
-    apt_packages="${apt_packages} pandoc lemonbar"
+    apt_packages="${apt_packages} xautolock mc firmware-misc-nonfree libx11-dev brightnessctl".
+    apt_packages="${apt_packages} pandoc autocutsel zathura bspwm docker.io docker-doc"
 
     sudo apt-get update
     for package in ${apt_packages}
@@ -41,7 +40,6 @@ function install_linux {
     sudo apt autoremove
     sudo apt autoclean
     sudo apt clean
-
     install_dvorarkk
     install_go_fonts
     install_microsoft_fonts
@@ -50,11 +48,11 @@ function install_linux {
     install_vscode_linux
 
     setup_newsbeuter
-    setup_weechat_slack
     setup_git_aliases
     setup_firefox
     setup_vim
     setup_vscode
+    setup_zathura
 
     echo ""
     echo "Done."
@@ -280,20 +278,6 @@ function setup_newsbeuter {
     fi
 }
 
-# Set up Weechat with Slack integration.
-function setup_weechat_slack {
-    if [ ! -d "${HOME}/.weechat/python/autoload" ]; then
-        mkdir -p "${HOME}/.weechat/python/autoload"
-        curl -sSL "https://raw.githubusercontent.com/wee-slack/wee-slack/master/wee_slack.py" > "${HOME}/.weechat/python/wee_slack.py"
-        ln -s "${HOME}/.weechat/python/wee_slack.py" "${HOME}/.weechat/python/autoload/wee_slack.py"
-        echo "IMPORTANT: Weechat needs your Slack API keys"
-        echo "IMPORTANT: Run 'weechat', load the wee_slack module: '/python load wee_slack.py'"
-        echo "IMPORTANT: In Weechat, open the register URL: '/slack register'"
-        echo "IMPORTANT: Copy the 'code' URL parameter from the failing URL (is expected) in your browser"
-        echo "IMPORTANT: In Weechat, register the code: '/slack register <paste the code>'"
-        echo ""
-    fi
-}
 
 # Set up Git aliases; avoid changing the Git config file directly.
 function setup_git_aliases {
@@ -425,6 +409,12 @@ function setup_xdg {
         mkdir -p "${XDG_CONFIG_HOME}"
     fi
     export XDG_CONFIG_HOME
+}
+
+
+# Set up Zathura as default PDF reader.
+function setup_zathura {
+	xdg-mime default zathura.desktop application/pdf
 }
 
 
