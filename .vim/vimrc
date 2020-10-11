@@ -84,6 +84,18 @@ let g:go_highlight_generate_tags = 1
 "
 set background=light
 colorscheme porter
+
+" Reset values.
+hi clear goTypeName
+hi clear goFunction
+hi clear Identifier
+hi clear Special
+hi clear Statement
+hi clear Normal
+hi clear Constant
+hi clear Operator
+hi clear Comment
+
 set fillchars+=vert:\|
 
 
