@@ -5,7 +5,7 @@
 dumpfile="${HOME}/acme.dump"
 fixedfont="/mnt/font/GoMono/10a/font"
 variablefont="/mnt/font/GoRegular/12a/font"
-
+acme="acme"
 
 export SHELL="/bin/bash"
 export GOPATH="${HOME}/go"
@@ -27,6 +27,7 @@ else
 	if [ -f "${HOME}/lib/plumbing" ]; then
 		rules="${HOME}/lib/plumbing"
 	fi
+	# shellcheck disable=SC2002
 	cat "${rules}" | 9p write plumb/rules
 fi
 
@@ -42,4 +43,4 @@ if [ -f "${dumpfile}" ]; then
 	dumpparm="-l ${dumpfile}"
 fi
 
-acme -a -b -f "${fixedfont}" -F "${variablefont}" ${dumpparm} "$1" &
+${acme} -a -b -f "${fixedfont}" -F "${variablefont}" "${dumpparm}" "$1" &
