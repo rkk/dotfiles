@@ -1,22 +1,66 @@
 #!/bin/bash
 #
-# Undock the computer, disabling external monitors.
+# Undock the computer, disabling external monitors and using
+# only the internal display.
 
 DISPLAY_INTERNAL="eDP-1"
-echo "Moving desktops to internal display..."
-i3-msg "move workspace fyrsta to output ${DISPLAY_INTERNAL}"
-i3-msg "move workspace annað to output ${DISPLAY_INTERNAL}"
-i3-msg "move workspace þriðja to output ${DISPLAY_INTERNAL}"
-i3-msg "move workspace fjórða to output ${DISPLAY_INTERNAL}"
 
-echo "Disabling external monitors"
-monitors=$(xrandr -q | grep " connected" | cut -d\  -f1)
-for i in ${monitors}; do
-    if [ ! "${i}" = "${DISPLAY_INTERNAL}" ]; then
-        xrandr --output "${i}" --off
-    fi
-done
-xrandr --output ${DISPLAY_INTERNAL} --auto --primary
-echo "Configuring keyboard..."
-~/bin/setdvorarkk
-echo "Done."
+# Move all i3 desktops to the internal display.
+i3_update() {
+    i3-msg "move workspace fyrsta to output ${DISPLAY_INTERNAL}"
+    i3-msg "move workspace annað to output ${DISPLAY_INTERNAL}"
+    i3-msg "move workspace þriðja to output ${DISPLAY_INTERNAL}"
+    i3-msg "move workspace fjórða to output ${DISPLAY_INTERNAL}"
+}
+
+# Set the keyboard layout.
+keyboard_update() {
+    if [ -f "${HOME}/bin/setdvorarkk" ]; then
+	    ${HOME}/bin/setdvorarkk
+	fi
+}
+
+# Disable all external monitors.
+monitor_update() {
+    monitors=$(xrandr -q | grep " connected" | cut -d\  -f1)
+    for i in ${monitors}
+    do
+        if [ ! "${i}" = "${DISPLAY_INTERNAL}" ]; then
+            xrandr --output "${i}" --off
+        fi
+    done
+    xrandr --output ${DISPLAY_INTERNAL} --auto --primary
+}
+
+# Move all bspwm desktops to the internal display.
+bspwm_update() {
+	desktops=$(bspc query -D)
+	for i in ${desktops}
+	do
+		bspc desktop ${i} --to-monitor ${DISPLAY_INTERNAL}
+	done
+    monitors=$(bspc query -M --names)
+    for m in ${monitors}
+    do
+        if [ ! "${m}" = "${DISPLAY_INTERNAL}" ]; then
+            bspc monitor "${m}" --remove
+        fi
+    done
+	echo "Done."
+}
+
+ignore=$(pgrep bspwm)
+if [ ${?} -eq 0 ]; then
+	bspwm_update
+	monitor_update
+	keyboard_update
+	exit 0
+fi
+
+ignore=$(pgrep i3)
+if [ ${?} -eq 0 ]; then
+	i3_update
+	monitor_update
+	keyboard_update
+	exit 0
+fi

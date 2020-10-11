@@ -3,48 +3,141 @@
 # Dock the computer, configure the displays in the
 # following layouts,
 #
-#
 # Office:
 #
 #             +-----+
 #    +------+ | TWO |
 #    | ONE  | |     |
-#    |      | |     |
-#    +------+ +-----+
+#    +------+ |     |
+#             +-----+
 #
-# Built-in display disabled.
+# Where ONE is the primary monitor (TBD) in landscape mode,
+# and TWO is the secondary monitor (TBD) in portrait mode.
+# The built-in display is disabled.
+#
 #
 # Home:
 #
 #   +-------+
-#   | MON-1 |
-#   +-------+
+#   |  ONE  | +-----+
+#   +-------+ | INT |
+#             +-----+
 #
-# Built-in display disabled.
+# Where ONE is the primary monitor (1680x1050) in landscape
+# mode and INT is the built-in display (1920x1080).
 #
+#
+# Meeting:
+#
+#   +-----+ +-------+
+#   | INT | | ONE   |
+#   +-----+ |       |
+#           +-------+
+#
+# Where INT is the primary monitor (automatic resolution) in landscape
+# mode and ONE is the external monitor or TV (automatic resolution).
 
 DISPLAY_INTERNAL="eDP-1"
-DISPLAY_EXTERNAL_ONE="HDMI-2"
+DISPLAY_EXTERNAL_HOME_ONE="DP-2-1"
+DISPLAY_EXTERNAL_OFFICE_ONE="DP-2-2"
+DISPLAY_EXTERNAL_OFFICE_TWO="DP-2-3"
+DISPLAY_EXTERNAL_MEETING_ONE="HDMI-2"
+script=$(basename "${0}")
 
-DISPLAY_EXTERNAL_OFFICE_ONE="DP-2-3"
-DISPLAY_EXTERNAL_OFFICE_TWO="DP-2-2"
+home_layout() {
+    echo "Home mode enabled."
+    xrandr \
+        --output "${DISPLAY_EXTERNAL_HOME_ONE}" --primary --auto \
+        --output "${DISPLAY_INTERNAL}" --auto --right-of "${DISPLAY_EXTERNAL_HOME_ONE}"
+    ~/bin/setdvorarkk
+    xrandr \
+        --output "${DISPLAY_EXTERNAL_HOME_ONE}" --primary --auto \
+        --output "${DISPLAY_INTERNAL}" --off
+}
 
+
+i3_office_layout() {
+    xrandr \
+        --output "${DISPLAY_EXTERNAL_OFFICE_ONE}" --primary --auto \
+        --output "${DISPLAY_EXTERNAL_OFFICE_TWO}" --auto --right-of "${DISPLAY_EXTERNAL_OFFICE_ONE}" --rotate left \
+        --output "${DISPLAY_INTERNAL}" --off
+
+    i3-msg "move workspace 4 to output ${DISPLAY_EXTERNAL_OFFICE_TWO}"
+    i3-msg "move workspace 3 to output ${DISPLAY_EXTERNAL_OFFICE_ONE}"
+    i3-msg "move workspace 2 to output  ${DISPLAY_EXTERNAL_OFFICE_ONE}"
+    i3-msg "move workspace 1 to output ${DISPLAY_EXTERNAL_OFFICE_ONE}"
+	~/bin/setdvorarkk
+	~/bin/setmouse
+}
+
+
+bspwm_office_layout() {
+    xrandr \
+        --output "${DISPLAY_EXTERNAL_OFFICE_ONE}" --primary --auto \
+        --output "${DISPLAY_EXTERNAL_OFFICE_TWO}" --auto --right-of "${DISPLAY_EXTERNAL_OFFICE_ONE}" --rotate left \
+        --output "${DISPLAY_INTERNAL}" --off
+
+    desktops=$(bspc query -D)
+    for i in ${desktops}
+    do
+        bspc desktop "${i}" --to-monitor "${DISPLAY_EXTERNAL_OFFICE_ONE}"
+    done
+    last_one="$(bspc query -D | tail -n1)"
+    if [ "${last_one}" != "" ]; then
+        bspc desktop "${last_one}" --to-monitor "${DISPLAY_EXTERNAL_OFFICE_TWO}"
+    fi
+    sh ~/.config/bspwm/bspwmrc &
+}
+
+
+
+meeting_layout() {
+    xrandr \
+        --output "${DISPLAY_INTERNAL}" --primary --auto \
+        --output "${DISPLAY_EXTERNAL_MEETING_ONE}" --auto --right-of "${DISPLAY_INTERNAL}" \
+	~/bin/setdvorarkk
+	~/bin/setmouse
+}
+
+
+wm_is_bspwm=0
+wm_is_i3=0
+
+if pgrep bspwm; then
+    wm_is_bspwm=1
+fi
+
+if pgrep i3; then
+    wm_is_i3=1
+fi
 
 if [ "x${1}" = "xhome" ]; then
-    echo "Home mode enabled."
-    xrandr --output "${DISPLAY_INTERNAL}" --off --output "${DISPLAY_EXTERNAL_ONE}" --primary
-    ~/bin/setdvorarkk
+    home_layout
     exit 0
 fi
 
 if [ "x${1}" = "xoffice" ]; then
-	echo "Office mode enabled"
-	xrandr \
-		--output "${DISPLAY_EXTERNAL_OFFICE_ONE}" --auto --primary --right-of "${DISPLAY_INTERNAL}" \
-		--output "${DISPLAY_EXTERNAL_OFFICE_TWO}" --auto --right-of "${DISPLAY_EXTERNAL_OFFICE_ONE}" --rotate left \
-		--output ${DISPLAY_INTERNAL} --off
-	~/bin/setdvorarkk
-	~/bin/setmouse
+    if [ ${wm_is_i3} -eq 1 ]; then
+        i3_office_layout
+        exit 0
+    fi
+
+    if [ "${wm_is_bspwm}" -eq 1 ]; then
+        bspwm_office_layout
+        exit 0
+    fi
+fi
+
+if [ "x${1}" = "xmeeting" ]; then
+	meeting_layout
 	exit 0
 fi
 
+
+
+echo "Usage: ${script} LOCATION"
+echo ""
+echo "  home    - Home setup with a single external monitor and the internal monitor."
+echo "  office  - Office setup with two external monitors, internal monitor disabled."
+echo "  meeting - Meeting setup with a single external monitor and the internal monitor."
+echo ""
