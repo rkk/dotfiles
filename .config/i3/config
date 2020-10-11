@@ -1,59 +1,60 @@
-# vi: ft=i3
-
 #
-# COLORS
+# VOCABULARY
 #
 
-set $bg_solar #fdf6e3
-set $bg_porter #ffffea
-set $fg_porter #121212
-set $contrast_porter #eaffff
-set $fg_solar #657b83
-set $gray     #666666
-set $brown    #b58900
-set $white    #ffffff
-set $black    #000000
-set $red      #990000
-set $blue     #007fbf
-
-set $bg_cde     #fff7e9
-set $cde_pink   #b24d7a
-set $cde_purple #afadbf
-set $cde_dim    #202020
-set $cde_bg_dim #9e9caf
+# i3 term  : description
+# ---------:------------
+# workspace: desktop
+# output   : monitor
+# container: window
 
 
 #
-# APPLICATIONS
+# APPEARANCE
 #
 
-set $terminal_app     "sakura"
-set $app_launcher     "dmenu_run -nb '#ffffea' -nf '#000000' -sb '#eaffff' -sf '#121212' -fn 'GoRegular' -l 10"
-set $status_app       "i3status"
+set $gray             #666666
+set $brown            #b58900
+set $white            #ffffff
+set $black            #000000
+set $red              #990000
+set $blue             #007fbf
 
+set $acme_yellow      #ffffea
+set $acme_purple      #8888cc
+set $acme_light_cyan  #9eefef
+set $acme_cyan        #eaffff
+set $acme_dark_cyan   #55aaaa
+set $acme_dark_gray   #757575
 
-#
-# WORKSPACES
-#
+# Values 12
+gaps inner 15
+# Values -2
+gaps outer 15
+# Values 0
+gaps bottom 0
+# Values 10
+gaps top 36
+smart_gaps on
 
-set $term_workspace  workspace 1
-set $web_workspace   workspace 2
-#set $msg_workspace   workspace 3
-#set $extra_workspace workspace 4
+# Values 0
+for_window [class="^.*"] border pixel 3
+
+new_window	          pixel 0
+font                  xft:GoRegular 8
 
 bar {
-    # Options: dock hide invisible
-    # mode dock
     hidden_state hide
-    font pango:Noto Sans Regular 6
+    #font pango:Noto Sans Regular 8
+    font Terminus 8
     colors {
-        background         $bg_porter
-        statusline         $fg_porter
-		separator          $bg_porter
-        focused_workspace  $fg_porter     $contrast_porter       $fg_solar
-        active_workspace   $bg_porter     $bg_porter             $fg_porter
-        inactive_workspace $bg_porter     $bg_porter             $cde_dim
-        urgent_workspace   $red           $red                   $white
+        background         $acme_dark_gray
+        statusline         $acme_yellow
+		separator          $acme_dark_gray
+        focused_workspace  $acme_dark_gray     $acme_dark_gray    $acme_yellow
+        active_workspace   $acme_dark_gray     $acme_dark_gray    $acme_dark_gray
+        inactive_workspace $acme_dark_gray     $acme_dark_gray    $acme_dark_gray
+        urgent_workspace   $red                $red               $white
     }
     position bottom
     status_command $status_app
@@ -61,132 +62,87 @@ bar {
     workspace_buttons yes
 }
 
-#                BORDER BACKGROUND  TEXT    INDICATOR    CHILD-BORDER
-client.focused   $bg_porter  $bg_porter       $white
-client.unfocused $bg_porter  $bg_porter       $white
-client.urgent    $red   $red        $white
+# Property                Border          Background       Text       Indicator     Child border
+client.focused            $black          $acme_dark_gray  #ffffff    #2e9ef4       $acme_dark_cyan
+client.focused_inactive   $acme_yellow    $acme_dark_gray  #ffffff    #2e9ef4       $acme_dark_gray
+client.unfocused          $acme_dark_gray #222222          #888888    #292d2e       $acme_dark_gray
 
-#hide_edge_borders	both
-new_window	        pixel 3
-
-font xft:Go 6
 
 #
-# APPLICATION BEHAVIOR
+# BEHAVIOR
 #
 
-# Workspace layout:
-#   1: Terminals
-#   2: Browsers
-#   3: Messaging
+set $status_app       "i3status"
+set $first            workspace 1
+set $second           workspace 2
+set $third            workspace 3
+set $fourth           workspace 4
+
+for_window [class="feh"]          floating enable
+for_window [class="teams"]        floating enable
+for_window [class="virt-manager"] floating enable
+#assign [class="qutebrowser"]      $fourth
+
 
 
 #
 # KEYS
 #
 
-# Use Alt as main modifier.
-set $mod Mod1
-
-# Drag floating windows using Mouse+$mod.
+set $mod Mod4
+set $alt_mod Mod1
 floating_modifier $mod
 
-# Moved to sxhkd.
-#bindsym $mod+Shift+Return exec $terminal_app
-
-# Close focused window, Mac OS X compatible.
-#bindsym $mod+q kill
-
-# Application launcher.
-bindsym ctrl+space       exec $app_launcher
-
-# Show windows.
-bindsym $mod+Tab exec --no-startup-id rofi -show window
-
-# Lock screen using xlock.
-bindsym ctrl+shift+$mod+l exec --no-startup-id xlock
-
-# Toggle window borders.
-bindsym $mod+b border toggle
-
-# Change focus.
 bindsym $mod+h focus left
-bindsym $mod+t focus down
-bindsym $mod+n focus up
-bindsym $mod+s focus right
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
-# Move focused window.
 bindsym $mod+Shift+h move left
-bindsym $mod+Shift+t move down
-bindsym $mod+Shift+n move up
-bindsym $mod+Shift+s move right
-
-# Alternatively, use cursor keys.
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 bindsym $mod+v split v
+bindsym $mod+Shift+v split h
 bindsym $mod+f fullscreen
-
-bindsym $mod+o layout      stacking
-bindsym $mod+comma layout  tabbed
-bindsym $mod+period layout toggle split
-
 bindsym $mod+Shift+space floating toggle
+bindsym $mod+space exec "rofi -show window"
 
-bindsym $mod+Return move scratchpad
+bindsym $mod+1 $first
+bindsym $mod+2 $second
+bindsym $mod+3 $third
+bindsym $mod+4 $fourth
+bindsym $mod+Shift+1 move container to $first
+bindsym $mod+Shift+2 move container to $second
+bindsym $mod+Shift+3 move container to $third
+bindsym $mod+Shift+4 move container to $fourth
 
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
-bindsym $mod+Shift+3 move container to workspace 3
-bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+$alt_mod+h move workspace to output left
+bindsym $mod+$alt_mod+l move workspace to output right
 
-bindsym $mod+Shift+j reload
-
-bindsym $mod+Shift+p restart
-
-bindsym $mod+Shift+period exec "i3-nagbar -t warning -m 'Exit i3?' -b 'Yes, exit i3' 'i3-msg exit'"
-
-# Resize window right/left; same shortcut as Amethyst on MacOS X.
-bindsym $mod+Shift+l  resize grow width 1 px or 1 ppt
-
-
-# Resize mode.
 bindsym $mod+r mode "resize"
 mode "resize" {
-    bindsym h resize shrink width 10 px or 10 ppt
-    bindsym t resize grow height 10 px or 10 ppt
-    bindsym n resize shrink height 10 px or 10 ppt
-    bindsym s resize grow width 10 px or 10 ppt
-
     bindsym Left resize shrink width 10 px or 10 ppt
     bindsym Down resize grow height 10 px or 10 ppt
     bindsym Up resize shrink height 10 px or 10 ppt
     bindsym Right resize grow width 10 px or 10 ppt
-
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 
-bindsym XF86Launch1 exec 'locker'
 
 #
 # EXEC
 #
 
-exec --no-startup-id xsetroot -solid black
+exec --no-startup-id xsetroot -solid "#757575"
 exec --no-startup-id xautolock -locker $HOME/bin/afk
 
 exec /usr/bin/xrdb -merge $HOME/.Xdefaults
-exec xhost +
-exec /home/rkk/bin/setdvorarkk
-# Simple X Hotkey Daemon (sxhkd) now handles all generic WM and application keys.
+exec $HOME/bin/setdvorarkk
 exec /usr/bin/sxhkd &
+#exec /usr/bin/autocutsel -s PRIMARY -f
 
 
+hide_edge_borders vertical

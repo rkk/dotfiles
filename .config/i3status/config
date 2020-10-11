@@ -11,5 +11,5 @@ battery 0 {
 }
 
 time {
-    format = "%H:%M"
+    format = " "
 }
