@@ -1,0 +1,34 @@
+#!/bin/bash
+#
+# Adds toolbar commands to the ACME tag bar for all open windows
+# with a simple general toolbar for all filetypes and specific
+# commands for specific filetypes.
+# Requires ACME, Plan9Port and the scripts mentioned in the bar_scripts
+# variable, both installed and available in $PATH.
+
+all_tag=":0 :$ win |Upcase"
+bar_scripts="Gobar Shbar"
+
+if [ "x${1}" = "xclear" ]; then
+	all_tag=" "
+fi
+
+for n in "${bar_scripts}"
+do
+    ignore=$(${n})
+    if [ ${?} -ne 0 ]; then
+    	echo "Script ${n} failed"
+    fi
+done
+
+windows=$(9p ls acme | grep ^[0-9])
+
+for n in ${windows}
+do
+	t="$(9p read acme/${n}/tag)"
+	f="$(echo ${t} | cut -d\  -f1)"
+	p="$(echo ${t} | grep win)"
+	if [ ! "${f}" = "" ] && [ "${p}" = "" ]; then
+		echo -n " ${all_tag} ${go_tag}" | 9p write acme/${n}/tag
+	fi
+done

@@ -1,0 +1,11 @@
+#!/bin/bash
+#
+# To be executed from within ACME: Runs Shellcheck on the file
+# of the current window, displaying the output in the +Errors buffer.
+
+if [ "x${samfile}" = "x" ]; then
+	exit 1
+fi
+
+
+shellcheck --color=never --format=gcc "${samfile}"

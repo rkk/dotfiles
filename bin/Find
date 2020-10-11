@@ -1,0 +1,3 @@
+#!/bin/bash
+ag --nocolor --noheading $* | 9p write acme/new/body
+namelast "Find"

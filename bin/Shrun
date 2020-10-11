@@ -1,0 +1,11 @@
+#!/bin/bash
+#
+# To be executed from within ACME: Runs the file of the current
+# window in with the given arguments, if any. Use the parameter -x
+# to run in debug mode.
+
+if [ "x${samfile}" = "x" ]; then
+	exit 1
+fi
+
+/bin/bash "${samfile}" ${@}

@@ -1,0 +1,26 @@
+#!/bin/bash
+#
+# Adds shell-related commands to the ACME tag bar for the currently
+# selected window in ACME.
+# Requires ACME, Plan9Port and the scripts mentioned in sh_tag, both
+# installed and in $PATH.
+
+all_tag=":0 :$ win . .."
+sh_tag="Shcheck Shrun"
+
+if [ "x${1}" = "xclear" ]; then
+	sh_tag=" "
+	all_tag=" "
+fi
+
+# Only latest window; cannot filter shell-windows only.
+windows=$(9p ls acme | sort -g | tail -n 1)
+
+for n in ${windows}
+do
+	t="$(9p read acme/${n}/tag)"
+	p="$(echo ${t} | grep Shheck)"
+	if [ "${p}" = "" ]; then
+		echo -n " ${all_tag} ${sh_tag}" | 9p write acme/${n}/tag
+	fi
+done

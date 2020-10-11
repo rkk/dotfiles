@@ -1,0 +1,4 @@
+#!/bin/bash
+#
+# Vanilla tr does not support æøå, thus hard coded here.
+tr '[a-z]' '[A-Z]' $* | sed -e 's/å/Å/g' -e 's/ø/Ø/g' -e 's/æ/Æ/g'

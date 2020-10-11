@@ -1,0 +1,10 @@
+#!/bin/bash
+#
+# To be executed from within ACME: Runs the file of the current
+# window with the given arguments, if any.
+
+if [ "x${samfile}" = "x" ]; then
+	exit 1
+fi
+
+go run "${samfile}" ${@}

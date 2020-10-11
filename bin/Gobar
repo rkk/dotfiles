@@ -1,0 +1,30 @@
+#!/bin/bash
+#
+# Adds Go-related commands to the ACME tag bar for all
+# open Go windows in ACME.
+# Requires ACME, Plan9Port and the scripts mentioned in go_tag, both
+# installed and in $PATH.
+
+all_tag=":0 :$ win"
+go_tag="Goformat Godefine Gocallers Gobuild Gotest Gorun"
+
+if [ "x${1}" = "xshort" ]; then
+	go_tag="Gobuild Gotest Gorun"
+fi
+
+if [ "x${1}" = "xclear" ]; then
+	go_tag=" "
+	all_tag=" "
+fi
+
+windows=$(9p ls acme | grep ^[0-9])
+
+for n in ${windows}
+do
+	t="$(9p read acme/${n}/tag)"
+	f="$(echo ${t} | cut -d\  -f1 | grep '\.go$')"
+	p="$(echo ${t} | grep win)"
+	if [ ! "${f}" = "" ] && [ "${p}" = "" ]; then
+		echo -n " ${all_tag} ${go_tag} " | 9p write acme/${n}/tag
+	fi
+done
