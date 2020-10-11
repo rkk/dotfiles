@@ -1,45 +1,48 @@
 #! /bin/sh
 
-desk1=First
-desk2=Second
-desk3=Third
-bspc monitor -d $desk1 $desk2 $desk3
-
-
 #
 # APPEARANCE
 #
 
-bspc config normal_border_color  "#eaffff"
-bspc config focused_border_color "#121212"
-bspc config active_border_color  "#ffeb16"
+bspc config normal_border_color  "#55aaaa"
+bspc config focused_border_color "#9eefef"
+bspc config active_border_color  "#9eefef"
 
-bspc config top_padding          2
+# Set top_padding to 2 if not using Polybar; Set to 0 if using Polybar.
+bspc config top_padding          0
 bspc config right_padding        2
 bspc config bottom_padding       12
 bspc config left_padding         0
-bspc config border_width         2
-bspc config window_gap           12
+bspc config border_width         4
+bspc config window_gap           8
 
-bspc config split_ratio          0.52
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
-xsetroot -cursor_name left_ptr
-xsetroot -solid "#808080"
+xsetroot -cursor_name center_ptr
+xsetroot -solid "#757575"
+xrdb -load ~/.Xdefaults &
+~/bin/polybar.sh
 
 
 #
 # BEHAVIOR
 #
 
-# Do not allow applications or mouse movement to steal focus.
-bspc config ignore_ewmh_focus true
+bspc config split_ratio           0.59
+bspc config ignore_ewmh_focus     true
 bspc config focus_follows_pointer false
-
 
 bspc config remove_disabled_monitors      true
 bspc config merge_overlapping_monitors    false
 
-~/bin/melonpanel
-sakura &
+# Sync the X11 clipboards PRIMARY (mouse selection) and CLIPBOARD (copy/paste commands).
+pgrep -x autocutsel || /usr/bin/autocutsel -f -s PRIMARY
+
+bspc rule -a feh floating=on
+bspc rule -a teams state=floating
+
+# Adjust window size and position using the mouse and keys.
+bspc config pointer_modifier mod1
+bspc config pointer_action1 move
+bspc config pointer_action2 resize_corner

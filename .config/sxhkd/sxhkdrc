@@ -2,25 +2,21 @@
 # agnostic experience. Depends on xdotool, custom scripts and is aimed at
 # a specific collection of applications, see "windowactivate" parts.
 
-alt + shift + Return
-	sakura
+super + Return
+    rxvt-unicode
 
 super + shift + Return
-    sakura
+    rxvt-unicode
+
+alt + shift + Return
+    rxvt-unicode
 
 control + space
     dmenu_run -nb '#ffffea' -nf '#000000' -sb '#eaffff' -sf '#121212' -fn 'GoRegular' -l 10
 
-# Note that i3 supports --onlyvisible on all desktops, but BSPWM interprets this as searching
-# only the current desktop.
-control + shift + f
-    xdotool search --classname Chromium windowactivate
-
+# Programming Oriented Keyboard Environment (POKE) - applications.
 control + shift + t
-    xdotool search --classname Sakura windowactivate
-
-control + shift + h
-    xdotool search --classname Slack windowactivate
+    xdotool search --classname rxvt windowactivate
 
 control + shift + l
     xdotool search --classname Code windowactivate
@@ -36,6 +32,15 @@ control + shift + g
 
 control + shift + c
 	xdotool search --classname acme windowactivate
+
+control + shift + f
+    xdotool search --name "Chromium" windowactivate
+
+control + shift + h
+    xdotool search --class Slack windowactivate
+
+control + shift + m
+	xdotool search --name Mozilla windowactivate
 
 super + F1
     amixer set Master toggle
@@ -58,47 +63,74 @@ super + q
 super + Escape
     pkill -USR1 -x sxhkd
 
+super + Prior
+    xdotool click 4
+
+super + Next
+    xdotool click 5
+
+control + shift + d
+    xdotool click 2
+
+
+#
+# CUSTOM CONFIG: i3
+#
+
+# Note: Running SXHKD under i3 *requires* the parameter --onlyvisible in
+# order to work for apps such as Chromium and Slack.
+#
+#control + shift + f
+#    xdotool search --onlyvisible --name "Chromium" windowactivate
+#
+#control + shift + h
+#    xdotool search --onlyvisible --class Slack windowactivate
+#
+#super + shift + Escape
+#    i3-msg reload
+#
+#super + shift + p
+#	i3-msg restart
+#
+#super + shift + period
+#	i3-msg exit
+
+
 
 #
 # CUSTOM CONFIG: BSPWM
 #
 
 super + w
-	bspc node -c
+    bspc node -c
 
 super + f
-	bspc desktop -l next
+    bspc desktop -l next
 
 super + g
-	bspc node -s biggest
+    bspc node -s biggest.local
 
 super + {h,j,k,l}
-	bspc node -f {west,south,north,east}
+    bspc node -f {west,south,north,east}
 
 super + shift + {h,j,k,l}
-	bspc node -s {west,south,north,east}
+    bspc node -s {west,south,north,east}
 
-{super,alt} + {_,shift +} Tab
-	bspc {desktop,node} -f {next,prev}.local
+#alt + {_,shift +} Tab
+#    bspc node -f {next,prev}.local
 
-# Move windows to the First, Second or Third (fst) desktop.
-super + space ; {f,s,t}
-    { \
-    bspc node -d ^1 --follow, \
-    bspc node -d ^2 --follow, \
-    bspc node -d ^3 --follow, \
-    }
+super + Tab
+    bspc window -s last
 
-# Switch to the First, Second or Third (FST) desktop.
-super + space ; {F,S,T}
-	{\
-	bspc desktop -f ^1, \
-	bspc desktop -f ^2, \
-	bspc desktop -f ^3, \
-	}
+
+super + shift + g
+    bspc node -s biggest
 
 super + {Left,Right}
-    bspc desktop -f {next,prev}
+    bspc desktop -f {prev,next}
+
+super + shift + {Left,Right}
+    bspc node -d {next,prev}
 
 super + space ; {r,R}
     bspc node @/ --rotate {90,-90}
@@ -107,29 +139,11 @@ super + space ; g
     bspc node -t ~floating
 
 super + space ; {h,j,k,l}
-	bspc node -s {west,south,north,east}
-
-# Dynamic gaps.
-super + space ; {p,P}
-	bspc config -d window_gap "$(($(bspc config -d window_gap) {-,+} 5 ))"
-
-super + space ; b
-	{ \
-	bspc config top_padding 0
-	bspc config right_padding 0
-	bspc config bottom_padding 0
-	bspc config left_padding 0
-	bspc config window_gap 0
-	bspc config border_width 0
-	}
+    bspc node -s {west,south,north,east}
 
 super + shift + Escape
     sh ~/.config/bspwm/bspwmrc
 
--button1
-    bspc pointer -g focus
-
-super + button1
-    bspc pointer -g resize_corner
-
-
+# Mouse pointer raises focus on window.
+#~button1
+#    bspc pointer -g focus
