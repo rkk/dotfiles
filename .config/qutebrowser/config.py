@@ -20,7 +20,7 @@ c.tabs.show = 'switching'
 c.url.searchengines = {
 	'DEFAULT': 'https://duckduckgo.com/?q={}',
 	'g': 'https://google.com/search?q={}',
-	'r': 'https://www.reddit.com/r/{}',
+	'r': 'https://old.reddit.com/r/{}',
 	'b': 'https://www.bing.com/search?q={}'
 }
 
@@ -81,3 +81,7 @@ for site in javascript_whitelist:
 	with config.pattern(site) as p:
 		p.content.javascript.enabled = True
 
+
+config.set("content.javascript.enabled", False, "file://*")
+config.set("content.javascript.enabled", True, "chrome://*")
+config.set("content.javascript.enabled", True, "qute://*")
