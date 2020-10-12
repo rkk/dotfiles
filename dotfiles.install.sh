@@ -31,6 +31,7 @@ function install_linux {
     apt_packages="${apt_packages} dnsutils coreutils gzip zip unzip bzip2 xz-utils"
     apt_packages="${apt_packages} xautolock mc firmware-misc-nonfree libx11-dev brightnessctl"
     apt_packages="${apt_packages} pandoc autocutsel zathura bspwm docker.io docker-doc xorg-dev"
+    apt_packages="${apt_packages} polybar"
 
     sudo apt-get update
     for package in ${apt_packages}
