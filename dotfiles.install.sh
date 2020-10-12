@@ -9,9 +9,14 @@
 function install_linux {
     TMPDIR=${TMPDIR:-/tmp}
     FONT_ROOT="${HOME}/.local/share/fonts"
+    APT_BACKPORT="/etc/apt/sources.list.d/buster-backports.list"
 
     if [ ! -d "${TMPDIR}" ]; then
         mkdir -p "${TMPDIR}"
+    fi
+
+    if [ ! -f "${APT_BACKPORT}" ]; then
+        echo "deb http://deb.debian.org/debian buster-backports main contrib non-free" | sudo tee -a "${APT_BACKPORT}"
     fi
 
     apt_packages="tmux vim ruby git i3-wm i3status i3lock"
