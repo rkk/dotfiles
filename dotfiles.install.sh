@@ -29,7 +29,7 @@ function install_linux {
     apt_packages="${apt_packages} sakura xterm newsbeuter"
     apt_packages="${apt_packages} firefox-esr qutebrowser w3m jq net-tools"
     apt_packages="${apt_packages} dnsutils coreutils gzip zip unzip bzip2 xz-utils"
-    apt_packages="${apt_packages} xautolock mc firmware-misc-nonfree libx11-dev brightnessctl".
+    apt_packages="${apt_packages} xautolock mc firmware-misc-nonfree libx11-dev brightnessctl"
     apt_packages="${apt_packages} pandoc autocutsel zathura bspwm docker.io docker-doc xorg-dev"
 
     sudo apt-get update
