@@ -1,88 +1,63 @@
+# i3 window manager configuration.
+# Vocabulary:
 #
-# VOCABULARY
-#
-
-# i3 term  : description
+# i3 term  : General term
 # ---------:------------
-# workspace: desktop
-# output   : monitor
-# container: window
+# Workspace: Desktop
+# Output   : Monitor
+# Container: Window
+# Mod1     : Alt key
+# Mod4     : Windows/Apple key
 
 
 #
 # APPEARANCE
 #
 
-set $gray             #666666
-set $brown            #b58900
-set $white            #ffffff
-set $black            #000000
-set $red              #990000
-set $blue             #007fbf
+font                  xft:GoRegular 8
+set $rio_unfocused    #9eefef
+set $rio_focused      #55aaaa
+set $rio_background   #757575
 
-set $acme_yellow      #ffffea
-set $acme_purple      #8888cc
-set $acme_light_cyan  #9eefef
-set $acme_cyan        #eaffff
-set $acme_dark_cyan   #55aaaa
-set $acme_dark_gray   #757575
+# Property                Border          Background       Text           Indicator      Child border
+client.focused            $rio_focused    $rio_background  $rio_focused   $rio_focused   $rio_focused
+client.focused_inactive   $rio_unfocused  $rio_unfocused   $rio_unfocused $rio_unfocused $rio_unfocused
+client.unfocused          $rio_unfocused  $rio_unfocused   $rio_unfocused $rio_unfocused $rio_unfocused
 
-# Values 12
+
+#
+# GAPS
+#
+
+# Previous values: 12
 gaps inner 15
-# Values -2
-gaps outer 15
-# Values 0
+
+# Previous values -2
+gaps outer -2
+
+# Previous values: 0
 gaps bottom 0
-# Values 10
-gaps top 36
+
+# Previous values: 10
+gaps top 0
 smart_gaps on
 
-# Values 0
-for_window [class="^.*"] border pixel 3
-
+for_window [class="^.*"] border pixel 4
 new_window	          pixel 0
-font                  xft:GoRegular 8
-
-bar {
-    hidden_state hide
-    #font pango:Noto Sans Regular 8
-    font Terminus 8
-    colors {
-        background         $acme_dark_gray
-        statusline         $acme_yellow
-		separator          $acme_dark_gray
-        focused_workspace  $acme_dark_gray     $acme_dark_gray    $acme_yellow
-        active_workspace   $acme_dark_gray     $acme_dark_gray    $acme_dark_gray
-        inactive_workspace $acme_dark_gray     $acme_dark_gray    $acme_dark_gray
-        urgent_workspace   $red                $red               $white
-    }
-    position bottom
-    status_command $status_app
-    modifier Mod1
-    workspace_buttons yes
-}
-
-# Property                Border          Background       Text       Indicator     Child border
-client.focused            $black          $acme_dark_gray  #ffffff    #2e9ef4       $acme_dark_cyan
-client.focused_inactive   $acme_yellow    $acme_dark_gray  #ffffff    #2e9ef4       $acme_dark_gray
-client.unfocused          $acme_dark_gray #222222          #888888    #292d2e       $acme_dark_gray
 
 
 #
 # BEHAVIOR
 #
 
-set $status_app       "i3status"
 set $first            workspace 1
 set $second           workspace 2
 set $third            workspace 3
 set $fourth           workspace 4
 
-for_window [class="feh"]          floating enable
-for_window [class="teams"]        floating enable
-for_window [class="virt-manager"] floating enable
-#assign [class="qutebrowser"]      $fourth
-
+assign [class="Chromium"]                  $first
+assign [class="^URxvt$" instance="^tmux$"] $first
+assign [class="qutebrowser"]               $third
 
 
 #
@@ -93,21 +68,7 @@ set $mod Mod4
 set $alt_mod Mod1
 floating_modifier $mod
 
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
 
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
-
-bindsym $mod+v split v
-bindsym $mod+Shift+v split h
-bindsym $mod+f fullscreen
-bindsym $mod+Shift+space floating toggle
-bindsym $mod+space exec "rofi -show window"
 
 bindsym $mod+1 $first
 bindsym $mod+2 $second
@@ -120,6 +81,7 @@ bindsym $mod+Shift+4 move container to $fourth
 
 bindsym $mod+$alt_mod+h move workspace to output left
 bindsym $mod+$alt_mod+l move workspace to output right
+
 
 bindsym $mod+r mode "resize"
 mode "resize" {
@@ -136,13 +98,15 @@ mode "resize" {
 # EXEC
 #
 
-exec --no-startup-id xsetroot -solid "#757575"
+
+exec_always --no-startup-id wm-polybar.sh
+exec_always --no-startup-id /usr/bin/xrdb -merge $HOME/.Xdefaults
+exec_always --no-startup-id setdvorarkk
+exec_always --no-startup-id setmouse
+exec --no-startup-id /usr/bin/sxhkd &
+exec --no-startup-id /usr/bin/autocutsel -s PRIMARY -f
+exec --no-startup-id /usr/bin/unclutter &
+exec --no-startup-id urxvt -e tmux -u new -s WORK &
+exec --no-startup-id xsetroot -solid "$rio_background"
 exec --no-startup-id xautolock -locker $HOME/bin/afk
 
-exec /usr/bin/xrdb -merge $HOME/.Xdefaults
-exec $HOME/bin/setdvorarkk
-exec /usr/bin/sxhkd &
-#exec /usr/bin/autocutsel -s PRIMARY -f
-
-
-hide_edge_borders vertical

@@ -11,7 +11,7 @@ bspc config active_border_color  "#9eefef"
 # Set top_padding to 2 if not using Polybar; Set to 0 if using Polybar.
 bspc config top_padding          0
 bspc config right_padding        2
-bspc config bottom_padding       12
+bspc config bottom_padding       4
 bspc config left_padding         0
 bspc config border_width         4
 bspc config window_gap           8
@@ -22,7 +22,7 @@ bspc config gapless_monocle      true
 xsetroot -cursor_name center_ptr
 xsetroot -solid "#757575"
 xrdb -load ~/.Xdefaults &
-~/bin/polybar.sh
+~/bin/wm-polybar.sh &
 
 
 #
@@ -33,14 +33,15 @@ bspc config split_ratio           0.59
 bspc config ignore_ewmh_focus     true
 bspc config focus_follows_pointer false
 
-bspc config remove_disabled_monitors      true
+bspc config remove_disabled_monitors      false
 bspc config merge_overlapping_monitors    false
 
 # Sync the X11 clipboards PRIMARY (mouse selection) and CLIPBOARD (copy/paste commands).
 pgrep -x autocutsel || /usr/bin/autocutsel -f -s PRIMARY
 
-bspc rule -a feh floating=on
-bspc rule -a teams state=floating
+#bspc rule -a feh floating=on
+#bspc rule -a teams state=floating
+bspc rule -a zathura floating=off
 
 # Adjust window size and position using the mouse and keys.
 bspc config pointer_modifier mod1

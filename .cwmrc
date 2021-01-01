@@ -3,9 +3,9 @@
 #
 
 fontname   "Go:pixelsize=18"
-borderwidth 3
-color       inactiveborder   "#eaffff"
-color       activeborder     "#9eeeee"
+borderwidth 4
+color       activeborder     "#57A8A8"
+color       inactiveborder   "#9fefef"
 color       font             black
 color       selfont          "#ffffea"
 color       menubg           "#ffffea"
@@ -18,6 +18,7 @@ snapdist    10
 #
 
 command     XTerm            xterm
+command     URXVT            rxvt-unicode
 command     Sakura           sakura
 command     Firefox          firefox
 command     Slack            slack
@@ -31,7 +32,9 @@ command     lock             "xautolock -locknow"
 
 ignore     dmenu
 ignore     wmbattery
-ignore     lemonbar
+ignore     polybar
+ignore     polybar-cwm_DP-2-3
+ignore     polybar-cwm_eDP-1
 
 
 #
