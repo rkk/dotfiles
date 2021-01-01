@@ -1,8 +1,8 @@
-#!/bin/bash -x
+#!/bin/bash
 #
-# Dock the computer, configure the displays in the
-# following layouts,
+# Dock the computer, configuring the window managers and external peripherals.
 #
+# For monitors, the following layouts are supported,
 # Office:
 #
 #             +-----+
@@ -11,20 +11,20 @@
 #    +------+ |     |
 #             +-----+
 #
-# Where ONE is the primary monitor (TBD) in landscape mode,
-# and TWO is the secondary monitor (TBD) in portrait mode.
+# Where ONE is the primary monitor in landscape mode,
+# and TWO is the secondary monitor in portrait mode.
 # The built-in display is disabled.
 #
 #
 # Home:
 #
 #   +-------+
-#   |  ONE  | +-----+
-#   +-------+ | INT |
-#             +-----+
+#   |  ONE  |
+#   +-------+
 #
-# Where ONE is the primary monitor (1680x1050) in landscape
-# mode and INT is the built-in display (1920x1080).
+# Where ONE is the primary monitor in landscape mode, connected
+# through a USB C-hub via Displayport.
+# The built-in display is disabled.
 #
 #
 # Meeting:
@@ -34,26 +34,16 @@
 #   +-----+ |       |
 #           +-------+
 #
-# Where INT is the primary monitor (automatic resolution) in landscape
-# mode and ONE is the external monitor or TV (automatic resolution).
+# Where INT is the primary monitor in landscape mode
+# and ONE is the external monitor, TV or projector.
 
 DISPLAY_INTERNAL="eDP-1"
-DISPLAY_EXTERNAL_HOME_ONE="DP-2-1"
+DISPLAY_EXTERNAL_HOME_ONE="DP-2-2"
+DISPLAY_EXTERNAL_HOME_ONE_MODE="3840x2160"
 DISPLAY_EXTERNAL_OFFICE_ONE="DP-2-2"
 DISPLAY_EXTERNAL_OFFICE_TWO="DP-2-3"
 DISPLAY_EXTERNAL_MEETING_ONE="HDMI-2"
 script=$(basename "${0}")
-
-home_layout() {
-    echo "Home mode enabled."
-    xrandr \
-        --output "${DISPLAY_EXTERNAL_HOME_ONE}" --primary --auto \
-        --output "${DISPLAY_INTERNAL}" --auto --right-of "${DISPLAY_EXTERNAL_HOME_ONE}"
-    ~/bin/setdvorarkk
-    xrandr \
-        --output "${DISPLAY_EXTERNAL_HOME_ONE}" --primary --auto \
-        --output "${DISPLAY_INTERNAL}" --off
-}
 
 
 i3_office_layout() {
@@ -66,8 +56,26 @@ i3_office_layout() {
     i3-msg "move workspace 3 to output ${DISPLAY_EXTERNAL_OFFICE_ONE}"
     i3-msg "move workspace 2 to output  ${DISPLAY_EXTERNAL_OFFICE_ONE}"
     i3-msg "move workspace 1 to output ${DISPLAY_EXTERNAL_OFFICE_ONE}"
-	~/bin/setdvorarkk
-	~/bin/setmouse
+	keyboard_mouse_setup
+}
+
+
+i3_home_layout() {
+    xrandr \
+        --output "${DISPLAY_EXTERNAL_HOME_ONE}" --mode "${DISPLAY_EXTERNAL_HOME_ONE_MODE}" --primary \
+        --output "${DISPLAY_INTERNAL}" --off
+
+	keyboard_mouse_setup
+	i3-msg reload
+    wm-polybar.sh
+}
+
+
+i3_undock() {
+	monitor_internal_only
+    i3-msg reload
+	keyboard_mouse_setup
+    wm-polybar.sh
 }
 
 
@@ -86,22 +94,86 @@ bspwm_office_layout() {
     if [ "${last_one}" != "" ]; then
         bspc desktop "${last_one}" --to-monitor "${DISPLAY_EXTERNAL_OFFICE_TWO}"
     fi
+    bspc wm -O "${DISPLAY_EXTERNAL_OFFICE_ONE}" "${DISPLAY_EXTERNAL_OFFICE_TWO}"
+    keyboard_mouse_setup
     sh ~/.config/bspwm/bspwmrc &
 }
 
+
+bspwm_home_layout() {
+    desktops=$(bspc query -D)
+    for i in ${desktops}
+    do
+        bspc desktop "${i}" --to-monitor "${DISPLAY_EXTERNAL_HOME_ONE}"
+    done
+
+    bspc monitor "${DISPLAY_INTERNAL}" --remove
+    xrandr \
+        --output "${DISPLAY_EXTERNAL_HOME_ONE}" --primary --auto \
+        --output "${DISPLAY_INTERNAL}" --off
+
+    keyboard_mouse_setup
+    sh ~/.config/bspwm/bspwmrc &
+}
+
+
+bspwm_undock() {
+	desktops=$(bspc query -D)
+	for i in ${desktops}
+	do
+		bspc desktop "${i}" --to-monitor "${DISPLAY_INTERNAL}"
+	done
+    monitors=$(bspc query -M --names)
+    for m in ${monitors}
+    do
+        if [ ! "${m}" = "${DISPLAY_INTERNAL}" ]; then
+            bspc monitor "${m}" --remove
+        fi
+    done
+
+    monitor_internal_only
+    keyboard_mouse_setup
+}
+
+
+cwm_home_layout() {
+    xrandr \
+        --output "${DISPLAY_EXTERNAL_HOME_ONE}" --primary --mode 3840x2160 \
+        --output "${DISPLAY_INTERNAL}" --auto --right-of "${DISPLAY_EXTERNAL_HOME_ONE}"
+
+    keyboard_mouse_setup
+}
 
 
 meeting_layout() {
     xrandr \
         --output "${DISPLAY_INTERNAL}" --primary --auto \
         --output "${DISPLAY_EXTERNAL_MEETING_ONE}" --auto --right-of "${DISPLAY_INTERNAL}" \
-	~/bin/setdvorarkk
-	~/bin/setmouse
+
+    keyboard_mouse_setup
+}
+
+
+keyboard_mouse_setup() {
+    ~/bin/setdvorarkk
+    ~/bin/setmouse
+}
+
+monitor_internal_only() {
+    monitors=$(xrandr -q | grep " connected" | cut -d\  -f1)
+    for i in ${monitors}
+    do
+        if [ ! "${i}" = "${DISPLAY_INTERNAL}" ]; then
+            xrandr --output "${i}" --off
+        fi
+    done
+    xrandr --output ${DISPLAY_INTERNAL} --auto --primary
 }
 
 
 wm_is_bspwm=0
 wm_is_i3=0
+wm_is_cwm=0
 
 if pgrep bspwm; then
     wm_is_bspwm=1
@@ -111,13 +183,32 @@ if pgrep i3; then
     wm_is_i3=1
 fi
 
-if [ "x${1}" = "xhome" ]; then
-    home_layout
-    exit 0
+if pgrep cwm; then
+	wm_is_cwm=1
 fi
 
+
+## HOME HANDLER
+if [ "x${1}" = "xhome" ]; then
+    if [ "${wm_is_bspwm}" -eq 1 ]; then
+    	bspwm_home_layout
+    	exit 0
+    fi
+
+    if [ "${wm_is_i3}" -eq 1 ]; then
+        i3_home_layout
+        exit 0
+    fi
+
+    if [ "${wm_is_cwm}" -eq 1 ]; then
+        cwm_home_layout
+        exit 0
+    fi
+fi
+
+## OFFICE HANDLER
 if [ "x${1}" = "xoffice" ]; then
-    if [ ${wm_is_i3} -eq 1 ]; then
+    if [ "${wm_is_i3}" -eq 1 ]; then
         i3_office_layout
         exit 0
     fi
@@ -128,16 +219,38 @@ if [ "x${1}" = "xoffice" ]; then
     fi
 fi
 
+
+## MEETING HANDLER
 if [ "x${1}" = "xmeeting" ]; then
 	meeting_layout
 	exit 0
 fi
 
 
+## UNDOCK HANDLER
+if [ "x${1}" = "xundock" ]; then
+    if [ "${wm_is_i3}" -eq 1 ]; then
+        i3_undock
+        exit 0
+    fi
+
+    if [ "${wm_is_bspwm}" -eq 1 ]; then
+        bspwm_undock
+        exit 0
+    fi
+
+	# Unsupported WM, assume nothing specific to do.
+	monitor_internal_only
+	keyboard_mouse_setup
+fi
+
 
 echo "Usage: ${script} LOCATION"
 echo ""
-echo "  home    - Home setup with a single external monitor and the internal monitor."
-echo "  office  - Office setup with two external monitors, internal monitor disabled."
-echo "  meeting - Meeting setup with a single external monitor and the internal monitor."
+echo "Where LOCATION matches one of the following,"
+echo ""
+echo "  home    - Single external monitor (primary), internal monitor enabled."
+echo "  office  - Two external monitors (primary), internal monitor disabled."
+echo "  meeting - Single external monitor, internal monitor enabled (primary)."
+echo "  undock  - Undock the computer"
 echo ""
