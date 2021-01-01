@@ -1,6 +1,18 @@
-#!/usr/bin/env rc
-# Write the contents of Hacker News et al to a new buffer in ACME.
-congo -a | 9p write acme/new/body
-namelast News
+#!/bin/bash
+#
+# Display tech and local news in the ACME window News.
+# Requires the tools congo and newscli.
 
+wid=$(acme-getwindowid News)
+if [ "x${wid}" = "x" ]; then
+	echo "ERROR: Cannot create ACME window"
+	exit 1
+fi
 
+congo -a | 9p write acme/"${wid}"/body
+newscli -n 20 | 9p write acme/"${wid}"/body
+
+echo -n "0,0" | 9p write acme/"$wid"/addr
+echo -n "dot=addr" | 9p write acme/"$wid"/ctl
+echo -n "clean" | 9p write acme/"$wid"/ctl
+echo -n "show" | 9p write acme/"$wid"/ctl
