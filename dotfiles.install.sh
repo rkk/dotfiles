@@ -14,18 +14,33 @@ function install_linux {
         mkdir -p "${TMPDIR}"
     fi
 
-    apt_packages="tmux vim ruby git i3-wm i3status i3lock"
-    apt_packages="${apt_packages} dmenu curl"
+    # Basics
+    apt_packages="tmux vim ruby git curl firmware-misc-nonfree mc"
+
+    # X11 and window manager
+    apt_packages="${apt_packages} i3-wm i3status i3lock sxhkd xdotool"
+    apt_packages="${apt_packages} rofi wmctrl brightnessctl xorg-dev"
+    apt_packages="${apt_packages} libx11-dev xclip xterm sakura xautolock"
+    apt_packages="${apt_packages} bspwm autocutsel dmenu"
     apt_packages="${apt_packages} whois autotools-dev automake libevent-dev"
+
+    # Development tools
     apt_packages="${apt_packages} libncurses5-dev exuberant-ctags"
-    apt_packages="${apt_packages} python-pip xclip"
-    apt_packages="${apt_packages} cabextract openssh-server"
-    apt_packages="${apt_packages} shellcheck sxhkd xdotool rofi"
-    apt_packages="${apt_packages} sakura xterm newsbeuter"
-    apt_packages="${apt_packages} firefox-esr qutebrowser w3m jq net-tools"
-    apt_packages="${apt_packages} dnsutils coreutils gzip zip unzip bzip2 xz-utils"
-    apt_packages="${apt_packages} xautolock mc firmware-misc-nonfree libx11-dev brightnessctl".
-    apt_packages="${apt_packages} pandoc autocutsel zathura bspwm docker.io docker-doc xorg-dev"
+    apt_packages="${apt_packages} shellcheck jq"
+    apt_packages="${apt_packages} python-pip python3-pip"
+
+    # Web
+    apt_packages="${apt_packages} firefox-esr qutebrowser w3m"
+    apt_packages="${apt_packages} newsbeuter pandoc"
+
+    # System
+    apt_packages="${apt_packages} dnsutils coreutils xz-utils zathura"
+    apt_packages="${apt_packages} docker.io docker-doc"
+    apt_packages="${apt_packages} acpi net-tools openssh-server"
+
+    # Required by dotfiles installation script
+    apt_packages="${apt_packages} cabextract gzip zip unzip bzip2"
+
 
     sudo apt-get update
     for package in ${apt_packages}
@@ -55,6 +70,7 @@ function install_linux {
     setup_vscode
     setup_zathura
     setup_plan9port
+    setup_i3
 
     echo ""
     echo "Done."
@@ -449,6 +465,11 @@ function setup_plan9port {
     cd "${start_dir}" || return
 }
 
+
+# Set up i3.
+function setup_i3 {
+    pip3 install i3ipc
+}
 
 #
 # MAIN
