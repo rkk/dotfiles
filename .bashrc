@@ -1,17 +1,17 @@
 setup_env() {
-	HISTCONTROL=ignoreboth
+	HISTCONTROL="erasedups:ignoreboth"
 	shopt -s histappend
 	HISTSIZE=1000
 	HISTFILESIZE=2000
+	HISTTIMEFORMAT='%F %T   '
 	set -o vi
-	export HISTCONTROL HISTSIZE HISTFILESIZE
+	export HISTCONTROL HISTSIZE HISTFILESIZE HISTTIMEFORMAT
 
 	EDITOR="vim"
 	VISUAL="${EDITOR}"
 	TERMINAL="sakura"
-	BROWSER="firefox"
 	TMPDIR="${HOME}/tmp"
-	export EDITOR VISUAL TERMINAL BROWSER TMPDIR
+	export EDITOR VISUAL TERMINAL TMPDIR
 
 	PATH="${PATH}:${HOME}/bin:${HOME}/.local/bin"
 	export PATH
@@ -49,6 +49,7 @@ setup_alias() {
 	alias a="clear"
 	alias c="cd"
 	alias mp="mkdir -p"
+    alias h="history"
 	alias d="pwd"
 	# Git aliases are handled in ~/.gitconfig.
 	alias g="git"
