@@ -1,0 +1,5 @@
+#!/bin/bash
+#
+# Focuses the Acme window, puts the cursor in the tag bar
+# and moves it to the end of the line, ready for accepting input.
+xdotool search --name acme key --sync ctrl+d sleep 1 click 3 sleep 1 key ctrl+e

@@ -1,0 +1,27 @@
+#!/bin/bash
+#
+# Get a list of ACME windows, one per line.
+
+
+# Print only numeric ID.
+if [ "x${1}" = "x" ]; then
+	ids=$(9p ls acme/ | grep ^[0-9])
+	for n in "${ids}"
+	do
+		echo "${n}"
+	done
+fi
+
+
+if [ "x${1}" = "xbyname" ]; then
+	names=$(9p read acme/index | awk '{ print $6 }')
+	for n in "${names}"
+	do
+		echo "${n}"
+	done
+fi
+
+if [ "x${1}" = "xkv" ]; then
+	9p read acme/index | awk '{ printf("%s:%s\n", $1, $6) }'
+	exit 0
+fi

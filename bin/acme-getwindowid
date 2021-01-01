@@ -1,0 +1,50 @@
+#!/bin/bash
+#
+# Print numeric ID of a given ACME window name, creating a new
+# window if one does not exist with that name.
+
+
+create_new_window() {
+	echo "" | 9p write acme/new/body
+	acme-namelast "${1}"
+}
+
+
+get_winid_by_name() {
+	name="${1}"
+	existing="$(acme-getwindows kv)"
+	match=0
+	for l in ${existing}
+	do
+		wid=$(echo ${l} | awk -F: '{ print $1 }')
+		val=$(echo ${l} | awk -F: '{ print $2 }')
+		if [ "x${val}" = "x${name}" ]; then
+			match=${wid}
+		fi
+	done
+
+	# No such window exists, create it.
+	#if [ $match -eq 0 ]; then
+	#	create_new_window "${name}"
+	#	match=get_winid_by_name "${name}"
+	#fi
+	echo ${match}
+}
+
+name="${1}"
+
+if [ "x${name}" = "x" ]; then
+	echo "USAGE: $(basename ${0}) NAME"
+	echo ""
+	echo "Retrieves numeric ACME window ID for a window named NAME."
+	echo "If such a window does not exist, it will be created and the window ID returned."
+	exit 1
+fi
+
+
+wid=$(get_winid_by_name "${name}")
+if [ "x${wid}" = "x0" ]; then
+	create_new_window "${name}"
+	wid=$(get_winid_by_name "${name}")
+fi
+echo ${wid}
