@@ -2,7 +2,6 @@
 #
 # Launches ACME with specific fonts, plumbing rules, etc.
 
-dumpfile="${HOME}/acme.dump"
 fixedfont="/mnt/font/GoMono/10a/font"
 variablefont="/mnt/font/GoRegular/12a/font"
 acme="acme"
@@ -38,9 +37,4 @@ else
 	fontsrv &
 fi
 
-dumpparm=""
-if [ -f "${dumpfile}" ]; then
-	dumpparm="-l ${dumpfile}"
-fi
-
-${acme} -a -b -f "${fixedfont}" -F "${variablefont}" "${dumpparm}" "$1" &
+${acme} -a -b -f "${fixedfont}" -F "${variablefont}" &
