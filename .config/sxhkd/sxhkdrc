@@ -2,24 +2,17 @@
 # agnostic experience. Depends on xdotool, custom scripts and is aimed at
 # a specific collection of applications, see "windowactivate" parts.
 
+
+# RXVT has issues reading URxvt.perl-ext path from ~/.Xdefaults, so enforce it here.
 super + Return
-    rxvt-unicode
-
-super + shift + Return
-    rxvt-unicode
-
-alt + shift + Return
-    rxvt-unicode
+    rxvt-unicode -pe plumb
 
 control + space
     dmenu_run -nb '#ffffea' -nf '#000000' -sb '#eaffff' -sf '#121212' -fn 'GoRegular' -l 10
 
 # Programming Oriented Keyboard Environment (POKE) - applications.
 control + shift + t
-    xdotool search --classname rxvt windowactivate
-
-control + shift + l
-    xdotool search --classname Code windowactivate
+    xdotool search --name rxvt windowactivate
 
 control + shift + z
     xdotool search  --classname Zathura windowactivate
@@ -37,10 +30,10 @@ control + shift + f
     xdotool search --name "Chromium" windowactivate
 
 control + shift + h
-    xdotool search --class Slack windowactivate
+    winfocus Slack
 
 control + shift + m
-	xdotool search --name Mozilla windowactivate
+	winfocus Firefox
 
 super + F1
     amixer set Master toggle
@@ -63,87 +56,142 @@ super + q
 super + Escape
     pkill -USR1 -x sxhkd
 
-super + Prior
-    xdotool click 4
+#super + Prior
+#    xdotool click 4
 
-super + Next
-    xdotool click 5
+#super + Next
+#    xdotool click 5
 
 control + shift + d
     xdotool click 2
+
+control + shift + r
+	xdotool click 3
+
+super + c
+	xdotool click 1
 
 
 #
 # CUSTOM CONFIG: i3
 #
 
-# Note: Running SXHKD under i3 *requires* the parameter --onlyvisible in
-# order to work for apps such as Chromium and Slack.
-#
-#control + shift + f
-#    xdotool search --onlyvisible --name "Chromium" windowactivate
-#
-#control + shift + h
-#    xdotool search --onlyvisible --class Slack windowactivate
-#
-#super + shift + Escape
-#    i3-msg reload
-#
-#super + shift + p
-#	i3-msg restart
-#
-#super + shift + period
-#	i3-msg exit
+super + shift + Escape
+    i3-msg reload
 
+super + v
+	i3-msg "split v"
 
+super + shift + v
+	i3-msg "split h"
+
+super + f
+	i3-msg "fullscreen"
+
+super + e
+	i3-msg "layout toggle split"
+
+super + h
+	i3-msg "focus left"
+
+super + j
+	i3-msg "focus down"
+
+super + k
+	i3-msg "focus up"
+
+super + l
+	i3-msg "focus right"
+
+# Mimic swap biggest window functionality from bspwm.
+super + g
+	mainwinswap.py
+
+super + shift + h
+	i3-msg "move left"
+
+super + shift + j
+	i3-msg "move down"
+
+super + shift + k
+	i3-msg "move up"
+
+super + shift + l
+	i3-msg "move right"
+
+super + space
+	rofi -show window
+
+super + shift + space
+	i3-msg "floating toggle"
 
 #
 # CUSTOM CONFIG: BSPWM
 #
 
-super + w
-    bspc node -c
+#super + w
+#    bspc node -c
 
-super + f
-    bspc desktop -l next
+#super + f
+#    bspc desktop -l next
 
-super + g
-    bspc node -s biggest.local
+#super + g
+#    bspc node -s biggest.local
 
-super + {h,j,k,l}
-    bspc node -f {west,south,north,east}
+#super + {h,j,k,l}
+#    bspc node -f {west,south,north,east}
 
-super + shift + {h,j,k,l}
+#super + shift + {h,j,k,l}
     bspc node -s {west,south,north,east}
 
-#alt + {_,shift +} Tab
-#    bspc node -f {next,prev}.local
+##alt + {_,shift +} Tab
+##    bspc node -f {next,prev}.local
 
-super + Tab
-    bspc window -s last
+#super + Tab
+#    bspc window -s last
 
+#super + shift + g
+#    bspc node -s biggest
 
-super + shift + g
-    bspc node -s biggest
+#super + {Left,Right}
+#    bspc desktop -f {prev,next}
 
-super + {Left,Right}
-    bspc desktop -f {prev,next}
+#super + shift + {Left,Right}
+#    bspc node -d {next,prev} --follow
 
-super + shift + {Left,Right}
-    bspc node -d {next,prev}
+#super + space ; {r,R}
+#    bspc node @/ --rotate {90,-90}
 
-super + space ; {r,R}
-    bspc node @/ --rotate {90,-90}
+#super + space ; {h,v}
+#    bspc node @/ -F {horizontal,vertical}
 
-super + space ; g
-    bspc node -t ~floating
+#super + space ; g
+#    bspc node -t ~floating
 
-super + space ; {h,j,k,l}
-    bspc node -s {west,south,north,east}
+# Balance windows by reallocating display real estate.
+#super + space ; b
+#    bspc node @/ -B
 
-super + shift + Escape
-    sh ~/.config/bspwm/bspwmrc
+##super + space ; {h,j,k,l}
+##    bspc node -s {west,south,north,east}
+
+#super + shift + Escape
+#    sh ~/.config/bspwm/bspwmrc
 
 # Mouse pointer raises focus on window.
 #~button1
 #    bspc pointer -g focus
+
+# Focus or move windows to the given desktop; must use X11 keysym
+# names because of Dvorarkk keyboard layout.
+#super + {_,shift +}exclam
+#    bspc {desktop -f,node -d} '^1'
+
+#super + {_,shift +}at
+#    bspc {desktop -f,node -d} '^2'
+
+#super + {_,shift +}numbersign
+#    bspc {desktop -f,node -d} '^3'
+
+#super + {_,shift +}dollar
+#@!    bspc {desktop -f,node -d} '^4'
