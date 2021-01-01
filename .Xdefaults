@@ -75,7 +75,9 @@ URxvt*internalBorder:       8
 URxvt*matcher.button:       3
 URxvt*matcher.rend.0:       Uline Bold fg5
 
-!urxvt*perl-lib: /home/rkk/lib/urxvt
-URxvt.perl-ext: matcher,plumb
+urxvt*perl-lib: /home/rkk/lib/urxvt
+!URxvt.perl-ext: matcher,plumb,keyboard-select
+URxvt.perl-ext: plumb
 URxvt.perl-ext-common: selection-to-clipboard
 URxvt.url-launcher: /usr/bin/xdg-open
+
