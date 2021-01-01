@@ -9,9 +9,14 @@
 function install_linux {
     TMPDIR=${TMPDIR:-/tmp}
     FONT_ROOT="${HOME}/.local/share/fonts"
+    APT_BACKPORT="/etc/apt/sources.list.d/buster-backports.list"
 
     if [ ! -d "${TMPDIR}" ]; then
         mkdir -p "${TMPDIR}"
+    fi
+
+    if [ ! -f "${APT_BACKPORT}" ]; then
+        echo "deb http://deb.debian.org/debian buster-backports main contrib non-free" | sudo tee -a "${APT_BACKPORT}"
     fi
 
     # Basics
@@ -21,10 +26,10 @@ function install_linux {
     apt_packages="${apt_packages} i3-wm i3status i3lock sxhkd xdotool"
     apt_packages="${apt_packages} rofi wmctrl brightnessctl xorg-dev"
     apt_packages="${apt_packages} libx11-dev xclip xterm sakura xautolock"
-    apt_packages="${apt_packages} bspwm autocutsel dmenu"
-    apt_packages="${apt_packages} whois autotools-dev automake libevent-dev"
+    apt_packages="${apt_packages} bspwm autocutsel dmenu polybar xinput scrot"
 
     # Development tools
+    apt_packages="${apt_packages} whois autotools-dev automake libevent-dev"
     apt_packages="${apt_packages} libncurses5-dev exuberant-ctags"
     apt_packages="${apt_packages} shellcheck jq"
     apt_packages="${apt_packages} python-pip python3-pip"
@@ -40,7 +45,6 @@ function install_linux {
 
     # Required by dotfiles installation script
     apt_packages="${apt_packages} cabextract gzip zip unzip bzip2"
-
 
     sudo apt-get update
     for package in ${apt_packages}
@@ -62,6 +66,7 @@ function install_linux {
     install_go_linux
     install_vscode_linux
     install_plan9port_linux
+    install_spotify_linux
 
     setup_newsbeuter
     setup_git_aliases
@@ -228,6 +233,7 @@ function install_fzf {
     if [ ! -d "${HOME}/.fzf" ]; then
         git clone https://github.com/junegunn/fzf.git ~/.fzf
     fi
+    go get -u github.com/junegunn/fzf
 }
 
 # Install Go (golang), latest version for AMD64.
@@ -245,8 +251,6 @@ function install_go_linux {
         export GOPATH="${HOME}/go"
         if [ ! -f "${GOPATH}" ]; then
             mkdir -p "${GOPATH}"
-            # Backwards compability with prior Go location.
-            ln -sf "${GOPATH}" "${HOME}/Go"
         fi
         go get golang.org/x/lint/golint
         go get golang.org/x/tools/cmd/cover
@@ -264,6 +268,9 @@ function install_go_linux {
 
 # Install Visual Studio Code.
 function install_vscode_linux {
+    if [ -f "/usr/bin/code" ]; then
+        return
+    fi
     pkg_url="https://az764295.vo.msecnd.net/stable/c47d83b293181d9be64f27ff093689e8e7aed054/code_1.42.1-1581432938_amd64.deb"
     pkg_file="${TMPDIR}/code_1.42.1-1581432938_amd64.deb"
     if [ -f "${pkg_file}" ]; then
@@ -276,7 +283,6 @@ function install_vscode_linux {
 
 
 }
-
 
 # Install Plan9port.
 function install_plan9port_linux {
@@ -292,6 +298,12 @@ function install_plan9port_linux {
     git clone "${clone_url}" "${plan9port_root}"
 }
 
+# Install Spotify client.
+function install_spotify_linux {
+    curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add -
+    echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+    sudo apt-get update && sudo apt-get install -y spotify-client
+}
 
 # Install Dvorarkk keyboard layout.
 function install_dvorarkk {
@@ -300,7 +312,6 @@ function install_dvorarkk {
         git clone https://github.com/rkk/Dvorarkk.git "${dvorarkk_dir}"
     fi
 }
-
 
 # Set up the needed config directories for Newsbeuter.
 function setup_newsbeuter {
@@ -463,6 +474,7 @@ function setup_plan9port {
     start_dir="$(pwd)"
     cd "${plan9port_root}" && ./INSTALL
     cd "${start_dir}" || return
+    go get github.com/davidrjenni/A
 }
 
 
