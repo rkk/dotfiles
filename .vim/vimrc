@@ -95,7 +95,7 @@ hi clear Normal
 hi clear Constant
 hi clear Operator
 hi clear Comment
-
+hi clear htmlItalic
 set fillchars+=vert:\|
 
 
