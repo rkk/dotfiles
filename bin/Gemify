@@ -1,0 +1,24 @@
+#!/bin/bash
+#
+# Dumps the text output of URL into a new ACME window
+# named "Gemini". Requires gmni (gemini) and various ACME scripts.
+
+url="${1}"
+
+if [ "x${url}" = "x" ]; then
+	echo "Usage: $(basename ${0}) URL"
+	echo ""
+	exit 0
+fi
+
+wid=$(acme-getwindowid Gemini)
+if [ "x${wid}" = "x" ]; then
+	echo "ERROR: Cannot create ACME window"
+	exit 1
+fi
+
+gemini ${url} | 9p write acme/${wid}/data
+echo -n "0,0" | 9p write acme/$wid/addr
+echo -n "dot=addr" | 9p write acme/$wid/ctl
+echo -n "clean" | 9p write acme/$wid/ctl
+echo -n "show" | 9p write acme/$wid/ctl
