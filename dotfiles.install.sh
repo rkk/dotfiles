@@ -23,10 +23,12 @@ function install_linux {
     apt_packages="tmux vim ruby git curl firmware-misc-nonfree mc"
 
     # X11 and window manager
-    apt_packages="${apt_packages} i3-wm i3status i3lock sxhkd xdotool"
+    apt_packages="${apt_packages} i3-wm i3status i3lock sxhkd xdotool rxvt-unicode"
+    apt_packages="${apt_packages} meson libxcb-shape0-dev libstartup-notification0-dev libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf xutils-dev libtool"
+    apt_packages="${apt_packages} libxcb-xrm-dev"
     apt_packages="${apt_packages} rofi wmctrl brightnessctl xorg-dev"
     apt_packages="${apt_packages} libx11-dev xclip xterm sakura xautolock"
-    apt_packages="${apt_packages} bspwm autocutsel dmenu polybar xinput scrot"
+    apt_packages="${apt_packages} autocutsel dmenu polybar xinput scrot"
 
     # Development tools
     apt_packages="${apt_packages} whois autotools-dev automake libevent-dev"
@@ -35,8 +37,11 @@ function install_linux {
     apt_packages="${apt_packages} python-pip python3-pip"
 
     # Web
-    apt_packages="${apt_packages} firefox-esr qutebrowser w3m"
+    apt_packages="${apt_packages} firefox-esr qutebrowser chromium w3m"
     apt_packages="${apt_packages} newsbeuter pandoc"
+
+    # Other
+    apt_packages="${apt_packages} redshift sxiv"
 
     # System
     apt_packages="${apt_packages} dnsutils coreutils xz-utils zathura"
@@ -64,18 +69,19 @@ function install_linux {
     install_microsoft_fonts
     install_fzf
     install_go_linux
-    install_vscode_linux
     install_plan9port_linux
     install_spotify_linux
+    install_i3gaps_linux
 
     setup_newsbeuter
     setup_git_aliases
     setup_firefox
     setup_vim
-    setup_vscode
     setup_zathura
     setup_plan9port
     setup_i3
+    setup_docker_linux
+    setup_timezone_linux
 
     echo ""
     echo "Done."
@@ -266,24 +272,6 @@ function install_go_linux {
     fi
 }
 
-# Install Visual Studio Code.
-function install_vscode_linux {
-    if [ -f "/usr/bin/code" ]; then
-        return
-    fi
-    pkg_url="https://az764295.vo.msecnd.net/stable/c47d83b293181d9be64f27ff093689e8e7aed054/code_1.42.1-1581432938_amd64.deb"
-    pkg_file="${TMPDIR}/code_1.42.1-1581432938_amd64.deb"
-    if [ -f "${pkg_file}" ]; then
-        return
-    fi
-    curl -sSL "${pkg_url}" > "${pkg_file}"
-    if [ -f "${pkg_file}" ]; then
-        sudo dpkg -i "${pkg_file}"
-    fi
-
-
-}
-
 # Install Plan9port.
 function install_plan9port_linux {
     clone_url="https://github.com/9fans/plan9port"
@@ -300,9 +288,33 @@ function install_plan9port_linux {
 
 # Install Spotify client.
 function install_spotify_linux {
+    if [ -f /usr/bin/spotify ]; then
+        return
+    fi
     curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add -
     echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
     sudo apt-get update && sudo apt-get install -y spotify-client
+}
+
+
+# Install i3-gaps.
+function install_i3gaps_linux {
+    start_dir="${PWD}"
+    # shellcheck disable=SC2164
+    cd "${TMPDIR}"
+    if [ -d i3-gaps ]; then
+        rm -rf i3-gaps
+    fi
+    git clone https://www.github.com/Airblader/i3 i3-gaps
+    # shellcheck disable=SC2164
+    cd i3-gaps
+    git checkout gaps && git pull
+    meson build -Dprefix=/usr
+    cd build || return
+    sudo ninja install
+    sudo ninja clean
+    # shellcheck disable=SC2164
+    cd "${start_dir}"
 }
 
 # Install Dvorarkk keyboard layout.
@@ -434,16 +446,6 @@ function setup_vim {
     fi
 }
 
-
-# Set up Visual Studio Code.
-function setup_vscode {
-    code --install-extension mikegleasonjr.theme-go
-    code --install-extension ms-vscode.Go
-    code --install-extension premparihar.gotestexplorer
-    code --install-extension vscodevim.vim
-}
-
-
 # Set up XDG (XDG_CONFIG_HOME).
 function setup_xdg {
     if [ "x$XDG_CONFIG_HOME" = "x" ]; then
@@ -455,12 +457,10 @@ function setup_xdg {
     export XDG_CONFIG_HOME
 }
 
-
 # Set up Zathura as default PDF reader.
 function setup_zathura {
 	xdg-mime default zathura.desktop application/pdf
 }
-
 
 # Set up Plan9port.
 function setup_plan9port {
@@ -477,10 +477,26 @@ function setup_plan9port {
     go get github.com/davidrjenni/A
 }
 
-
 # Set up i3.
 function setup_i3 {
     pip3 install i3ipc
+}
+
+# Set up Docker for non-root users on Linux.
+function setup_docker_linux {
+	sudo usermod -aG docker "$(whoami)"
+	sudo newgrp docker
+}
+
+# Set up the default time zone on Linux
+function setup_timezone_linux {
+    echo "Europe/Copenhagen" | sudo tee /etc/timezone
+}
+
+# Ensure sudo access on Linux, without using sudo.
+function setup_sudo_linux {
+    this_user="$(whoami)"
+    su - root -c "usermod -aG sudo ${this_user} && newgrp sudo"
 }
 
 #
@@ -492,6 +508,7 @@ os=$(uname)
 case "${os}" in
     "Linux")
         setup_xdg
+        setup_sudo_linux
         install_linux
         ;;
     "OpenBSD")
