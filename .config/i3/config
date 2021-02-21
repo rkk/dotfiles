@@ -56,8 +56,6 @@ set $third            workspace 3
 set $fourth           workspace 4
 
 assign [class="Chromium"]                  $first
-assign [class="^URxvt$" instance="^tmux$"] $first
-assign [class="qutebrowser"]               $third
 
 
 #
@@ -106,7 +104,8 @@ exec_always --no-startup-id setmouse
 exec --no-startup-id /usr/bin/sxhkd &
 exec --no-startup-id /usr/bin/autocutsel -s PRIMARY -f
 exec --no-startup-id /usr/bin/unclutter &
-exec --no-startup-id urxvt -e tmux -u new -s WORK &
+#exec --no-startup-id urxvt -e tmux -u new -s WORK &
 exec --no-startup-id xsetroot -solid "$rio_background"
 exec --no-startup-id xautolock -locker $HOME/bin/afk
+exec --no-startup-id redshift -c $HOME/.config/redshift/redshift.conf &
 
