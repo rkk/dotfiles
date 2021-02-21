@@ -7,6 +7,9 @@
 super + Return
     rxvt-unicode -pe plumb
 
+super + shift +Return
+    rxvt-unicode -pe plumb
+
 control + space
     dmenu_run -nb '#ffffea' -nf '#000000' -sb '#eaffff' -sf '#121212' -fn 'GoRegular' -l 10
 
@@ -27,7 +30,7 @@ control + shift + c
 	xdotool search --classname acme windowactivate
 
 control + shift + f
-    xdotool search --name "Chromium" windowactivate
+    winfocus Chromium
 
 control + shift + h
     winfocus Slack
@@ -35,13 +38,13 @@ control + shift + h
 control + shift + m
 	winfocus Firefox
 
-super + F1
+super + shift + F1
     amixer set Master toggle
 
-super + F2
+super + shift + F2
     amixer set Master '5%-'
 
-super + F3
+super + shift + F3
     amixer set Master '5%+'
 
 super + F8
@@ -68,8 +71,20 @@ control + shift + d
 control + shift + r
 	xdotool click 3
 
+super + d
+    xdotool click 2
+
+super + r
+    xdotool click 3
+
 super + c
 	xdotool click 1
+
+super + Tab
+    rofi -show window
+
+alt + Tab
+    rofi -show window
 
 
 #
@@ -86,6 +101,9 @@ super + shift + v
 	i3-msg "split h"
 
 super + f
+	i3-msg "fullscreen"
+
+@F11
 	i3-msg "fullscreen"
 
 super + e
@@ -124,6 +142,14 @@ super + space
 
 super + shift + space
 	i3-msg "floating toggle"
+
+super + z
+	i3-msg "move scratchpad"
+
+super + shift + z
+	i3-msg "scratchpad show"
+
+
 
 #
 # CUSTOM CONFIG: BSPWM
