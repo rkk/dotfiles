@@ -61,6 +61,10 @@ XTerm*scrollBar: false
 Xft*antialias: true
 Xft*dpi: 96
 
+
+!!
+!! URXVT (RXVT-UNICODE)
+!!
 URxvt.scrollBar: false
 URxvt.tintColor: Gray
 URxvt*shading: 20
@@ -72,12 +76,17 @@ URxvt.boldFont: xft:Go Mono:size=10
 URxvt.iso14755: false
 URxvt.iso14755_52: false
 URxvt*internalBorder:       8
-URxvt*matcher.button:       3
-URxvt*matcher.rend.0:       Uline Bold fg5
 
-urxvt*perl-lib: /home/rkk/lib/urxvt
+URxvt*perl-lib: /home/rkk/lib/urxvt
 !URxvt.perl-ext: matcher,plumb,keyboard-select
-URxvt.perl-ext: plumb
-URxvt.perl-ext-common: selection-to-clipboard
-URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.perl-ext: plumb,font-size
+!URxvt.perl-ext-common: selection-to-clipboard
+!URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.keysym.C-Up:     font-size:increase
+URxvt.keysym.C-Down:   font-size:decrease
+URxvt.keysym.C-S-Up:   font-size:incglobal
+URxvt.keysym.C-S-Down: font-size:decglobal
+URxvt.keysym.C-equal:  font-size:reset
+URxvt.keysym.C-slash:  font-size:show
+
 
