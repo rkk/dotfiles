@@ -1,5 +1,35 @@
 #!/bin/bash
 #
-# Builds the current directory of Go source code.
+# Builds the current directory of Go source code, and displays
+# the output in a window named /$PATH/+Go.
 
-go build .
+wid=$(acme-getwindowid ${PWD}/+Gobuild)
+if [ "x${wid}" = "x" ]; then
+	echo "ERROR: Cannot create ACME window"
+	exit 1
+fi
+
+stamp=$(/usr/bin/date "+%Y-%m-%d %H:%M:%S")
+output=$(go build . 2>&1 )
+res=${?}
+if [ ${res} -eq 0 ]; then
+	output="OK"
+fi
+
+output="${stamp}    ${output}"
+if [ ${res} -ne 0 ]; then
+	output="${output}
+
+
+"
+fi
+echo "${output}" | 9p write acme/${wid}/data
+echo -n "clean" | 9p write acme/$wid/ctl
+
+current_tag="$(9p read acme/${wid}/tag)"
+p="$(echo ${current_tag} | grep Clearwin)"
+if [ "${p}" = "" ]; then
+	echo -n " Clearwin " | 9p write acme/${wid}/tag
+fi
+
+

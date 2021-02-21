@@ -1,2 +1,21 @@
-#!/usr/bin/env rc
-/usr/local/go/bin/go test
+#!/bin/bash
+#
+# Runs the Go test cases in the current directory, and displays
+# the output in a window named /$PATH/+Go.
+
+wid=$(acme-getwindowid ${PWD}/+Go)
+if [ "x${wid}" = "x" ]; then
+	echo "ERROR: Cannot create ACME window"
+	exit 1
+fi
+
+stamp=$(/usr/bin/date "+%Y-%m-%d %H:%M:%S")
+output=$(go test . 2>&1 )
+res=${?}
+if [ ${res} -eq 0 ]; then
+	output="Gotest OK"
+fi
+
+output="${stamp}    ${output}"
+echo "${output}" | 9p write acme/${wid}/data
+echo -n "clean" | 9p write acme/$wid/ctl
