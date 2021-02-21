@@ -6,6 +6,7 @@ setup_env() {
 	HISTTIMEFORMAT='%F %T   '
 	set -o vi
 	export HISTCONTROL HISTSIZE HISTFILESIZE HISTTIMEFORMAT
+    stty -ixon
 
 	EDITOR="vim"
 	VISUAL="${EDITOR}"
@@ -13,7 +14,9 @@ setup_env() {
 	TMPDIR="${HOME}/tmp"
 	export EDITOR VISUAL TERMINAL TMPDIR
 
-	PATH="${PATH}:${HOME}/bin:${HOME}/.local/bin"
+	# Reset PATH as it is often polluted.
+	PATH=""
+	PATH="${HOME}/bin:${HOME}/.local/bin:/usr/local/bin:/usr/bin:/bin:/sbin"
 	export PATH
 }
 
@@ -49,7 +52,7 @@ setup_alias() {
 	alias a="clear"
 	alias c="cd"
 	alias mp="mkdir -p"
-    alias h="history"
+    alias h="history | grep"
 	alias d="pwd"
 	# Git aliases are handled in ~/.gitconfig.
 	alias g="git"
