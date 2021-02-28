@@ -4,7 +4,6 @@
 # available (xlock, i3lock, lxlock).
 
 lockers='/usr/bin/X11R6/bin/xlock /usr/bin/i3lock /usr/bin/lxlock'
-mute
 for cmd in ${lockers}
 do
     if [ -f "${cmd}" ]; then
