@@ -510,7 +510,7 @@ os=$(uname)
 case "${os}" in
     "Linux")
         setup_xdg
-        setup_sudo_linux
+        #setup_sudo_linux
         install_linux
         ;;
     "OpenBSD")
