@@ -1,3 +1,12 @@
 #!/bin/bash
-ag --nocolor --noheading $* | 9p write acme/new/body
-namelast "Find"
+#
+# Searches for a given string in the context directory of the
+# current ACME window.
+wid=$(acme-getwindowid ${PWD}/+Find)
+if [ "x${wid}" = "x" ]; then
+	echo "ERROR: Cannot create ACME window"
+	exit 1
+fi
+
+ag --nocolor --noheading $* | 9p write acme/${wid}/data
+echo -n "clean" | 9p write acme/$wid/ctl

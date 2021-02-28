@@ -32,7 +32,7 @@ function install_linux {
 
     # Development tools
     apt_packages="${apt_packages} whois autotools-dev automake libevent-dev"
-    apt_packages="${apt_packages} libncurses5-dev exuberant-ctags"
+    apt_packages="${apt_packages} libncurses5-dev exuberant-ctags silversearcher-ag"
     apt_packages="${apt_packages} shellcheck jq"
     apt_packages="${apt_packages} python-pip python3-pip"
 
