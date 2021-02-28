@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Builds the current directory of Go source code, and displays
-# the output in a window named /$PATH/+Go.
+# the output in a window named /$PWD/+Go.
 
 wid=$(acme-getwindowid ${PWD}/+Gobuild)
 if [ "x${wid}" = "x" ]; then
