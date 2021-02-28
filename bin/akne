@@ -2,8 +2,8 @@
 #
 # Launches ACME with specific fonts, plumbing rules, etc.
 
-fixedfont="/mnt/font/GoMono/12a/font"
-variablefont="/mnt/font/GoRegular/12a/font"
+fixedfont="/mnt/font/GoMono/14a/font"
+variablefont="/mnt/font/GoRegular/14a/font"
 acme="acme"
 
 export SHELL="/bin/bash"
