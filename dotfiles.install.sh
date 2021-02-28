@@ -303,7 +303,9 @@ function install_i3gaps_linux {
     # shellcheck disable=SC2164
     cd "${TMPDIR}"
     if [ -d i3-gaps ]; then
-        rm -rf i3-gaps
+    	# shellcheck disable=SC2164
+    	cd "${start_dir}"
+        return
     fi
     git clone https://www.github.com/Airblader/i3 i3-gaps
     # shellcheck disable=SC2164
