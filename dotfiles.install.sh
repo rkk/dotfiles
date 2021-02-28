@@ -41,7 +41,7 @@ function install_linux {
     apt_packages="${apt_packages} newsbeuter pandoc"
 
     # Other
-    apt_packages="${apt_packages} redshift sxiv"
+    apt_packages="${apt_packages} redshift sxiv pcmanfm"
 
     # System
     apt_packages="${apt_packages} dnsutils coreutils xz-utils zathura"
