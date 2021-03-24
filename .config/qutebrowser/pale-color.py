@@ -54,3 +54,16 @@ c.colors.statusbar.url.success.https.fg = pale['black']
 
 c.colors.webpage.bg = pale['yellow']
 
+c.fonts.hints = '12pt GoRegular'
+c.fonts.keyhint = '12pt GoRegular'
+c.fonts.prompts = '12pt GoRegular'
+c.fonts.downloads = '12pt GoRegular'
+c.fonts.statusbar = '12pt GoRegular'
+c.fonts.contextmenu = '12pt GoRegular'
+c.fonts.messages.info = '12pt GoRegular'
+c.fonts.debug_console = '12pt GoRegular'
+c.fonts.messages.error = '12pt GoRegular'
+c.fonts.completion.entry = '12pt GoRegular'
+c.fonts.completion.category = '12pt GoRegular'
+c.fonts.tabs.selected = '12pt GoRegular'
+c.fonts.tabs.unselected = '12:pt GoRegular'
