@@ -8,10 +8,18 @@ super + Return
     rxvt-unicode -pe plumb
 
 super + shift +Return
-    rxvt-unicode -pe plumb
+    rxvt-unicode -pe plumb -fg white -bg black -cr gray
 
 control + space
-    dmenu_run -nb '#ffffea' -nf '#000000' -sb '#eaffff' -sf '#121212' -fn 'GoRegular' -l 10
+    dmenu_run \
+    	-nb '#ffffea' \
+    	-nf '#000000' \
+    	-sb '#eaffff' \
+    	-sf '#121212' \
+    	-fn 'GoRegular' \
+    	-l 10 \
+    	-f \
+    	-i
 
 # Programming Oriented Keyboard Environment (POKE) - applications.
 control + shift + t
@@ -38,13 +46,13 @@ control + shift + h
 control + shift + m
 	winfocus Firefox
 
-super + shift + F1
+super + F1
     amixer set Master toggle
 
-super + shift + F2
+super + F2
     amixer set Master '5%-'
 
-super + shift + F3
+super + F3
     amixer set Master '5%+'
 
 super + F8
@@ -84,7 +92,7 @@ super + Tab
     rofi -show window
 
 alt + Tab
-    rofi -show window
+    i3-msg workspace back_and_forth
 
 
 #
