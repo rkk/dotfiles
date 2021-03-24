@@ -54,7 +54,7 @@ i3_office_layout() {
 
     i3-msg "move workspace 4 to output ${DISPLAY_EXTERNAL_OFFICE_TWO}"
     i3-msg "move workspace 3 to output ${DISPLAY_EXTERNAL_OFFICE_ONE}"
-    i3-msg "move workspace 2 to output  ${DISPLAY_EXTERNAL_OFFICE_ONE}"
+    i3-msg "move workspace 2 to output ${DISPLAY_EXTERNAL_OFFICE_ONE}"
     i3-msg "move workspace 1 to output ${DISPLAY_EXTERNAL_OFFICE_ONE}"
 	keyboard_mouse_setup
 }
@@ -62,11 +62,12 @@ i3_office_layout() {
 
 i3_home_layout() {
     xrandr \
-        --output "${DISPLAY_EXTERNAL_HOME_ONE}" --mode "${DISPLAY_EXTERNAL_HOME_ONE_MODE}" --primary \
+        --output "${DISPLAY_EXTERNAL_HOME_ONE}" --mode 3840x2160 --primary \
         --output "${DISPLAY_INTERNAL}" --off
 
 	keyboard_mouse_setup
-	i3-msg reload
+    # shellcheck disable=SC2034
+	ignore=$(i3-msg reload)
     wm-polybar.sh
 }
 
