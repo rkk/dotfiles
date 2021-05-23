@@ -343,6 +343,7 @@ function setup_newsbeuter {
 
 # Set up Git aliases; avoid changing the Git config file directly.
 function setup_git_aliases {
+    git config --global alias.a "add"
     git config --global alias.b "branch"
     git config --global alias.ba "branch -ar"
     git config --global alias.c "checkout"
