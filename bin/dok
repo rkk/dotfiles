@@ -86,10 +86,15 @@ function start_firefox() {
 
 
 function start_spotify() {
+  del_stopped spotify
   local DOCKER_REPO="jess/spotify"
-  docker run \
+  docker run -d \
+    -v /etc/localtime:/etc/localtime:ro \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
-    -e "DISPLAY=${DISPLAY}" \
+    -e DISPLAY=unix$DISPLAY \
+    --device /dev/snd:/dev/snd \
+    -v $HOME/.spotify/config:/home/spotify/.config/spotify \
+    -v $HOME/.spotify/cache:/home/spotify/spotify \
     --name spotify \
     ${DOCKER_REPO}
 }

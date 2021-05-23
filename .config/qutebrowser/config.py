@@ -4,17 +4,20 @@
 # Do not use tabs, open in separate windows.
 RKK_TABS_AS_WINDOWS = True
 
+config.load_autoconfig(False)
 
-c.content.host_blocking.enabled = True
-c.content.private_browsing = False
+c.content.blocking.enabled = True
+c.content.private_browsing = True
 c.content.javascript.enabled = False
+c.content.javascript.can_open_tabs_automatically = False
+c.content.javascript.can_access_clipboard = False
 c.auto_save.session = False
-c.url.start_pages = ["qute://version"]
+#c.url.start_pages = ["qute://version"]
 c.downloads.location.directory = "~/Downloads"
+c.prompt.filebrowser = True
 c.downloads.location.prompt = False
 c.downloads.remove_finished = 0
 c.downloads.position = 'bottom'
-c.statusbar.hide = False
 c.tabs.favicons.show = 'never'
 c.tabs.show = 'switching'
 c.url.searchengines = {
@@ -57,7 +60,7 @@ if RKK_TABS_AS_WINDOWS:
 # SITE SPECIFIC BEHAVIOR
 #
 
-c.content.host_blocking.lists = [
+c.content.blocking.hosts.lists = [
 	'https://www.malwaredomainlist.com/hostslist/hosts.txt',
 	'http://someonewhocares.org/hosts/hosts',
 	'http://winhelp2002.mvps.org/hosts.zip',

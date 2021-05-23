@@ -5,6 +5,7 @@
 fixedfont="/mnt/font/GoMono/14a/font"
 variablefont="/mnt/font/GoRegular/14a/font"
 acme="acme"
+dump="${HOME}/acme.init.dump"
 
 export SHELL="/bin/bash"
 export GOPATH="${HOME}/go"
@@ -17,6 +18,12 @@ export tabstop=4
 export PAGER=nobs
 export MANPAGER=nobs
 export TERM=dumb
+
+if [ "${#}" -ne 0 ]; then
+	if [ -f "${1}" ]; then
+		dump="${1}"
+	fi
+fi
 
 pgrep plumber || plumber &
 rules="/usr/local/plan9/plumb/basic"
@@ -35,8 +42,10 @@ pgrep fontsrv || fontsrv &
 #   -F  : Variable font, activated by the Font command (without parameters).
 #   -l FILE : Load a dump from FILE.
 
-${acme} -a -b -f "${fixedfont}" -F "${variablefont}" -l ${HOME}/acme.init.dump
-pgrep acmedic || sleep 2 && "${HOME}/bin/acmedic" -e new -c "${HOME}/bin/Toolbars" &
+"${acme}" -a -b -f "${fixedfont}" -F "${variablefont}" -l "${dump}" &
+pgrep acmedic && exit 0
+sleep 2
+"${HOME}/bin/acmedic" -e new -c "${HOME}/bin/Toolbars" &
 
 
 
