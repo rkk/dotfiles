@@ -24,11 +24,15 @@ function install_linux {
 
     # X11 and window manager
     apt_packages="${apt_packages} i3-wm i3status i3lock sxhkd xdotool rxvt-unicode"
-    apt_packages="${apt_packages} meson libxcb-shape0-dev libstartup-notification0-dev libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf xutils-dev libtool"
+    apt_packages="${apt_packages} meson libxcb-shape0-dev libstartup-notification0-dev"
+    apt_packages="${apt_packages} libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev"
+    apt_packages="${apt_packages} libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev"
+    apt_packages="${apt_packages} libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev"
+    apt_packages="${apt_packages} libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf xutils-dev libtool"
     apt_packages="${apt_packages} libxcb-xrm-dev"
     apt_packages="${apt_packages} rofi wmctrl brightnessctl xorg-dev"
     apt_packages="${apt_packages} libx11-dev xclip xterm sakura xautolock"
-    apt_packages="${apt_packages} autocutsel dmenu polybar xinput scrot"
+    apt_packages="${apt_packages} autocutsel dmenu polybar xinput scrot unclutter"
 
     # Development tools
     apt_packages="${apt_packages} whois autotools-dev automake libevent-dev"
