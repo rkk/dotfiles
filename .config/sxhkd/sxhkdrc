@@ -7,8 +7,8 @@
 super + Return
     rxvt-unicode -pe plumb
 
-super + shift +Return
-    rxvt-unicode -pe plumb
+#super + shift +Return
+#    rxvt-unicode -pe plumb
 
 control + space
     dmenu_run -nb '#ffffea' -nf '#000000' -sb '#eaffff' -sf '#121212' -fn 'GoRegular' -l 10
@@ -37,6 +37,9 @@ control + shift + h
 
 control + shift + m
 	winfocus Firefox
+
+control + shift + n
+	acme-new
 
 super + shift + F1
     amixer set Master toggle
@@ -68,23 +71,24 @@ super + Escape
 control + shift + d
     xdotool click 2
 
-control + shift + r
-	xdotool click 3
+#control + shift + r
+#	xdotool click 3
 
 super + d
     xdotool click 2
 
-super + r
-    xdotool click 3
+# This and "super + c" trigger "Could not grab key 32 with modfield 64"
+#super + r
+#    xdotool click 3
 
-super + c
-	xdotool click 1
+#super + c
+#	xdotool click 1
 
-super + Tab
-    rofi -show window
+#super + Tab
+#    rofi -show window
 
-alt + Tab
-    rofi -show window
+#alt + Tab
+#    rofi -show window
 
 
 #
@@ -143,11 +147,11 @@ super + space
 super + shift + space
 	i3-msg "floating toggle"
 
-super + z
-	i3-msg "move scratchpad"
+#super + z
+#	i3-msg "move scratchpad"
 
-super + shift + z
-	i3-msg "scratchpad show"
+#super + shift + z
+#	i3-msg "scratchpad show"
 
 
 
