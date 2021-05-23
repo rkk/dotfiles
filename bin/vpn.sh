@@ -3,16 +3,20 @@
 # Starts an OpenVPN connection.
 #
 
-openvpn="/usr/local/sbin/openvpn"
-openvpn_alt="/usr/sbin/openpvn"
+candidates="/usr/local/sbin/openvpn /usr/sbin/openvpn"
 connection="/etc/openvpn/default.conf"
 
-if [ ! -f "${openvpn}" ]; then
-	if [ ! -f "${openvpn_alt}" ]; then
-        echo "ERROR: OpenVPN not installed at ${openvpn} and neither at ${openvpn_alt}"
-    	exit 1
+cmd=""
+for f in ${candidates}
+do
+    if [ -f "${f}" ]; then
+        cmd="${f}"
     fi
-    openvpn="${openvpn_alt}"
+done
+
+if [ "x${cmd}" = "x" ]; then
+    echo "ERROR: Cannot locate openvpn."
+    exit 1
 fi
 
 if [ ! -f "${connection}" ]; then
@@ -21,10 +25,10 @@ if [ ! -f "${connection}" ]; then
 fi
 
 if [ "$(uname -s)" = "OpenBSD" ]; then
-    doas ${openvpn} --config ${connection}
+    doas "${cmd}" --config "${connection}"
     exit 0
 fi
 
-if [ $(uname -s) = "Linux" ]; then
-	sudo "${openvpn}" --config "${connection}"
+if [ "$(uname -s)" = "Linux" ]; then
+	sudo "${cmd}" --config "${connection}"
 fi
