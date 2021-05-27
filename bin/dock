@@ -39,7 +39,6 @@
 
 DISPLAY_INTERNAL="eDP-1"
 DISPLAY_EXTERNAL_HOME_ONE="DP-2-2"
-DISPLAY_EXTERNAL_HOME_ONE_MODE="3840x2160"
 DISPLAY_EXTERNAL_OFFICE_ONE="DP-2-2"
 DISPLAY_EXTERNAL_OFFICE_TWO="DP-2-3"
 DISPLAY_EXTERNAL_MEETING_ONE="HDMI-2"
@@ -52,10 +51,12 @@ i3_office_layout() {
         --output "${DISPLAY_EXTERNAL_OFFICE_TWO}" --auto --right-of "${DISPLAY_EXTERNAL_OFFICE_ONE}" --rotate left \
         --output "${DISPLAY_INTERNAL}" --off
 
-    i3-msg "move workspace 4 to output ${DISPLAY_EXTERNAL_OFFICE_TWO}"
-    i3-msg "move workspace 3 to output ${DISPLAY_EXTERNAL_OFFICE_ONE}"
-    i3-msg "move workspace 2 to output ${DISPLAY_EXTERNAL_OFFICE_ONE}"
-    i3-msg "move workspace 1 to output ${DISPLAY_EXTERNAL_OFFICE_ONE}"
+    monitor_remove_disconnected
+    for w in "1 2 3 4"
+    do
+        i3-msg "workspace ${w}"
+        i3-msg "focus next"
+    done
 	keyboard_mouse_setup
 }
 
@@ -73,6 +74,19 @@ i3_home_layout() {
 
 
 i3_undock() {
+    output_ids="$(xrandr --query | grep isco | awk '{ print $1 }')"
+    for o in ${output_ids}
+    do
+        xrandr --output "${o}" --off
+    done
+
+    win_ids="$(wmctrl -l | cut -d\  -f1)"
+    this_workspace="$(xdotool get_desktop)"
+    for i in ${win_ids}
+    do
+        wmctrl -r "${i}" -t "${this_workspace}"
+    done
+
 	monitor_internal_only
     i3-msg reload
 	keyboard_mouse_setup
@@ -171,6 +185,13 @@ monitor_internal_only() {
     xrandr --output ${DISPLAY_INTERNAL} --auto --primary
 }
 
+monitor_remove_disconnected() {
+    monitors=$(xrandr --query | grep isconne | awk '{ print $1 }')
+    for i in ${monitors}
+    do
+        xrandr --output "${i}" --off
+    done
+}
 
 wm_is_bspwm=0
 wm_is_i3=0
