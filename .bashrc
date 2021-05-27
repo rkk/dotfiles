@@ -10,12 +10,11 @@ setup_env() {
 
 	EDITOR="vim"
 	VISUAL="${EDITOR}"
-	TERMINAL="sakura"
+	# TERMINAL="sakura"
 	TMPDIR="${HOME}/tmp"
 	export EDITOR VISUAL TERMINAL TMPDIR
 
 	# Reset PATH as it is often polluted.
-	PATH=""
 	PATH="${HOME}/bin:${HOME}/.local/bin:/usr/local/bin:/usr/bin:/bin:/sbin"
 	export PATH
 }
