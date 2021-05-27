@@ -30,21 +30,29 @@ client.unfocused          $rio_unfocused  $rio_unfocused   $rio_unfocused $rio_u
 #
 
 # Previous values: 12
-gaps inner 15
+# gaps inner 15
 
 # Previous values -2
-gaps outer -2
+# gaps outer -2
 
 # Previous values: 0
-gaps bottom 0
+# gaps bottom 0
 
 # Previous values: 10
-gaps top 0
-smart_gaps on
+# gaps top 0
+# smart_gaps on
 
-for_window [class="^.*"] border pixel 4
-new_window	          pixel 0
+# for_window [class="^.*"] border pixel 4
+# new_window	          pixel 0
 
+for_window [class="FILLER"] border pixel 0
+for_window [class="FILLER"] pixel 0
+
+for_window [class="^.*"] border pixel 2
+new_window	          pixel 2
+
+
+# for_window [class="URxvt*"] border pixel 8
 
 #
 # BEHAVIOR
@@ -55,7 +63,9 @@ set $second           workspace 2
 set $third            workspace 3
 set $fourth           workspace 4
 
-assign [class="Chromium"]                  $first
+assign [class="Spotify"]                   $fourth
+for_window [window_role="pop-up"]          floating enable
+for_window [window_role="task_dialog"]     floating enable
 
 
 #
@@ -80,17 +90,6 @@ bindsym $mod+Shift+4 move container to $fourth
 bindsym $mod+$alt_mod+h move workspace to output left
 bindsym $mod+$alt_mod+l move workspace to output right
 
-
-bindsym $mod+r mode "resize"
-mode "resize" {
-    bindsym Left resize shrink width 10 px or 10 ppt
-    bindsym Down resize grow height 10 px or 10 ppt
-    bindsym Up resize shrink height 10 px or 10 ppt
-    bindsym Right resize grow width 10 px or 10 ppt
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-
 bindsym $mod+t split toggle
 
 
@@ -110,7 +109,4 @@ exec --no-startup-id /usr/bin/unclutter &
 exec --no-startup-id xsetroot -solid "$rio_background"
 exec --no-startup-id xautolock -locker $HOME/bin/afk
 exec --no-startup-id redshift -c $HOME/.config/redshift/redshift.conf &
-
-# Naive binary split partitioning implementation; change split
-# direction every time a new window is created.
-for_window [class=".*"] split toggle
+exec_always --no-startup-id ${HOME}/bin/keyboardwarrior.sh &
