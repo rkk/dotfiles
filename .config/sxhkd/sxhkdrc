@@ -7,8 +7,8 @@
 super + Return
     rxvt-unicode -pe plumb
 
-super + shift +Return
-    rxvt-unicode -pe plumb -fg white -bg black -cr gray
+super + shift + Return
+    xterm -fg "#757575" -bg "#757575" -cr "#757575" -class FILLER
 
 control + space
     dmenu_run \
@@ -23,7 +23,7 @@ control + space
 
 # Programming Oriented Keyboard Environment (POKE) - applications.
 control + shift + t
-    xdotool search --name rxvt windowactivate
+    xdotool search --name rxvt-unicode windowactivate
 
 control + shift + z
     xdotool search  --classname Zathura windowactivate
@@ -32,7 +32,7 @@ control + shift + b
     xdotool search --name qutebrowser windowactivate
 
 control + shift + g
-    xdotool search --name "outlook" windowactivate
+    winfocus Thunderbird
 
 control + shift + c
 	xdotool search --classname acme windowactivate
@@ -61,8 +61,17 @@ super + F8
 super + F9
     brightnessctl set +10%
 
+# Close the window by force, and kill the application owning it.
 super + q
     xdotool getactivewindow windowkill
+
+# Close the window, but keep the application owning it.
+super + w
+    xdotool getactivewindow windowclose
+
+# Close the window by not displaying it anymore, keep the application owning it.
+super + shift + w
+	xdotool getactivewindow windowunmap
 
 super + Escape
     pkill -USR1 -x sxhkd
