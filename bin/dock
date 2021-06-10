@@ -2,54 +2,19 @@
 #
 # Dock the computer, configuring the window managers and external peripherals.
 #
-# For monitors, the following layouts are supported,
-# Office:
-#
-#             +-----+
-#    +------+ | TWO |
-#    | ONE  | |     |
-#    +------+ |     |
-#             +-----+
-#
-# Where ONE is the primary monitor in landscape mode,
-# and TWO is the secondary monitor in portrait mode.
-# The built-in display is disabled.
-#
-#
-# Home:
-#
-#   +-------+
-#   |  ONE  |
-#   +-------+
-#
-# Where ONE is the primary monitor in landscape mode, connected
-# through a USB C-hub via Displayport.
-# The built-in display is disabled.
-#
-#
-# Meeting:
-#
-#   +-----+ +-------+
-#   | INT | | ONE   |
-#   +-----+ |       |
-#           +-------+
-#
-# Where INT is the primary monitor in landscape mode
-# and ONE is the external monitor, TV or projector.
 
-DISPLAY_INTERNAL="eDP-1"
-DISPLAY_EXTERNAL_HOME_ONE="DP-2-2"
-DISPLAY_EXTERNAL_OFFICE_ONE="DP-2-2"
-DISPLAY_EXTERNAL_OFFICE_TWO="DP-2-3"
-DISPLAY_EXTERNAL_MEETING_ONE="HDMI-2"
+mon_int="eDP-1"
+mon_ext_home1="DP-2-2"
+mon_ext_office1="DP-2-2"
+mon_ext_office2="DP-2-3"
+res_4k="3840x2160"
 script=$(basename "${0}")
-
 
 i3_office_layout() {
     xrandr \
-        --output "${DISPLAY_EXTERNAL_OFFICE_ONE}" --primary --auto \
-        --output "${DISPLAY_EXTERNAL_OFFICE_TWO}" --auto --right-of "${DISPLAY_EXTERNAL_OFFICE_ONE}" --rotate left \
-        --output "${DISPLAY_INTERNAL}" --off
+        --output "${mon_ext_office1}" --primary --auto \
+        --output "${mon_ext_office2}" --auto --right-of "${mon_ext_office1}" --rotate left \
+        --output "${mon_int}" --off
 
     monitor_remove_disconnected
     for w in "1 2 3 4"
@@ -60,18 +25,16 @@ i3_office_layout() {
 	keyboard_mouse_setup
 }
 
-
 i3_home_layout() {
     xrandr \
-        --output "${DISPLAY_EXTERNAL_HOME_ONE}" --mode 3840x2160 --primary \
-        --output "${DISPLAY_INTERNAL}" --off
+        --output "${mon_ext_home1}" --mode "${res_4k}" --primary \
+        --output "${mon_int}" --off
 
 	keyboard_mouse_setup
     # shellcheck disable=SC2034
 	ignore=$(i3-msg reload)
-    wm-polybar.sh
+    wm-start-polybar
 }
-
 
 i3_undock() {
     output_ids="$(xrandr --query | grep isco | awk '{ print $1 }')"
@@ -90,42 +53,39 @@ i3_undock() {
 	monitor_internal_only
     i3-msg reload
 	keyboard_mouse_setup
-    wm-polybar.sh
+    wm-start-polybar
 }
-
 
 bspwm_office_layout() {
     xrandr \
-        --output "${DISPLAY_EXTERNAL_OFFICE_ONE}" --primary --auto \
-        --output "${DISPLAY_EXTERNAL_OFFICE_TWO}" --auto --right-of "${DISPLAY_EXTERNAL_OFFICE_ONE}" --rotate left \
-        --output "${DISPLAY_INTERNAL}" --off
+        --output "${mon_ext_office1}" --primary --auto \
+        --output "${mon_ext_office2}" --auto --right-of "${mon_ext_office1}" --rotate left \
+        --output "${mon_int}" --off
 
-    desktops=$(bspc query -D)
-    for i in ${desktops}
-    do
-        bspc desktop "${i}" --to-monitor "${DISPLAY_EXTERNAL_OFFICE_ONE}"
-    done
-    last_one="$(bspc query -D | tail -n1)"
-    if [ "${last_one}" != "" ]; then
-        bspc desktop "${last_one}" --to-monitor "${DISPLAY_EXTERNAL_OFFICE_TWO}"
-    fi
-    bspc wm -O "${DISPLAY_EXTERNAL_OFFICE_ONE}" "${DISPLAY_EXTERNAL_OFFICE_TWO}"
+    bspc wm -O "${mon_ext_office1}" "${mon_ext_office2}"
+    wm-rename-desktops
+    wm-ensure-desktops
+    wm-rename-desktops
+
+    wm-assign-desktop-to-monitor 1 "${mon_ext_office1}"
+    wm-assign-desktop-to-monitor 2 "${mon_ext_office2}"
+    wm-assign-desktop-to-monitor 3 "${mon_ext_office1}"
+    wm-assign-desktop-to-monitor 4 "${mon_ext_office1}"
+
     keyboard_mouse_setup
-    sh ~/.config/bspwm/bspwmrc &
 }
-
 
 bspwm_home_layout() {
     desktops=$(bspc query -D)
     for i in ${desktops}
     do
-        bspc desktop "${i}" --to-monitor "${DISPLAY_EXTERNAL_HOME_ONE}"
+        bspc desktop "${i}" --to-monitor "${mon_ext_home1}"
     done
 
-    bspc monitor "${DISPLAY_INTERNAL}" --remove
+    bspc monitor "${mon_int}" --remove
     xrandr \
-        --output "${DISPLAY_EXTERNAL_HOME_ONE}" --primary --auto \
-        --output "${DISPLAY_INTERNAL}" --off
+        --output "${mon_ext_home1}" --primary --auto \
+        --output "${mon_int}" --off
 
     keyboard_mouse_setup
     sh ~/.config/bspwm/bspwmrc &
@@ -133,56 +93,53 @@ bspwm_home_layout() {
 
 
 bspwm_undock() {
-	desktops=$(bspc query -D)
-	for i in ${desktops}
-	do
-		bspc desktop "${i}" --to-monitor "${DISPLAY_INTERNAL}"
-	done
     monitors=$(bspc query -M --names)
     for m in ${monitors}
     do
-        if [ ! "${m}" = "${DISPLAY_INTERNAL}" ]; then
+        if [ ! "${m}" = "${mon_int}" ]; then
             bspc monitor "${m}" --remove
         fi
     done
 
+    bspc config remove_disabled_monitors true
+    bspc config merge_overlapping_monitors true
+    bspc wm -o
+    wm-rename-desktops
+    desktops=$(bspc query -D)
+    for k in ${desktops}
+    do
+        bspc desktop "${k}" -m "${mon_int}"
+    done
     monitor_internal_only
     keyboard_mouse_setup
+    sh ~/.config/bspwm/bspwmrc &
+    wm-ensure-desktops
+    # wm-start-polybar
 }
 
 
 cwm_home_layout() {
     xrandr \
-        --output "${DISPLAY_EXTERNAL_HOME_ONE}" --primary --mode 3840x2160 \
-        --output "${DISPLAY_INTERNAL}" --auto --right-of "${DISPLAY_EXTERNAL_HOME_ONE}"
+        --output "${mon_ext_home1}" --primary --mode "${res_4k}" \
+        --output "${mon_int}" --auto --right-of "${mon_ext_home1}"
 
     keyboard_mouse_setup
 }
-
-
-meeting_layout() {
-    xrandr \
-        --output "${DISPLAY_INTERNAL}" --primary --auto \
-        --output "${DISPLAY_EXTERNAL_MEETING_ONE}" --auto --right-of "${DISPLAY_INTERNAL}" \
-
-    keyboard_mouse_setup
-}
-
 
 keyboard_mouse_setup() {
-    ~/bin/setdvorarkk
-    ~/bin/setmouse
+    setdvorarkk
+    setmouse
 }
 
 monitor_internal_only() {
     monitors=$(xrandr -q | grep " connected" | cut -d\  -f1)
     for i in ${monitors}
     do
-        if [ ! "${i}" = "${DISPLAY_INTERNAL}" ]; then
+        if [ ! "${i}" = "${mon_int}" ]; then
             xrandr --output "${i}" --off
         fi
     done
-    xrandr --output ${DISPLAY_INTERNAL} --auto --primary
+    xrandr --output ${mon_int} --auto --primary
 }
 
 monitor_remove_disconnected() {
@@ -193,79 +150,24 @@ monitor_remove_disconnected() {
     done
 }
 
-wm_is_bspwm=0
-wm_is_i3=0
-wm_is_cwm=0
 
-if pgrep bspwm; then
-    wm_is_bspwm=1
-fi
-
-if pgrep i3; then
-    wm_is_i3=1
-fi
-
-if pgrep cwm; then
-	wm_is_cwm=1
-fi
-
-
-## HOME HANDLER
 if [ "x${1}" = "xhome" ]; then
-    if [ "${wm_is_bspwm}" -eq 1 ]; then
-    	bspwm_home_layout
-    	exit 0
-    fi
-
-    if [ "${wm_is_i3}" -eq 1 ]; then
-        i3_home_layout
-        exit 0
-    fi
-
-    if [ "${wm_is_cwm}" -eq 1 ]; then
-        cwm_home_layout
-        exit 0
-    fi
+    wm-is-bspwm && bspwm_home_layout && exit 0
+    wm-is-i3 && i3_home_layout && exit 0
+    echo "ERROR: Window manager not supported."
 fi
 
-## OFFICE HANDLER
 if [ "x${1}" = "xoffice" ]; then
-    if [ "${wm_is_i3}" -eq 1 ]; then
-        i3_office_layout
-        exit 0
-    fi
-
-    if [ "${wm_is_bspwm}" -eq 1 ]; then
-        bspwm_office_layout
-        exit 0
-    fi
+    wm-is-bspwm && bspwm_home_layout && exit 0
+    wm-is-i3 && i3_home_layout && exit 0
+    echo "ERROR: Window manager not supported." && exit 1
 fi
 
-
-## MEETING HANDLER
-if [ "x${1}" = "xmeeting" ]; then
-	meeting_layout
-	exit 0
-fi
-
-
-## UNDOCK HANDLER
 if [ "x${1}" = "xundock" ]; then
-    if [ "${wm_is_i3}" -eq 1 ]; then
-        i3_undock
-        exit 0
-    fi
-
-    if [ "${wm_is_bspwm}" -eq 1 ]; then
-        bspwm_undock
-        exit 0
-    fi
-
-	# Unsupported WM, assume nothing specific to do.
-	monitor_internal_only
-	keyboard_mouse_setup
+    wm-is-bspwm && bspwm_undock && monitor_internal_only && keyboard_mouse_setup && exit 0
+    wm-is-i3 && i3_undock && monitor_internal_only && keyboard_mouse_setup && exit 0
+    echo "ERROR: Window manager not supported." && exit 1
 fi
-
 
 echo "Usage: ${script} LOCATION"
 echo ""
@@ -273,6 +175,5 @@ echo "Where LOCATION matches one of the following,"
 echo ""
 echo "  home    - Single external monitor (primary), internal monitor enabled."
 echo "  office  - Two external monitors (primary), internal monitor disabled."
-echo "  meeting - Single external monitor, internal monitor enabled (primary)."
-echo "  undock  - Undock the computer"
+echo "  undock  - Undock the computer, internal monitor enabled."
 echo ""
