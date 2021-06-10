@@ -87,8 +87,8 @@ bindsym $mod+Shift+2 move container to $second
 bindsym $mod+Shift+3 move container to $third
 bindsym $mod+Shift+4 move container to $fourth
 
-bindsym $mod+$alt_mod+h move workspace to output left
-bindsym $mod+$alt_mod+l move workspace to output right
+#bindsym $mod+$alt_mod+h move workspace to output left
+#bindsym $mod+$alt_mod+l move workspace to output right
 
 bindsym $mod+t split toggle
 
@@ -100,8 +100,9 @@ bindsym $mod+t split toggle
 
 exec_always --no-startup-id ${HOME}/bin/wm-polybar.sh
 exec_always --no-startup-id /usr/bin/xrdb -merge $HOME/.Xdefaults
-exec_always --no-startup-id ${HOME}/bin/setdvorarkk
-exec_always --no-startup-id ${HOME}/bin/setmouse
+exec_always --no-startup-id setdvorarkk
+exec_always --no-startup-id setmouse
+exec_always --no-startup-id keyboardwarrior.sh &
 exec --no-startup-id /usr/bin/sxhkd &
 exec --no-startup-id /usr/bin/autocutsel -s PRIMARY -f
 exec --no-startup-id /usr/bin/unclutter &

@@ -55,8 +55,8 @@ super + shift + Escape
 control + shift + d
     xdotool click 2
 
-control + shift + r
-	xdotool click 3
+super + d
+    xdotool click 2
 
 @F11
     wm-set-fullscreen

@@ -9,7 +9,7 @@ run_action() {
     "${HOME}/bin/setmouse"
 }
 
-make_monitor() {
+make_semaphor() {
     f="${1}"
     if [ "x${1}" = "x" ]; then
         return
@@ -22,28 +22,28 @@ if [ "x${TMPDIR}" = "x" ]; then
     exit 1
 fi
 
-monitor="${TMPDIR}/keyboardwarrior.monitor"
-tmp="${monitor}.tmp"
+semaphor="${TMPDIR}/keyboardwarrior.monitor"
+tmp="${semaphor}.tmp"
 interval="15"
 
-if [ ! -f "{monitor}" ]; then
-    make_monitor "${monitor}"
+if [ ! -f "{semaphor}" ]; then
+    make_semaphor "${semaphor}"
 fi
 
 while :
 do
-    make_monitor "${tmp}"
-    if [ ! -f "${monitor}" ]; then
-        echo "ERROR: Monitor file ${monitor} missing."
+    make_semaphor "${tmp}"
+    if [ ! -f "${semaphor}" ]; then
+        echo "ERROR: Semaphor file ${semaphor} missing."
         exit 1
     fi
     if [ ! -f "${tmp}" ]; then
-        echo "ERROR: Temporary monitor file ${tmp} missing."
+        echo "ERROR: Temporary semaphor file ${tmp} missing."
         exit 1
     fi
-    if [ "$(diff "${monitor}" "${tmp}")" ]; then
+    if [ "$(diff "${semaphor}" "${tmp}")" ]; then
         run_action
-        mv -f "${tmp}" "${monitor}"
+        mv -f "${tmp}" "${semaphor}"
     fi
     sleep "${interval}"
 done
