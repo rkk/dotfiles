@@ -1,13 +1,4 @@
 "
-" VIM CONFIGURATION
-" Tested on Vim 7.x and 8.x in terminals on Linux, OpenBSD
-" and Mac OS X.
-"
-" Quick tip: Reload this file by running ":so %", meaning source
-" the currently open file.
-
-
-"
 " BEHAVIOR
 "
 
@@ -33,7 +24,7 @@ set backspace=indent,eol,start
 
 set scrolloff=5
 set laststatus=2
-set statusline=%{SyntasticStatuslineFlag()}\ \ %=%t%m\:%l\,%c
+" set statusline=%{SyntasticStatuslineFlag()}\ \ %=%t%m\:%l\,%c
 
 let NERDTreeShowHidden=1
 
@@ -96,7 +87,7 @@ hi clear Constant
 hi clear Operator
 hi clear Comment
 hi clear htmlItalic
-set fillchars+=vert:\|
+set fillchars+=vert:\│
 
 
 "
@@ -181,4 +172,29 @@ endfunction
 "
 " TESTING AREA
 "
+
+" Disable blinking cursors in Gvim.
+set guicursor=n-v-c:block-Cursor
+set guicursor+=a:blinkon0
+
+highlight Normal guifg=#121212 guibg=#FFFFEA
+set guifont=GoMono\ 12
+
+" Hide menubar (m), toolbar (T), left and right scrollbars (L, r).
+set guioptions-=m
+set guioptions-=T
+set guioptions-=r
+set guioptions-=L
+
+" set fillchars=stl:―,stlnc:—,vert:│,fold:۰,diff:·
+hi statusline cterm=reverse ctermbg=NONE ctermfg=NONE guibg=#eaffff
+hi statuslinenc term=NONE ctermbg=NONE cterm=underline gui=none guibg=#ffffea
+set statusline=
+set statusline+=%<\  
+set statusline+=%F:%l 
+set statusline+=\ (%P)\ \ \ \ 
+
+" For some reason, in Gvim, text wrapping is enforced for ~/.vim/vimrc.
+" This disables it.
+set formatoptions=
 
