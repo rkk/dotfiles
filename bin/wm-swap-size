@@ -1,0 +1,8 @@
+#!/bin/bash
+#
+# Focus the biggest window.
+
+wm-is-bspwm && bspc node -s biggest.local && exit 0
+
+echo "ERROR: Unsupported WM"
+exit 1

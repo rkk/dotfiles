@@ -1,0 +1,18 @@
+#!/bin/bash
+#
+# Send focus to the next window in a given direction.
+
+direction="${1}"
+if [ "x${direction}" = "x" ]; then
+    echo "Usage: $(basename "${0}") DIRECTION"
+    echo ""
+    echo "Where DIRECTION is one of up, down, right or left."
+    echo ""
+fi
+
+wm-is-i3 && i3-msg "focus ${direction}" && exit 0
+course=$(echo "${direction}" | sed -e 's/up/north/g' -e 's/down/south/g' -e 's/left/west/g' -e 's/right/east/g')
+wm-is-bspwm && bspc node -f "${course}" && exit 0
+
+echo "ERROR: Unsupported WM"
+exit 1

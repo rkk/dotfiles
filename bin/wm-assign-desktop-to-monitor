@@ -1,0 +1,21 @@
+#!/bin/bash
+#
+# Assigns a given desktop to the given monitor.
+
+wm-is-i3 && echo "ERROR Window manager not supported" && exit 1
+
+desktop="${1}"
+monitor="${2}"
+
+if [ "x${desktop}" = "x" ]; then
+    echo "ERROR: Missing desktop variable"
+    exit 1
+fi
+
+if [ "x${monitor}" = "x" ]; then
+    echo "ERROR: Missing monitor variable"
+    exit 1
+fi
+
+bspc desktop "${desktop}" --to-monitor "${monitor}"
+

@@ -2,13 +2,8 @@
 # agnostic experience. Depends on xdotool, custom scripts and is aimed at
 # a specific collection of applications, see "windowactivate" parts.
 
-
-# RXVT has issues reading URxvt.perl-ext path from ~/.Xdefaults, so enforce it here.
 super + Return
-    rxvt-unicode -pe plumb
-
-super + shift + Return
-    xterm -fg "#757575" -bg "#757575" -cr "#757575" -class FILLER
+    xterm
 
 control + space
     dmenu_run \
@@ -21,30 +16,8 @@ control + space
     	-f \
     	-i
 
-# Programming Oriented Keyboard Environment (POKE) - applications.
-control + shift + t
-    xdotool search --name rxvt-unicode windowactivate
-
-control + shift + z
-    xdotool search  --classname Zathura windowactivate
-
-control + shift + b
-    xdotool search --name qutebrowser windowactivate
-
-control + shift + g
-    winfocus Thunderbird
-
-control + shift + c
-	xdotool search --classname acme windowactivate
-
-control + shift + f
-    winfocus Chromium
-
-control + shift + h
-    winfocus Slack
-
-control + shift + m
-	winfocus Firefox
+super + shift + space
+    rofi -show window
 
 super + F1
     amixer set Master toggle
@@ -61,26 +34,23 @@ super + F8
 super + F9
     brightnessctl set +10%
 
-# Close the window by force, and kill the application owning it.
 super + q
-    xdotool getactivewindow windowkill
+    wm-kill-window
 
-# Close the window, but keep the application owning it.
 super + w
-    xdotool getactivewindow windowclose
+    wm-close-window
 
-# Close the window by not displaying it anymore, keep the application owning it.
-super + shift + w
-	xdotool getactivewindow windowunmap
+super + space ; {Left,Right,Up,Down}
+    wm-resize-window {west,east,north,south}
+
+super + shift + {h,j,k,l}
+    wm-move-direction {left,up,down,right}
 
 super + Escape
     pkill -USR1 -x sxhkd
 
-#super + Prior
-#    xdotool click 4
-
-#super + Next
-#    xdotool click 5
+super + shift + Escape
+    wm-reload
 
 control + shift + d
     xdotool click 2
@@ -88,153 +58,64 @@ control + shift + d
 control + shift + r
 	xdotool click 3
 
-super + d
-    xdotool click 2
-
-super + r
-    xdotool click 3
-
-super + c
-	xdotool click 1
-
-super + Tab
-    rofi -show window
-
-alt + Tab
-    i3-msg workspace back_and_forth
-
-
-#
-# CUSTOM CONFIG: i3
-#
-
-super + shift + Escape
-    i3-msg reload
-
-super + v
-	i3-msg "split v"
-
-super + shift + v
-	i3-msg "split h"
-
-super + f
-	i3-msg "fullscreen"
-
 @F11
-	i3-msg "fullscreen"
+    wm-set-fullscreen
 
-super + e
-	i3-msg "layout toggle split"
-
-super + h
-	i3-msg "focus left"
-
-super + j
-	i3-msg "focus down"
-
-super + k
-	i3-msg "focus up"
-
-super + l
-	i3-msg "focus right"
-
-# Mimic swap biggest window functionality from bspwm.
 super + g
-	mainwinswap.py
+    wm-swap-size
 
-super + shift + h
-	i3-msg "move left"
+super + {h,j,k,l}
+    wm-focus-direction {left,down,up,right}
 
-super + shift + j
-	i3-msg "move down"
+super + space ; {1,2,3,4}
+    wm-move-desktop {1,2,3,4}
 
-super + shift + k
-	i3-msg "move up"
+super + space ; g
+   wm-set-floating
 
-super + shift + l
-	i3-msg "move right"
-
-super + space
-	rofi -show window
-
-super + shift + space
-	i3-msg "floating toggle"
-
-super + z
-	i3-msg "move scratchpad"
-
-super + shift + z
-	i3-msg "scratchpad show"
+super + space ; {h,v}
+   wm-split-direction {horizontal,vertical}
 
 
+#
+# PROGRAMMING ORIENTED KEYBOARD ENVIRONMENT (POKE)
+#
+
+control + shift + t
+    xdotool search --classname xterm windowactivate
+
+control + shift + z
+    xdotool search  --classname Zathura windowactivate
+
+control + shift + g
+    wm-focus-name Thunderbird
+
+control + shift + c
+	wm-focus-name Gvim
+
+control + shift + f
+    wm-focus-name Chromium
+
+control + shift + h
+    wm-focus-name Slack
+
+control + shift + m
+    wm-focus-name Firefox
+
+control + shift + s
+    wm-focus-name Teams
 
 #
 # CUSTOM CONFIG: BSPWM
 #
 
-#super + w
-#    bspc node -c
+super + {Left,Right}
+    bspc desktop -f {prev,next}
 
-#super + f
-#    bspc desktop -l next
+super + shift + {Left,Right}
+    bspc node -d {prev,next} --follow
 
-#super + g
-#    bspc node -s biggest.local
+super + space ; {r,R}
+    bspc node @/ --rotate {90,-90}
 
-#super + {h,j,k,l}
-#    bspc node -f {west,south,north,east}
 
-#super + shift + {h,j,k,l}
-    bspc node -s {west,south,north,east}
-
-##alt + {_,shift +} Tab
-##    bspc node -f {next,prev}.local
-
-#super + Tab
-#    bspc window -s last
-
-#super + shift + g
-#    bspc node -s biggest
-
-#super + {Left,Right}
-#    bspc desktop -f {prev,next}
-
-#super + shift + {Left,Right}
-#    bspc node -d {next,prev} --follow
-
-#super + space ; {r,R}
-#    bspc node @/ --rotate {90,-90}
-
-#super + space ; {h,v}
-#    bspc node @/ -F {horizontal,vertical}
-
-#super + space ; g
-#    bspc node -t ~floating
-
-# Balance windows by reallocating display real estate.
-#super + space ; b
-#    bspc node @/ -B
-
-##super + space ; {h,j,k,l}
-##    bspc node -s {west,south,north,east}
-
-#super + shift + Escape
-#    sh ~/.config/bspwm/bspwmrc
-
-# Mouse pointer raises focus on window.
-#~button1
-#    bspc pointer -g focus
-
-# Focus or move windows to the given desktop; must use X11 keysym
-# names because of Dvorarkk keyboard layout.
-#super + {_,shift +}exclam
-#    bspc {desktop -f,node -d} '^1'
-
-#super + {_,shift +}at
-#    bspc {desktop -f,node -d} '^2'
-
-#super + {_,shift +}numbersign
-#    bspc {desktop -f,node -d} '^3'
-
-#super + {_,shift +}dollar
-#@!    bspc {desktop -f,node -d} '^4'

@@ -1,0 +1,20 @@
+#!/bin/bash
+#
+# Polybar wrapper, automatically running a per-WM configuration.
+
+wm="cwm"
+wm-is-bspwm && wm="bspwm"
+wm-is-i3 && wm="i3"
+cfg="${HOME}/.config/polybar/${wm}.ini"
+
+if [ ! -f "${cfg}" ]; then
+    echo "ERROR: Configuration file ${cfg} does not exist"
+    exit 1
+fi
+
+killall -q polybar
+polybar "${wm}" -c "${cfg}" &
+exit 0
+
+echo "No supported window manager found, exiting."
+exit 1

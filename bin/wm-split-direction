@@ -1,0 +1,20 @@
+#!/bin/bash
+#
+# Split windows in a given direction. For i3, this applies
+# only to new windows; for BSPWM, this applies to existing
+# windows.
+
+direction="${1}"
+if [ "x${direction}" = "x" ]; then
+    echo "Usage: $(basename "${0}") DIRECTION"
+    echo ""
+    echo "Where DIRECTION is one of horizontal or vertical."
+    echo ""
+fi
+
+wm-is-bspwm && bspc node @/ -F "${direction}" && exit 0
+course=$(echo "${direction}" | sed -e 's/horizontal/h/g' -e 's/vertical/v/g')
+wm-is-i3 && i3-msg split "${course}" && exit 0
+
+echo "ERROR: Unsupported WM"
+exit 1

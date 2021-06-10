@@ -1,0 +1,6 @@
+#!/bin/bash
+#
+# Close the window gracefully, not touching the application
+# owning it.
+
+xdotool getactivewindow windowclose

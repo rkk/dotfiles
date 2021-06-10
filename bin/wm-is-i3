@@ -1,0 +1,10 @@
+#!/bin/bash
+#
+# Checks if the currently running X11 window manager is i3.
+# Returns 1 if i3 is running, 0 if not.
+
+pgrep -u "${USER}" -x i3 > /dev/null || exit 1
+
+exit 0
+
+# TODO: Check also the i3 socket directory /tmp/i3-${USER}.${pid}.

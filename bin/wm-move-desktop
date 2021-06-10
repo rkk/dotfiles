@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+# Move the focused window to the designated desktop.
+
+desktop="${1}"
+if [ "x${desktop}" = "x" ]; then
+    echo "Usage: $(basename "${0}") DESKTOP"
+    echo ""
+    echo "Where DESKTOP is one of 1, 2, 3 or 4."
+    echo ""
+fi
+
+wm-is-i3 && i3-msg "move ${desktop}" && exit 0
+wm-is-bspwm && bspc node -d "${desktop}" && exit 0
+
+echo "ERROR: Unsupported WM"
+exit 1

@@ -1,0 +1,9 @@
+#!/bin/bash
+#
+# Sets the focused window in floating mode.
+
+wm-is-bspwm && bspc node -t ~floating && exit 0
+wm-is-i3 && i3-msg "floating toggle" && exit 0
+
+echo "ERROR: Unsupported window manager" && exit 1
+

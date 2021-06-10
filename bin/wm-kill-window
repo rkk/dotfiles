@@ -1,0 +1,6 @@
+#!/bin/bash
+#
+# Close the window by force, and kill the application
+# owning it.
+
+xdotool getactivewindow windowkill
