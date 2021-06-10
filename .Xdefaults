@@ -52,6 +52,8 @@ XTerm*locale: true
 !! Copy selection to X CLIPBOARD and X PRIMARY.
 XTerm*selectToClipboard: true
 XTerm*scrollBar: false
+XTerm*font: xft:Go Mono:size=10
+XTerm*internalBorder: 8
 
 
 !!
