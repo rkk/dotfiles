@@ -1,0 +1,12 @@
+#!/bin/bash
+#
+# Dotfiles wrapper around Git, using a bare repository
+# approach. Run this wrapper just like you would run Git,
+# e.g, "dotfiles diff --name-only" instead of "git diff --name-only".
+#
+# NOTE: The directory ".dotfiles" is used instead of the
+#       default Git directory ".git". This means normal
+#       Git commands will not work.
+
+git --git-dir="${HOME}/.dotfiles/" --work-tree="${HOME}" "${@}"
+

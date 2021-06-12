@@ -1,60 +1,107 @@
-# Dotfiles
-
+# DOTFILES
 Unix-style configuration files for a terminal-centric working
 environment,
 
-  - [i3 tiling window manager](https://i3wm.org/) and Sakura terminal emulator, using [Porter](https://github.com/rkk/porter) colors
-  - Vim and Visual Studio Code editors with code navigation features and Git integration, focused on [Go](https://golang.org/) development
+  - Tiling window managers ([bspwm](https://github.com/baskerville/bspwm) and [i3](https://i3wm.org)).
+  - Black on bright color scheme, no syntax highlighting.
+  - Vim and Visual Studio Code editors with code navigation and Git integration, for [Go](https://golang.org) development. 
   - Custom programming-optimized [keyboard layout](https://github.com/rkk/Dvorarkk)
-  - Programming, Unix, and Devops-oriented feeds in the [Newsbeuter](https://newsbeuter.org/) terminal RSS client
 
-## Platforms
-The primary platforms are Debian Linux, but contents are
-also tested on Mac OS X (10.10+), where applicable and feasible.
+See the list of included programs in the Scope section.
 
-## Installation
-Installing these dotfiles consists of checking out this repository
-into your home directory and running the setup scripts to install
-and set up the needed packages. The scripts are idempotent, so
-running them multiple times will do no harm.
 
-All configuration items have the default file names and locations,
-so once the repository has been checked out, the configuration will
-be activated the next time you log in.
+## SUPPORTED PLATFORMS
+The primary platform is Debian Linux, but contents are
+also tested on NetBSD and OpenBSD, where applicable and feasible.
 
-When installing for the first time,
 
-    # cd ~
-    # git init
-    # git remote add origin git@github.com:rkk/dotfiles.git
-    # git fetch
-    # git checkout -f master
-    # ~/dotfiles.install.sh
-    # ~/.vim/install.sh
+## DESIGN AND IMPLEMENTATION
+Most dotfiles implementations combine a version control system
+and dotfiles management software to perform the linking of the
+version controlled contents to the proper files and
+locations in your home directory.
 
-Please note that this might conflict with existing files, which must be
-resolved manually.
+Whilst dotfiles management solutions undoubtedly are great, I
+prefer simpler solutions with fewer moving parts.
 
-When updating the dotfiles,
+One such solution is the [Git bare repository](https://www.saintsjd.com/2011/01/what-is-a-bare-git-repository/)
+approach, with the work tree checked out in the home directory.
+This accomplishes the same goals, with vanilla Git functionality
+and without extra software components.
 
-    # cd ~
-    # git pull origin master
-    # ~/dotfiles.install.sh
-    # ~/.vim/install.sh
+
+## CAVEATS
+There are four important caveats you should be aware of,
+before perusing this repository,
+
+  - The configuration reflects my personal preferences; you may not agree to these.
+  - The installation instructions assume read/write access to the repository; you may need to either fork the repository to your own Github account or change the repository URL to `https://github.com/rkk/dotfiles.git` when cloning.
+  - The Git bare repository approach means you have to run Git with extra parameters, when working on the dotfiles.
+  - Git ignores all files, except those explicitly added; that means that Git only tracks files already added, and will ignore any new files created.
+
+Should you tire from adding the parameters required by the bare repository
+approach, the script `bin/dotfiles` can be used as a convenient wrapper
+around Git, that provides all needed extra parameters for Git.  
+Use this the same way you would normally run a Git command, e.g., substitute
+`git log --name-only` with `dotfiles log --name-only`.  
+
+The limitations imposed by the Git bare repository approach, apply only when
+working on the dotfiles in your home directory.  Working with Git in any
+other directory or subdirectory in your home directory is _not_ affected,
+allowing you to run Git like you always do, everywhere else.
+
+
+## INSTALLATION
+Clone this repository to your home directory and run the install
+scripts,
+
+    # cd $HOME
+    # git clone --bare git@github.com:rkk/dotfiles.git .dotfiles
+    # git checkout --git-dir=$HOME/.dotfiles/ --work-tree=$HOME
+
+If your home directory already contains files that are included
+in this repository, Git will fail.
+Remove or rename the offending files, and re-run the Git command.
+
+Once Git successfully completes, run the installation scripts
+to install the needed software packages,
+
+    # ./dotfiles.install.sh
+    # ./.vim/install.sh
+
+These are idempotent, so running them multiple times causes no
+issues.
+Once the installation scripts successfully complete, the configuration
+will be live the next time you log in.
+
+
+## SCOPE
+The following applications are supported by means of installation
+and configuration,
+
+  - X11: bspwm, i3, sxhkd, Polybar, Rofi, Dmenu, xdotool, wmctrl.
+  - Editors: Vim, Gvim, Visual Studio Code (Linux only), ACME (Linux and OpenBSD only).
+  - Development: Docker (Linux only), Terraform, Go, Python.
+  - Terminals and shells: XTerm, Sakura, Unicode-RXVT, tmux, Bash.
+  - Browsers: Firefox, Chromium (Linux only), w3m.
+  - Music: Spotify (Linux only).
+  - Fonts: Microsoft and Go fonts.
 
 The master branch is kept stable - any experimental changes are restricted
 to feature or host-specific branches, named "feature/NAME" and
 "host/NAME", respectively.
 
+
+## BUG REPORTS
+Bug reports and pull requests are highly appreciated.
+
+
+## CREDITS
 Many thanks to Drew DeVault and the blog post
 ["Managing my dotfiles as a Git Repository"](https://drewdevault.com/2019/12/30/dotfiles.html),
 demonstrating this lean way of using Git to track dotfiles without needing dotfiles
 management software.
 
 
-## Bug reports
-Bug reports and pull requests are highly appreciated.
-
-
-## License
+## LICENSE
 This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
