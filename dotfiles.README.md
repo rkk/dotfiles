@@ -61,8 +61,9 @@ scripts,
 
 If your home directory already contains files that are included
 in this repository, Git will fail.
-Remove or rename the offending files, and re-run the Git command.
-
+Remove or rename the offending files, and re-run the Git command.  
+Add the parameter "-f" to the checkout command if you want any
+existing files to be automatically overwritten.  
 Once Git successfully completes, run the installation scripts
 to install the needed software packages,
 
