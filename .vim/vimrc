@@ -6,7 +6,7 @@ set nocompatible
 call pathogen#infect()
 call pathogen#infect('custom_bundles{}')
 
-syntax on
+syntax off
 filetype plugin indent on
 
 set hidden
