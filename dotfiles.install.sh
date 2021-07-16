@@ -24,7 +24,7 @@ function install_linux {
 
     # X11 and window manager
     apt_packages="${apt_packages} i3-wm i3status i3lock sxhkd xdotool rxvt-unicode"
-    apt_packages="${apt_packages} meson libxcb-shape0-dev libstartup-notification0-dev"
+    apt_packages="${apt_packages} libxcb-shape0-dev libstartup-notification0-dev"
     apt_packages="${apt_packages} libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev"
     apt_packages="${apt_packages} libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev"
     apt_packages="${apt_packages} libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev"
@@ -41,7 +41,7 @@ function install_linux {
     apt_packages="${apt_packages} python-pip python3-pip"
 
     # Web
-    apt_packages="${apt_packages} firefox-esr qutebrowser chromium w3m"
+    apt_packages="${apt_packages} firefox-esr chromium w3m"
     apt_packages="${apt_packages} newsbeuter pandoc"
 
     # Other
@@ -51,6 +51,10 @@ function install_linux {
     apt_packages="${apt_packages} dnsutils coreutils xz-utils zathura"
     apt_packages="${apt_packages} docker.io docker-doc"
     apt_packages="${apt_packages} acpi net-tools openssh-server"
+
+    # Virtualization
+    apt_packages="${apt_packages} virtinst virt-goodies virt-top"
+    apt_packages="${apt_packages} libvirt-daemon libvirt-clients"
 
     # Required by dotfiles installation script
     apt_packages="${apt_packages} cabextract gzip zip unzip bzip2"
@@ -75,7 +79,6 @@ function install_linux {
     install_go_linux
     install_plan9port_linux
     install_spotify_linux
-    install_i3gaps_linux
 
     setup_newsbeuter
     setup_git_aliases
@@ -450,6 +453,10 @@ function setup_vim {
 
     if [ ! -d "${BUNDLE_ROOT}/vim-minisnip" ]; then
         git clone git://github.com/eemed/vim-minisnip "${BUNDLE_ROOT}/vim-minisnip"
+    fi
+
+    if [ ! -d "${BUNDLE_ROOT}/vim-terraform" ]; then
+        git clone git://github.com/hashivim/vim-terraform.git "${BUNDLE_ROOT}/vim-terraform"
     fi
 }
 

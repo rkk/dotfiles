@@ -10,18 +10,21 @@ setup_env() {
 
 	EDITOR="vim"
 	VISUAL="${EDITOR}"
-	# TERMINAL="sakura"
 	TMPDIR="${HOME}/tmp"
-	export EDITOR VISUAL TERMINAL TMPDIR
+	export EDITOR VISUAL TMPDIR
 
 	# Reset PATH as it is often polluted.
 	PATH="${HOME}/bin:${HOME}/.local/bin:/usr/local/bin:/usr/bin:/bin:/sbin"
 	export PATH
+
+    VIRSH_DEFAULT_CONNECT_URI="qemu:///system"
+    LIBVIRT_DEFAULT_URI="${VIRSH_DEFAULT_CONNECT_URI}"
+    export VIRSH_DEFAULT_CONNECT_URI LIBVIRT_DEFAULT_URI
 }
 
 
 setup_prompt() {
-	PS1="% "
+    PS1="$(hostname)% "
 	PS2="%% "
 	PS3="%%% "
 	PS4="%%%% "
@@ -56,6 +59,10 @@ setup_alias() {
 	# Git aliases are handled in ~/.gitconfig.
 	alias g="git"
 	alias gnew="git checkout -b"
+    alias b="bspc query"
+    alias mc="mc --nocolor"
+    alias tf="terraform"
+    alias vs="virsh"
 }
 
 
