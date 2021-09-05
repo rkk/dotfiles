@@ -1,0 +1,32 @@
+#!/bin/bash
+#
+# POKE - Programming Orientered Keyboard Environment.
+
+arg="${1}"
+terminal="urxvt"
+reader="Zathura"
+
+usage() {
+    echo "Usage: $(basename "${0}") NAME"
+    echo ""
+    echo "Name:"
+    echo "  terminal    Activates terminal application ${terminal}"
+    echo "  reader      Activates reader application ${reader}"
+    echo ""
+}
+
+if [ "x${arg}" = "x" ]; then
+    usage
+    exit 0
+fi
+
+case "${arg}" in
+    "terminal")
+        xdotool search --classname "${terminal}" windowactivate
+        ;;
+
+    "reader")
+        xdotool search --classname "${reader}" windowactivate
+        ;;
+
+esac
