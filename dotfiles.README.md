@@ -2,10 +2,10 @@
 Unix-style configuration files for a terminal-centric working
 environment,
 
-  - Tiling window managers ([bspwm](https://github.com/baskerville/bspwm) and [i3](https://i3wm.org)).
+  - Tiling window managers, with keyboard-focused interaction ([bspwm](bspwm) and [i3](i3)).
   - Black on bright color scheme, no syntax highlighting.
-  - Vim and Visual Studio Code editors with code navigation and Git integration, for [Go](https://golang.org) development. 
-  - Custom programming-optimized [keyboard layout](https://github.com/rkk/Dvorarkk)
+  - Vim editor with code navigation and Git integration, for [Go](golang) development.
+  - Custom programming-optimized [keyboard layout](dvorarkk).
 
 See the list of included programs in the Scope section.
 
@@ -24,7 +24,7 @@ locations in your home directory.
 Whilst dotfiles management solutions undoubtedly are great, I
 prefer simpler solutions with fewer moving parts.
 
-One such solution is the [Git bare repository](https://www.saintsjd.com/2011/01/what-is-a-bare-git-repository/)
+One such solution is the [Git bare repository](gitbare)
 approach, with the work tree checked out in the home directory.
 This accomplishes the same goals, with vanilla Git functionality
 and without extra software components.
@@ -68,7 +68,6 @@ Once Git successfully completes, run the installation scripts
 to install the needed software packages,
 
     # ./dotfiles.install.sh
-    # ./.vim/install.sh
 
 These are idempotent, so running them multiple times causes no
 issues.
@@ -81,7 +80,7 @@ The following applications are supported by means of installation
 and configuration,
 
   - X11: bspwm, i3, sxhkd, Polybar, Rofi, Dmenu, xdotool, wmctrl.
-  - Editors: Vim, Gvim, Visual Studio Code (Linux only), ACME (Linux and OpenBSD only).
+  - Editors: Vim, Gvim, ACME (Linux and OpenBSD only).
   - Development: Docker (Linux only), Terraform, Go, Python.
   - Terminals and shells: XTerm, Sakura, Unicode-RXVT, tmux, Bash.
   - Browsers: Firefox, Chromium (Linux only), w3m.
@@ -99,10 +98,19 @@ Bug reports and pull requests are highly appreciated.
 
 ## CREDITS
 Many thanks to Drew DeVault and the blog post
-["Managing my dotfiles as a Git Repository"](https://drewdevault.com/2019/12/30/dotfiles.html),
+["Managing my dotfiles as a Git Repository"](drewdotfiles),
 demonstrating this lean way of using Git to track dotfiles without needing dotfiles
 management software.
 
 
 ## LICENSE
 This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+
+[bspwm]: https://github.com/baskerville/bspwm
+[i3]: https://i3wm.org
+[golang]: https://golang.org
+[dvorarkk]: https://github.com/rkk/Dvorarkk
+[gitbare]: https://www.saintsjd.com/2011/01/what-is-a-bare-git-repository/
+[drewdotfiles]: https://drewdevault.com/2019/12/30/dotfiles.html
+
+
