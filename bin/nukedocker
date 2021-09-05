@@ -14,7 +14,7 @@ echo "Stopping all ..."
 docker stop $(docker ps -a -q)
 
 echo "Removing all ..."
-docker rm $(docker ps -a -q)
+docker rm -flv $(docker ps -a -q)
 
 echo "done."
 echo ""
