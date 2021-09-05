@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Reloads the configuration for the currently running window manager.
-wm-is-bspwm && sh "${HOME}/.config/bspwm/bspwmrc && exit 0
+wm-is-bspwm && sh "${HOME}/.config/bspwm/bspwmrc" && exit 0
 wm-is-i3 && i3-msg reload && exit 0
 
 echo "ERROR: Unsupported WM"
