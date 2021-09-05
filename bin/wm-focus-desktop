@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+# Force the window manager to focus a specific desktop.
+# Requires wmctrl and complements sxhkd.
+
+name="${1}"
+
+if [ "x${name}" = "x" ]; then
+    echo "Usage: $(basename "${0}") NAME"
+    echo ""
+    echo "  NAME - Name of the desktop to focus (case insensitive)"
+    echo ""
+    exit 0
+fi
+
+wmctrl -s "${name}"

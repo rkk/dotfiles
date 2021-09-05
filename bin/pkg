@@ -1,0 +1,47 @@
+#!/bin/bash
+#
+# Platform-independent package manager wrapper,
+# saving you the trouble of sudo, doas and apt.
+
+if [ "x${1}" = "x" ]; then
+    echo "Usage: $(basename "${0}") OPTION [ARG]"
+    echo ""
+    exit 0
+fi
+
+os=$(uname)
+is_linux=0
+case "${os}" in
+    Linux)
+        is_linux=1
+        ;;
+esac
+
+if [ ${is_linux} -eq 1 ]; then
+    case "${1}" in
+    "add"|"install")
+        shift
+        sudo apt-get install "${@}"
+        ;;
+
+    "remove"|"rm"|"del")
+        shift
+        sudo apt-get remove "${@}"
+        ;;
+
+    "info"|"search")
+        shift
+        apt-cache search "${@}"
+        ;;
+
+    *)
+        echo "ERROR: Unknown option"
+        exit 1
+        ;;
+    esac
+    exit 0
+fi
+
+echo "ERROR: Unsupported operating system"
+exit 2
+

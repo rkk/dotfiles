@@ -1,0 +1,5 @@
+#!/bin/bash
+#
+# Run commands without any noise at all.
+
+"$@" >/dev/null 2>&1 &

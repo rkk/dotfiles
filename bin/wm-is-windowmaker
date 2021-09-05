@@ -1,0 +1,9 @@
+#!/bin/bash
+#
+# Checks if the currently running X11 window manager is Window Maker (wmaker).
+# Returns 1 if Window Maker is running, 0 if not.
+
+pgrep -u "${USER}" -x wmaker > /dev/null || exit 1
+
+exit 0
+

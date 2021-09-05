@@ -1,0 +1,9 @@
+#!/bin/bash
+#
+# Checks if the currently running X11 window manager is FVWM.
+# Returns 1 if FVWM is running, 0 if not.
+
+pgrep -u "${USER}" -x fvwm2 > /dev/null || exit 1
+
+exit 0
+

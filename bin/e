@@ -1,0 +1,5 @@
+#!/bin/bash
+#
+# Editor wrapper, deliberately not respecting $EDITOR.
+
+gvim --remote "${@}"
