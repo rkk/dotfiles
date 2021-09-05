@@ -11,6 +11,7 @@ do
             cmd="${cmd} --color 000000"
         fi
         ${cmd}
+        setdvorarkk
         exit ${?}
     fi
 done
