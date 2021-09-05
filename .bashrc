@@ -6,7 +6,6 @@ setup_env() {
 	HISTTIMEFORMAT='%F %T   '
 	set -o vi
 	export HISTCONTROL HISTSIZE HISTFILESIZE HISTTIMEFORMAT
-    stty -ixon
 
 	EDITOR="vim"
 	VISUAL="${EDITOR}"
