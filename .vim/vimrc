@@ -50,6 +50,8 @@ set smartcase
 set wrapscan
 
 autocmd BufEnter * syn match ErrorMsg /[^\x00-\x7F]/
+" When opening a file, change to the containing directory.
+au   BufEnter *   execute ":lcd " . expand("%:p:h") 
 
 " Use Quickfix window type for all vim-go windows, allows for
 " using :cnext and :cprevious everywhere, rather than having
@@ -95,14 +97,13 @@ set fillchars+=vert:\│
 "
 
 let mapleader = "\<Space>"
-
 map <leader>c :Commentary<cr>
-
 map <leader>/ :TagbarToggle<cr>
 map <leader>n :NERDTreeToggle<cr>
 map <leader>. :bn<cr>
 map <leader>m :bp<cr>
 map <leader>, :bp<cr>
+map <leader>u :bd<cr>
 
 nmap <leader>w :w<CR>
 nmap <leader>x :x<CR>
@@ -112,17 +113,13 @@ nmap <leader>b :Buffers<CR>
 nmap <leader>T :Tags<CR>
 nmap <leader>f :Files<CR>
 
-nnoremap <leader>a :cclose<CR>
-nnoremap <leader>N :cnext<CR>
-nnoremap <leader>P :cprevious<CR>
-
 map <leader>h <C-w>h
 map <leader>l <C-w>l
 map <leader>j <C-w>j
 map <leader>k <C-w>k
 
-au FileType go nmap <leader>r <Plug>(go-run)
-au FileType go nmap <leader>t :GoTest<cr>
+au FileType go nmap <leader>gr <Plug>(go-run)
+au FileType go nmap <leader>gt :GoTest<cr>
 
 nmap <C-g> :GoDeclsDir<cr>
 imap <C-g> <esc>:<C-u>GoDeclsDir<cr>
@@ -130,22 +127,22 @@ augroup go
   autocmd!
 
 " :GoDoc
-autocmd FileType go nmap <Leader>d <Plug>(go-doc)
-autocmd FileType go nmap <Leader>D <Plug>(go-doc-vertical)
+autocmd FileType go nmap <Leader>gd <Plug>(go-doc)
+autocmd FileType go nmap <Leader>gD <Plug>(go-doc-vertical)
 
 " :GoCoverageToggle
-autocmd FileType go nmap <Leader>o <Plug>(go-coverage-toggle)
+autocmd FileType go nmap <Leader>go <Plug>(go-coverage-toggle)
 
 " :GoInfo
-autocmd FileType go nmap <Leader>i <Plug>(go-info)
+autocmd FileType go nmap <Leader>gi <Plug>(go-info)
 
 " :GoMetaLinter
 autocmd FileType go nmap <Leader>m <Plug>(go-metalinter)
 
 " :GoDef but opens in a vertical split
-autocmd FileType go nmap <Leader>v <Plug>(go-def-vertical)
+autocmd FileType go nmap <Leader>gv <Plug>(go-def-vertical)
 " :GoDef but opens in a horizontal split
-autocmd FileType go nmap <Leader>s <Plug>(go-def-split)
+autocmd FileType go nmap <Leader>gs <Plug>(go-def-split)
 augroup END
 
 autocmd BufNewFile,BufRead *.json set ft=javascript
@@ -177,7 +174,7 @@ endfunction
 set guicursor=n-v-c:block-Cursor
 set guicursor+=a:blinkon0
 
-highlight Normal guifg=#121212 guibg=#FFFFEA
+highlight Normal guifg=#121212 guibg=#ffffea
 set guifont=GoMono\ 12
 
 " Hide menubar (m), toolbar (T), left and right scrollbars (L, r).
@@ -187,14 +184,32 @@ set guioptions-=r
 set guioptions-=L
 
 " set fillchars=stl:―,stlnc:—,vert:│,fold:۰,diff:·
-hi statusline cterm=reverse ctermbg=NONE ctermfg=NONE guibg=#eaffff
-hi statuslinenc term=NONE ctermbg=NONE cterm=underline gui=none guibg=#ffffea
+" hi statusline cterm=reverse ctermbg=NONE ctermfg=NONE guibg=#eaffff
+hi statusline cterm=reverse ctermbg=NONE ctermfg=NONE guibg=#b24d79 guifg=#f0f0f0
+" hi statuslinenc term=NONE ctermbg=NONE cterm=underline gui=none guibg=#ffffea
+hi statuslinenc term=NONE ctermbg=NONE cterm=underline gui=none guibg=#afb2c3
 set statusline=
-set statusline+=%<\  
-set statusline+=%F:%l 
-set statusline+=\ (%P)\ \ \ \ 
+set statusline+=%<\ 
+set statusline+=%F\ (%l:%c)
+set statusline+=%=
+set statusline+=%M\  
 
-" For some reason, in Gvim, text wrapping is enforced for ~/.vim/vimrc.
-" This disables it.
-set formatoptions=
+autocmd FileType vim set formatoptions=
+autocmd BufNewFile,BufRead vimrc set formatoptions=
+autocmd BufNewFile,BufRead *.vim set formatoptions=
 
+if filereadable(expand('~/.vim/vimrc.local'))
+    source ~/.vim/vimrc.local
+end
+
+autocmd FileType gitcommit,markdown setlocal cc=72
+
+hi!  ColorColumn   term=NONE  cterm=NONE  ctermfg=NONE  ctermbg=NONE  gui=NONE guifg=red guibg=NONE
+hi! MatchParen term=NONE cterm=NONE ctermfg=NONE ctermbg=NONE gui=NONE guifg=NONE guibg=#ffeb16
+hi! Visual term=NONE cterm=NONE ctermfg=NONE ctermbg=NONE gui=NONE guifg=NONE guibg=#ffeb16
+hi! IncSearch guifg=NONE guibg=#ffeb16
+
+function! News()
+    BufferizeSystem congo -a
+    BufferizeSystem newscli
+endfunction
