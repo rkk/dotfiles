@@ -2,20 +2,44 @@
 #
 # Assigns a given desktop to the given monitor.
 
-wm-is-i3 && echo "ERROR Window manager not supported" && exit 1
-
 desktop="${1}"
 monitor="${2}"
 
+usage() {
+    echo "Usage: $(basename "${0}") DESKTOP MONITOR"
+    echo ""
+    echo "Options:"
+    echo "  DESKTOP: ID of the desktop to move"
+    echo "  MONITOR: Xrandr ID of the monitor that DESKTOP will be moved to"
+    echo ""
+    echo "Example:"
+    echo "  $(basename "${0}") 3 eDP-1"
+    echo "  Moves the third desktop to the monitor named eDP-1"
+    echo ""
+}
+
+bspwm_assign() {
+    bspc desktop "${desktop}" --to-monitor "${monitor}"
+}
+
+i3_assign() {
+    i3-msg '[workspace='"${desktop}"'] move workspace to output '"${monitor}"
+}
+
 if [ "x${desktop}" = "x" ]; then
-    echo "ERROR: Missing desktop variable"
+    echo "ERROR: Missing desktop argument"
+    usage
     exit 1
 fi
 
 if [ "x${monitor}" = "x" ]; then
-    echo "ERROR: Missing monitor variable"
+    echo "ERROR: Missing monitor argument"
+    usage
     exit 1
 fi
 
-bspc desktop "${desktop}" --to-monitor "${monitor}"
+wm-is-bspwm && bspwm_assign && exit 0
+wm-is-i3 && i3_assign && exit 0
+echo "ERROR: Unsupported window manager"
+exit 1
 

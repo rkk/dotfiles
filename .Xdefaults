@@ -9,6 +9,9 @@
 *cursorColor:           #586e75
 *pointerColorBackground: #93a1a1
 *pointerColorForeground: #586e75
+*rioFocused:             #9eefef
+*rioUnfocused:           #55aaaa
+*rioBackground:          #757575
 
 !! black dark/light
 *color0:                #002831

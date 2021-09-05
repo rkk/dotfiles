@@ -1,8 +1,9 @@
 #!/bin/bash
 #
-# Focus the biggest window.
+# Swap position of focused window and biggest window.
 
 wm-is-bspwm && bspc node -s biggest.local && exit 0
+wm-is-i3 && "${HOME}/.config/i3/mainwinswap.py" && exit 0
 
 echo "ERROR: Unsupported WM"
 exit 1

@@ -3,9 +3,9 @@
 # a specific collection of applications, see "windowactivate" parts.
 
 super + Return
-    xterm
+    urxvt
 
-control + space
+super + space
     dmenu_run \
     	-nb '#ffffea' \
     	-nf '#000000' \
@@ -40,23 +40,17 @@ super + q
 super + w
     wm-close-window
 
-super + space ; {Left,Right,Up,Down}
+control + space ; {Left,Right,Up,Down}
     wm-resize-window {west,east,north,south}
 
 super + shift + {h,j,k,l}
     wm-move-direction {left,up,down,right}
 
 super + Escape
-    pkill -USR1 -x sxhkd
+    pkill -x sxhkd && sxhkd -c $HOME/.config/sxhkd/i3.sxhkdrc &
 
 super + shift + Escape
     wm-reload
-
-control + shift + d
-    xdotool click 2
-
-super + d
-    xdotool click 2
 
 @F11
     wm-set-fullscreen
@@ -64,58 +58,45 @@ super + d
 super + g
     wm-swap-size
 
+super + t
+    i3-msg layout toggle split
+
 super + {h,j,k,l}
     wm-focus-direction {left,down,up,right}
 
-super + space ; {1,2,3,4}
+control + space ; {1,2,3,4}
     wm-move-desktop {1,2,3,4}
 
-super + space ; g
+super + shift + left
+    i3-msg move workspace to output left
+
+super + shift + right
+    i3-msg move workspace to output right
+
+super + shift + g
    wm-set-floating
 
-super + space ; {h,v}
+control + space ; {h,v}
    wm-split-direction {horizontal,vertical}
 
+control + space ; {t,z}
+    poke {terminal,reader}
 
-#
-# PROGRAMMING ORIENTED KEYBOARD ENVIRONMENT (POKE)
-#
-
-control + shift + t
-    xdotool search --classname xterm windowactivate
-
-control + shift + z
-    xdotool search  --classname Zathura windowactivate
-
-control + shift + g
+control + space ; g
     wm-focus-name Thunderbird
 
-control + shift + c
+control + space ; c
 	wm-focus-name Gvim
 
-control + shift + f
+control + space ; f
     wm-focus-name Chromium
 
-control + shift + h
+control + space ; s
     wm-focus-name Slack
 
-control + shift + m
+control + space ; m
     wm-focus-name Firefox
 
-control + shift + s
-    wm-focus-name Teams
-
-#
-# CUSTOM CONFIG: BSPWM
-#
-
-super + {Left,Right}
-    bspc desktop -f {prev,next}
-
-super + shift + {Left,Right}
-    bspc node -d {prev,next} --follow
-
-super + space ; {r,R}
-    bspc node @/ --rotate {90,-90}
-
+alt + Tab
+    i3-msg workspace back_and_forth
 

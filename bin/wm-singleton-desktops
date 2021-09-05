@@ -2,18 +2,27 @@
 #
 # Ensures only one desktop is available.
 
-wm-is-i3 && echo "ERROR Window manager not supported" && exit 1
-limit=1
-desktops="$(bspc query -D)"
-num_desktops="$(echo "${desktops}" | wc -l)"
 
-if [ "${num_desktops}" -eq 1 ]; then
-    exit 0
-fi
+bspwm_singleton() {
+    limit=1
+    desktops="$(bspc query -D)"
+    num_desktops="$(echo "${desktops}" | wc -l)"
 
-delta=$((num_desktops - limit))
-while [ $delta -gt 0 ]; do
-    bspc desktop -r
-    delta=$((delta-1))
-done
+    if [ "${num_desktops}" -eq 1 ]; then
+        exit 0
+    fi
 
+    delta=$((num_desktops - limit))
+    while [ $delta -gt 0 ]; do
+        bspc desktop -r
+        delta=$((delta-1))
+    done
+}
+
+i3_singleton() {
+    "${HOME}/.config/i3/singleton.py"
+}
+
+wm-is-bspwm && bspwm_singleton && exit 0
+wm-is-i3 && i3_singleton && exit 0
+echo "ERROR: Window manager not supported" && exit 1

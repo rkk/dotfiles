@@ -15,14 +15,14 @@
 #
 
 font                  xft:GoRegular 8
-set $rio_unfocused    #9eefef
-set $rio_focused      #55aaaa
-set $rio_background   #757575
+set_from_resource $rio_unfocused  i3wm.rioUnfocused   #000000
+set_from_resource $rio_focused    i3wm.rioFocused     #000000
+set_from_resource $rio_background i3wm.rioBackground  #000000
 
 # Property                Border          Background       Text           Indicator      Child border
-client.focused            $rio_focused    $rio_background  $rio_focused   $rio_focused   $rio_focused
-client.focused_inactive   $rio_unfocused  $rio_unfocused   $rio_unfocused $rio_unfocused $rio_unfocused
-client.unfocused          $rio_unfocused  $rio_unfocused   $rio_unfocused $rio_unfocused $rio_unfocused
+client.focused            $rio_focused    $rio_focused     $rio_focused   $rio_focused   $rio_focused
+client.focused_inactive   $rio_background $rio_background  $rio_background $rio_background $rio_background
+client.unfocused          $rio_background $rio_background  $rio_background $rio_background $rio_background
 
 
 #
@@ -43,16 +43,11 @@ client.unfocused          $rio_unfocused  $rio_unfocused   $rio_unfocused $rio_u
 # smart_gaps on
 
 # for_window [class="^.*"] border pixel 4
-# new_window	          pixel 0
+new_window	          pixel 0
 
-for_window [class="FILLER"] border pixel 0
-for_window [class="FILLER"] pixel 0
+for_window [class="^.*"] border pixel 4
+new_window	          pixel 4
 
-for_window [class="^.*"] border pixel 2
-new_window	          pixel 2
-
-
-# for_window [class="URxvt*"] border pixel 8
 
 #
 # BEHAVIOR
@@ -76,8 +71,6 @@ set $mod Mod4
 set $alt_mod Mod1
 floating_modifier $mod
 
-
-
 bindsym $mod+1 $first
 bindsym $mod+2 $second
 bindsym $mod+3 $third
@@ -87,27 +80,23 @@ bindsym $mod+Shift+2 move container to $second
 bindsym $mod+Shift+3 move container to $third
 bindsym $mod+Shift+4 move container to $fourth
 
-#bindsym $mod+$alt_mod+h move workspace to output left
-#bindsym $mod+$alt_mod+l move workspace to output right
-
-bindsym $mod+t split toggle
+# Mark a window with a tag ($mod+m) and navigate to given tag ($mod+r).
+bindsym $mod+m exec i3-input -F 'mark %s' -l 1 -P 'Mark: '
+bindsym $mod+r exec i3-input -F '[con_mark="%s"] focus' -l 1 -P 'Goto: '
 
 
 #
 # EXEC
 #
 
-
-exec_always --no-startup-id ${HOME}/bin/wm-polybar.sh
-exec_always --no-startup-id /usr/bin/xrdb -merge $HOME/.Xdefaults
+exec_always --no-startup-id $HOME/bin/wm-start-polybar.sh
+exec_always --no-startup-id /usr/bin/xrdb $HOME/.Xdefaults
 exec_always --no-startup-id setdvorarkk
 exec_always --no-startup-id setmouse
-exec_always --no-startup-id keyboardwarrior.sh &
-exec --no-startup-id /usr/bin/sxhkd &
+exec --no-startup-id /usr/bin/sxhkd -c $HOME/.config/sxhkd/i3.sxhkdrc &
 exec --no-startup-id /usr/bin/autocutsel -s PRIMARY -f
 exec --no-startup-id /usr/bin/unclutter &
-#exec --no-startup-id urxvt -e tmux -u new -s WORK &
-exec --no-startup-id xsetroot -solid "$rio_background"
+# exec --no-startup-id xsetroot -solid "$rio_background"
 exec --no-startup-id xautolock -locker $HOME/bin/afk
 exec --no-startup-id redshift -c $HOME/.config/redshift/redshift.conf &
-exec_always --no-startup-id ${HOME}/bin/keyboardwarrior.sh &
+exec_always --no-startup-id $HOME/bin/keyboardwarrior.sh &

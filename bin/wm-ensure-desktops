@@ -2,21 +2,28 @@
 #
 # Ensures the desired amount of desktops are available.
 
-wm-is-i3 && echo "ERROR Window manager not supported" && exit 1
-limit=4
-desktops="$(bspc query -D)"
-num_desktops="$(echo "${desktops}" | wc -l)"
+ensure_bspwm() {
+    limit=4
+    desktops="$(bspc query -D)"
+    num_desktops="$(echo "${desktops}" | wc -l)"
 
-if [ "${num_desktops}" -gt ${limit} ]; then
-   exit 0
-fi 
+    if [ "${num_desktops}" -gt ${limit} ]; then
+       exit 0
+    fi
 
-delta=$((limit - num_desktops))
-i=0
-while [ $i -lt $delta ]; do
-    bspc monitor -a "x${i}"
-    i=$((i+1))
-done
+    delta=$((limit - num_desktops))
+    i=0
+    while [ $i -lt $delta ]; do
+        bspc monitor -a "x${i}"
+        i=$((i+1))
+    done
+}
 
-wm-rename-desktops
+ensure_i3() {
+    limit=4
+}
 
+
+wm-is-bspwm && ensure_bspwm && wm-rename-desktops; exit 0
+wm-is-i3 && ensure_i3 && wm-rename-desktops; exit 0
+echo "ERROR Window manager not supported"; exit 1
