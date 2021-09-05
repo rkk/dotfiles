@@ -458,6 +458,10 @@ function setup_vim {
     if [ ! -d "${BUNDLE_ROOT}/vim-terraform" ]; then
         git clone git://github.com/hashivim/vim-terraform.git "${BUNDLE_ROOT}/vim-terraform"
     fi
+
+    if [ ! -d "${BUNDLE_ROOT}/bufferize" ]; then
+        git clone git://github.com/AndrewRadev/bufferize.vim.git "${BUNDLE_ROOT}/bufferize"
+    fi
 }
 
 # Set up XDG (XDG_CONFIG_HOME).
