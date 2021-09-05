@@ -4,11 +4,22 @@
 #
 
 mon_int="eDP-1"
-mon_ext_home1="DP-2-2"
+mon_ext_home1="DP-2-3"
 mon_ext_office1="DP-2-2"
 mon_ext_office2="DP-2-3"
 res_4k="3840x2160"
 script=$(basename "${0}")
+
+usage() {
+    echo "Usage: ${script} LOCATION"
+    echo ""
+    echo "Where LOCATION matches one of the following,"
+    echo ""
+    echo "  home    - Single external monitor (primary), internal monitor enabled."
+    echo "  office  - Two external monitors (primary), internal monitor disabled."
+    echo "  undock  - Undock the computer, internal monitor enabled."
+    echo ""
+}
 
 i3_office_layout() {
     xrandr \
@@ -17,11 +28,6 @@ i3_office_layout() {
         --output "${mon_int}" --off
 
     monitor_remove_disconnected
-    for w in "1 2 3 4"
-    do
-        i3-msg "workspace ${w}"
-        i3-msg "focus next"
-    done
 	keyboard_mouse_setup
 }
 
@@ -62,30 +68,40 @@ bspwm_office_layout() {
         --output "${mon_ext_office2}" --auto --right-of "${mon_ext_office1}" --rotate left \
         --output "${mon_int}" --off
 
+    monitor_remove_disconnected
     bspc wm -O "${mon_ext_office1}" "${mon_ext_office2}"
     wm-rename-desktops
     wm-ensure-desktops
     wm-rename-desktops
 
-    wm-assign-desktop-to-monitor 1 "${mon_ext_office1}"
+    desktops="$(bspc query -D)"
+    for i in ${desktops}
+    do
+        wm-assign-desktop-to-monitor "${i}" "${mon_ext_office1}"
+    done
     wm-assign-desktop-to-monitor 2 "${mon_ext_office2}"
-    wm-assign-desktop-to-monitor 3 "${mon_ext_office1}"
-    wm-assign-desktop-to-monitor 4 "${mon_ext_office1}"
-
+    wm-ensure-desktops
     keyboard_mouse_setup
+    sh ~/.config/bspwm/bspwmrc
 }
 
 bspwm_home_layout() {
-    desktops=$(bspc query -D)
-    for i in ${desktops}
-    do
-        bspc desktop "${i}" --to-monitor "${mon_ext_home1}"
-    done
-
-    bspc monitor "${mon_int}" --remove
     xrandr \
-        --output "${mon_ext_home1}" --primary --auto \
-        --output "${mon_int}" --off
+        --output "${mon_ext_home1}" --primary --mode 3840x2160 \
+        --output "${mon_int}" --auto --left-of "${mon_ext_home1}"
+
+    bspc wm -O "${mon_ext_home1}" "${mon_ext_home1}"
+    monitor_remove_disconnected
+
+    wm-assign-desktop-to-monitor 1 "${mon_ext_home1}"
+    wm-assign-desktop-to-monitor 2 "${mon_int}"
+    wm-assign-desktop-to-monitor 3 "${mon_ext_home1}"
+    wm-assign-desktop-to-monitor 4 "${mon_ext_home1}"
+    wm-rename-desktops
+    wm-ensure-desktops
+    wm-rename-desktops
+
+
 
     keyboard_mouse_setup
     sh ~/.config/bspwm/bspwmrc &
@@ -114,9 +130,8 @@ bspwm_undock() {
     keyboard_mouse_setup
     sh ~/.config/bspwm/bspwmrc &
     wm-ensure-desktops
-    # wm-start-polybar
+    wm-start-polybar
 }
-
 
 cwm_home_layout() {
     xrandr \
@@ -124,6 +139,28 @@ cwm_home_layout() {
         --output "${mon_int}" --auto --right-of "${mon_ext_home1}"
 
     keyboard_mouse_setup
+}
+
+windowmaker_office_layout() {
+    xrandr \
+        --output "${mon_ext_office1}" --primary --auto \
+        --output "${mon_ext_office2}" --auto --right-of "${mon_ext_office1}" --rotate left \
+        --output "${mon_int}" --auto --left-of "${mon_ext_office1}"
+
+    monitor_remove_disconnected
+	keyboard_mouse_setup
+}
+
+windowmaker_undock() {
+    output_ids="$(xrandr --query | grep isco | awk '{ print $1 }')"
+    for o in ${output_ids}
+    do
+        xrandr --output "${o}" --off
+    done
+
+	monitor_internal_only
+	keyboard_mouse_setup
+    wm-start-polybar
 }
 
 keyboard_mouse_setup() {
@@ -150,7 +187,6 @@ monitor_remove_disconnected() {
     done
 }
 
-
 if [ "x${1}" = "xhome" ]; then
     wm-is-bspwm && bspwm_home_layout && exit 0
     wm-is-i3 && i3_home_layout && exit 0
@@ -158,22 +194,18 @@ if [ "x${1}" = "xhome" ]; then
 fi
 
 if [ "x${1}" = "xoffice" ]; then
-    wm-is-bspwm && bspwm_home_layout && exit 0
-    wm-is-i3 && i3_home_layout && exit 0
+    wm-is-bspwm && bspwm_office_layout && exit 0
+    wm-is-i3 && i3_office_layout && exit 0
+    wm-is-windowmaker && windowmaker_office_layout && exit 0
     echo "ERROR: Window manager not supported." && exit 1
 fi
 
 if [ "x${1}" = "xundock" ]; then
     wm-is-bspwm && bspwm_undock && monitor_internal_only && keyboard_mouse_setup && exit 0
     wm-is-i3 && i3_undock && monitor_internal_only && keyboard_mouse_setup && exit 0
+    wm-is-windowmaker && windowmaker_undock && keyboard_mouse_setup && exit 0
     echo "ERROR: Window manager not supported." && exit 1
 fi
 
-echo "Usage: ${script} LOCATION"
-echo ""
-echo "Where LOCATION matches one of the following,"
-echo ""
-echo "  home    - Single external monitor (primary), internal monitor enabled."
-echo "  office  - Two external monitors (primary), internal monitor disabled."
-echo "  undock  - Undock the computer, internal monitor enabled."
-echo ""
+usage
+
