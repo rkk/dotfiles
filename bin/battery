@@ -1,27 +1,33 @@
 #!/bin/sh
+#
+# Print the battery status and available power.
 
-# Prints all batteries, their percentage remaining and an emoji corresponding
-# to charge status (🔌 for plugged up, 🔋 for discharging on battery, etc.).
+if [ $(uname) = "NetBSD" ]; then
+    envstat -d acpibat0 | grep charge\: | awk -F\( '{ print $2 }' | sed -e 's/)//g'
+    exit 0
+fi
 
-case $BLOCK_BUTTON in
+if [ $(uname) = "Linux" ]; then
+    case $BLOCK_BUTTON in
     3) notify-send "Battery module" "D: discharging
-N: not charging
-Q: stagnant charge
-C: charging
-F: charged
-L: battery very low!" ;;
-esac
+    N: not charging
+    Q: stagnant charge
+    C: charging
+    F: charged
+    L: battery very low!" ;;
+    esac
 
-# Loop through all attached batteries.
-for battery in /sys/class/power_supply/BAT?
-do
-	# Get its remaining capacity and charge status.
-	capacity=$(cat "$battery"/capacity) || break
-	status=$(sed "s/Discharging/DSCH/;s/Not charging/NCHG/;s/Charging/CHRG/;s/Unknown/UNKNW/;s/Full/FLL/" "$battery"/status)
+    for battery in /sys/class/power_supply/BAT?
+    do
+        # Get its remaining capacity and charge status.
+        capacity=$(cat "$battery"/capacity) || break
+        status=$(sed "s/Discharging/DSCH/;s/Not charging/NCHG/;s/Charging/CHRG/;s/Unknown/UNKNW/;s/Full/FLL/" "$battery"/status)
 
-	# If it is discharging and 25% or less, we will add a ❗ as a warning.
-	 [ "$capacity" -le 25 ] && [ "$status" = "WARN" ] && warn="WARN"
+        # If it is discharging and 25% or less, we will add a ❗ as a warning.
+         [ "$capacity" -le 25 ] && [ "$status" = "WARN" ] && warn="WARN"
 
-	printf "%s %s %s%% " "$status" "$warn" "$capacity"
-	unset warn
-done | sed s/\ $/\\n/
+        printf "%s %s %s%% " "$status" "$warn" "$capacity"
+        unset warn
+    done | sed s/\ $/\\n/
+    exit 0
+fi
