@@ -1,0 +1,8 @@
+#!/bin/bash
+#
+# Commands run after switching Autorandr profiles.
+
+"${HOME}/bin/setdvorarkk"
+"${HOME}/bin/setmouse"
+"${HOME}/bin/wm-reload"
+"${HOME}/bin/wm-start-polybar"

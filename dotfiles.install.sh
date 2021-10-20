@@ -33,6 +33,7 @@ function install_linux {
     apt_packages="${apt_packages} rofi wmctrl brightnessctl xorg-dev"
     apt_packages="${apt_packages} libx11-dev xclip xterm sakura xautolock"
     apt_packages="${apt_packages} autocutsel dmenu polybar xinput scrot unclutter"
+    apt_packages="${apt_packages} autorandr"
 
     # Development tools
     apt_packages="${apt_packages} whois autotools-dev automake libevent-dev"
