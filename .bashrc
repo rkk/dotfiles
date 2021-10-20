@@ -1,19 +1,18 @@
 setup_env() {
 	HISTCONTROL="erasedups:ignoreboth"
-	shopt -s histappend
 	HISTSIZE=1000
 	HISTFILESIZE=2000
 	HISTTIMEFORMAT='%F %T   '
+	shopt -s histappend
 	set -o vi
 	export HISTCONTROL HISTSIZE HISTFILESIZE HISTTIMEFORMAT
 
 	EDITOR="vim"
 	VISUAL="${EDITOR}"
-	TMPDIR="${HOME}/tmp"
+	TMPDIR="${TMPDIR:-$HOME/tmp}"
 	export EDITOR VISUAL TMPDIR
 
-	# Reset PATH as it is often polluted.
-	PATH="${HOME}/bin:${HOME}/.local/bin:/usr/local/bin:/usr/bin:/bin:/sbin"
+	PATH="${HOME}/bin:${HOME}/.local/bin:/usr/local/bin:/usr/bin:/bin:/sbin:${PATH}"
 	export PATH
 
     VIRSH_DEFAULT_CONNECT_URI="qemu:///system"
@@ -55,9 +54,7 @@ setup_alias() {
 	alias mp="mkdir -p"
     alias h="history | grep"
 	alias d="pwd"
-	# Git aliases are handled in ~/.gitconfig.
 	alias g="git"
-	alias gnew="git checkout -b"
     alias b="bspc query"
     alias mc="mc --nocolor"
     alias tf="terraform"
