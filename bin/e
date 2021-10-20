@@ -1,5 +1,14 @@
 #!/bin/bash
 #
-# Editor wrapper, deliberately not respecting $EDITOR.
+# Editor wrapper, forcing Vim to use server mode,
+# creating the server if need be.
 
-gvim --remote "${@}"
+name="VIM"
+server=$(vim --serverlist | head -n1)
+
+if [ "x${server}" = "x" ]; then
+    vim --servername "${name}" "${@}"
+    exit ${?}
+fi
+
+vim --remote "${@}"
