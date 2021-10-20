@@ -57,7 +57,7 @@ scripts,
 
     # cd $HOME
     # git clone --bare git@github.com:rkk/dotfiles.git .dotfiles
-    # git checkout --git-dir=$HOME/.dotfiles/ --work-tree=$HOME
+    # git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME checkout
 
 If your home directory already contains files that are included
 in this repository, Git will fail.
