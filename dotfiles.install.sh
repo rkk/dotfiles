@@ -42,7 +42,7 @@ function install_linux {
 
     # Web
     apt_packages="${apt_packages} firefox-esr chromium w3m"
-    apt_packages="${apt_packages} newsbeuter pandoc"
+    apt_packages="${apt_packages} pandoc"
 
     # Other
     apt_packages="${apt_packages} redshift sxiv pcmanfm gpick"
