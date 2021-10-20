@@ -18,6 +18,11 @@ setup_env() {
     VIRSH_DEFAULT_CONNECT_URI="qemu:///system"
     LIBVIRT_DEFAULT_URI="${VIRSH_DEFAULT_CONNECT_URI}"
     export VIRSH_DEFAULT_CONNECT_URI LIBVIRT_DEFAULT_URI
+
+    FZF_DEFAULT_OPTS="--reverse --color=light"
+    export FZF_DEFAULT_OPTS
+    # shellcheck disable=SC1090
+    [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 }
 
 
@@ -79,3 +84,4 @@ setup_alias
 setup_secrets
 setup_go
 setup_plan9
+
