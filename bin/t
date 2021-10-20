@@ -3,9 +3,40 @@
 # Session wrapper around Tmux.
 # Mostly based on https://github.com/junegunn/fzf/wiki/Examples#tmux.
 
+create_session() {
+    tnew "${USER}${RANDOM}"
+}
 
-[[ -n "$TMUX" ]] && change="switch-client" || change="attach-session"
-if [ $1 ]; then
-  tmux $change -t "$1" 2>/dev/null || (tmux new-session -d -s $1 && tmux $change -t "$1"); exit 0
+# Simplify this to use create_session() and attach_session().
+select_and_attach() {
+    [[ -n "$TMUX" ]] && change="switch-client" || change="attach-session"
+    session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0) &&  tmux $change -t "$session" || echo "No sessions found."
+}
+
+attach_session() {
+    tmux attach
+}
+
+sessions="$(tmux ls)"
+# No sessions at all, create one.
+if [ ${?} -eq 1 ]; then
+    create_session
+    attach_session
+    exit 0
 fi
-session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0) &&  tmux $change -t "$session" || echo "No sessions found."
+
+# Exactly one session, attach to it.
+c="$(echo "${sessions}" | wc -l)"
+if [ "${c}" = "1" ]; then
+    attach_session
+    exit 0
+fi
+
+# Two or more sessions, choose one of them.
+if [ ${c} -gt 1 ]; then
+    select_and_attach
+    exit 0
+fi
+
+echo "Unknown error in t"
+
