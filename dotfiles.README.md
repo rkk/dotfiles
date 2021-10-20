@@ -41,9 +41,9 @@ before perusing this repository,
 
 Should you tire from adding the parameters required by the bare repository
 approach, the script `bin/dotfiles` can be used as a convenient wrapper
-around Git, that provides all needed extra parameters for Git.  
+around Git, that provides all needed extra parameters for Git.
 Use this the same way you would normally run a Git command, e.g., substitute
-`git log --name-only` with `dotfiles log --name-only`.  
+`git log --name-only` with `dotfiles log --name-only`.
 
 The limitations imposed by the Git bare repository approach, apply only when
 working on the dotfiles in your home directory.  Working with Git in any
@@ -61,16 +61,17 @@ scripts,
 
 If your home directory already contains files that are included
 in this repository, Git will fail.
-Remove or rename the offending files, and re-run the Git command.  
+Remove or rename the offending files, and re-run the Git command.
 Add the parameter "-f" to the checkout command if you want any
-existing files to be automatically overwritten.  
-Once Git successfully completes, run the installation scripts
+existing files to be automatically overwritten.
+Once Git successfully completes, run the installation script
 to install the needed software packages,
 
     # ./dotfiles.install.sh
 
-These are idempotent, so running them multiple times causes no
-issues.
+This is idempotent, so running it multiple times causes no
+issues. But please note that the script requires sudo permission.
+
 Once the installation scripts successfully complete, the configuration
 will be live the next time you log in.
 
