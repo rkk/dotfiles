@@ -1,86 +1,84 @@
-!!
-!! COLORS
-!!
+#define DARK            #002831
+#define DARKLIGHT       #001e27
+#define RED             #d11c24
+#define REDLIGHT        #bd3613
+#define GREEN           #738a05
+#define GREENLIGHT      #475b62
+#define YELLOW          #a57706
+#define YELLOWLIGHT     #536870
+#define BLUE            #2176c7
+#define BLUELIGHT       #708284
+#define MAGENTA         #c61c6f
+#define MAGENTALIGHT    #5956ba
+#define CYAN            #259286
+#define CYANLIGHT       #819090
+#define WHITE           #eae3cb
+#define WHITELIGHT      #fcf4dc
 
+#define RIOFOCUSED      #9eefef
+#define RIOUNFOCUSED    #55aaaa
+#define RIOBACKGROUND   #757575
+#define RIOTEXTBACKGROUND   #ffffea
+#define RIOTEXTFOREGROUND   #000000
 
-*background:            #ffffea
-*foreground:            #000000
-*fadeColor:             #ffffea
-*cursorColor:           #586e75
-*pointerColorBackground: #93a1a1
-*pointerColorForeground: #586e75
-*rioFocused:             #9eefef
-*rioUnfocused:           #55aaaa
-*rioBackground:          #757575
+#define MONOFONT        xft:Go Mono:size=10
+#define VARFONT         xft:Go Regular:size=10
+#define FONTSIZE        10
+#define BOLDCOLORS      false
+#define SHOWSCROLLBARS  false
+#define BORDERINTERNAL  8
 
-!! black dark/light
-*color0:                #002831
-*color8:                #001e27
+*background:            RIOTEXTBACKGROUND
+*foreground:            RIOTEXTFOREGROUND
+*fadeColor:             RIOTEXTBACKGROUND
+*cursorColor:           GREEN
+*pointerColorBackground: GREEN
+*pointerColorForeground: WHITE
+*rioFocused:            RIOFOCUSED
+*rioUnfocused:          RIOUNFOCUSED
+*rioBackground:         RIOBACKGROUND
 
-!! red dark/light
-*color1:                #d11c24
-*color9:                #bd3613
+*color0:                DARK
+*color8:                DARKLIGHT
+*color1:                RED
+*color9:                REDLIGHT
+*color2:                GREEN
+*color10:               GREENLIGHT
+*color3:                YELLOW
+*color11:               YELLOWLIGHT
+*color4:                BLUE
+*color12:               BLUELIGHT
+*color5:                MAGENTA
+*color13:               MAGENTALIGHT
+*color6:                CYAN
+*color14:               CYANLIGHT
+*color7:                WHITE
+*color15:               WHITELIGHT
 
-!! green dark/light
-*color2:                #738a05
-*color10:               #475b62
+*faceName:              VARFONT
+*faceSize:              FONTSIZE
 
-!! yellow dark/light
-*color3:                #a57706
-*color11:               #536870
-
-!! blue dark/light
-*color4:                #2176c7
-*color12:               #708284
-
-!! magenta dark/light
-*color5:                #c61c6f
-*color13:               #5956ba
-
-!! cyan dark/light
-*color6:                #259286
-*color14:               #819090
-
-!! white dark/light
-*color7:                #eae3cb
-*color15:               #fcf4dc
-
-
-!!
-!! XTERM
-!!
-
-XTerm*boldColors: false
+XTerm*boldColors: BOLDCOLORS
 XTerm*locale: true
-!! Copy selection to X CLIPBOARD and X PRIMARY.
 XTerm*selectToClipboard: true
-XTerm*scrollBar: false
-XTerm*font: xft:Go Mono:size=10
-XTerm*internalBorder: 8
+XTerm*scrollBar: SHOWSCROLLBARS
+XTerm*font: MONOFONT
+XTerm*internalBorder: BORDERINTERNAL
 
 
-!!
-!! TESTING
-!!
-
-Xft*antialias: true
-Xft*dpi: 96
-
-
-!!
-!! URXVT (RXVT-UNICODE)
-!!
-URxvt.scrollBar: false
-URxvt.tintColor: Gray
+URxvt.scrollBar: SHOWSCROLLBARS
+URxvt.tintColor: DARK
 URxvt*shading: 20
 URxvt*fading: 0
-URxvt.boldColors: false
+URxvt.boldColors: BOLDCOLORS
 URxvt.letterSpace: 0
-URxvt.font: xft:Go Mono:size=10
-URxvt.boldFont: xft:Go Mono:size=10
+URxvt.lineSpace: 0
+URxvt.font: MONOFONT
+URxvt.boldFont: MONOFONT
+URxvt.italicFont: MONOFONT
 URxvt.iso14755: false
 URxvt.iso14755_52: false
-URxvt*internalBorder:       8
+URxvt*internalBorder: BORDERINTERNAL
 
 URxvt*perl-lib: /home/rkk/lib/urxvt
 !URxvt.perl-ext: matcher,plumb,keyboard-select
@@ -93,5 +91,14 @@ URxvt.keysym.C-S-Up:   font-size:incglobal
 URxvt.keysym.C-S-Down: font-size:decglobal
 URxvt.keysym.C-equal:  font-size:reset
 URxvt.keysym.C-slash:  font-size:show
+
+Xft*antialias: true
+Xft*dpi: 96
+*monitorPrimary: DP-2-2
+*monitorSecondary: DP-2-3
+*workspace1: 1
+*workspace2: 2
+*workspace3: 3
+*workspace4: 4
 
 

@@ -53,14 +53,27 @@ new_window	          pixel 4
 # BEHAVIOR
 #
 
-set $first            workspace 1
-set $second           workspace 2
-set $third            workspace 3
-set $fourth           workspace 4
+# Read from ~/.Xdefaults, default to built-in monitor.
+set_from_resource $monitorPrimary   i3wm.monitorPrimary eDP-1
+set_from_resource $monitorSecondary i3wm.monitorSecondary eDP-1
+set_from_resource $workspace1       i3wm.workspace1 1
+set_from_resource $workspace2       i3wm.workspace2 2
+set_from_resource $workspace3       i3wm.workspace3 3
+set_from_resource $workspace4       i3wm.workspace4 4
 
-assign [class="Spotify"]                   $fourth
+
+set $first            workspace $workspace1
+set $second           workspace $workspace2
+set $third            workspace $workspace3
+set $fourth           workspace $workspace4
+
 for_window [window_role="pop-up"]          floating enable
 for_window [window_role="task_dialog"]     floating enable
+for_window [class="Teams"] floating disable
+for_window [class="Chromium"] floating disable
+
+for_window [class="spotify"] move to $fourth
+for_window [class="Spotify"] move to $fourth
 
 
 #
@@ -96,7 +109,9 @@ exec_always --no-startup-id setmouse
 exec --no-startup-id /usr/bin/sxhkd -c $HOME/.config/sxhkd/i3.sxhkdrc &
 exec --no-startup-id /usr/bin/autocutsel -s PRIMARY -f
 exec --no-startup-id /usr/bin/unclutter &
-# exec --no-startup-id xsetroot -solid "$rio_background"
+exec --no-startup-id xsetroot -solid "$rio_background"
 exec --no-startup-id xautolock -locker $HOME/bin/afk
 exec --no-startup-id redshift -c $HOME/.config/redshift/redshift.conf &
 exec_always --no-startup-id $HOME/bin/keyboardwarrior.sh &
+exec_always --no-startup-id $HOME/.config/i3/alternatelayout.py &
+

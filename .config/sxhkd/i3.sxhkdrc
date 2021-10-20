@@ -5,16 +5,9 @@
 super + Return
     urxvt
 
-super + space
-    dmenu_run \
-    	-nb '#ffffea' \
-    	-nf '#000000' \
-    	-sb '#eaffff' \
-    	-sf '#121212' \
-    	-fn 'GoRegular' \
-    	-l 10 \
-    	-f \
-    	-i
+# Run terminal, create or connect to tmux session.
+super + shift + Return
+    urxvt -e bash -c t
 
 super + shift + space
     rofi -show window
@@ -38,6 +31,9 @@ super + q
     wm-kill-window
 
 super + w
+    wm-close-window
+
+control + space ; w
     wm-close-window
 
 control + space ; {Left,Right,Up,Down}
@@ -96,6 +92,17 @@ control + space ; s
 
 control + space ; m
     wm-focus-name Firefox
+
+control + space ; r
+    dmenu_run \
+    	-nb '#ffffea' \
+    	-nf '#000000' \
+    	-sb '#eaffff' \
+    	-sf '#121212' \
+    	-fn 'GoRegular' \
+    	-l 10 \
+    	-f \
+    	-i
 
 alt + Tab
     i3-msg workspace back_and_forth
