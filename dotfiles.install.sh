@@ -164,6 +164,22 @@ function install_openbsd {
     echo ""
 }
 
+# Install items for NetBSD.
+function install_netbsd {
+    packages="golang wget curl"
+    packages="${packages} firefox"
+    packages="${packages} bspwm i3 sxhkd xdotool wmctrl rofi"
+    
+    for p in ${packages}
+    do
+        doas pkgin -y install ${p}
+    done
+
+    install_dvorarkk
+    setup_git_aliases
+    setup_vim
+}
+
 # Install items for Mac OS X.
 function install_mac {
     brew_packages="tmux watch gnu-tar reattach-to-user-namespace"
@@ -533,6 +549,10 @@ case "${os}" in
     "OpenBSD")
         setup_xdg
         install_openbsd
+        ;;
+    "NetBSD")
+        setup_xdg
+        install_netbsd
         ;;
     "Darwin")
         install_mac
