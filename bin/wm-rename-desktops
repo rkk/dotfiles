@@ -2,13 +2,15 @@
 #
 # Renames the desktops.
 
+bspwm_rename() {
+    desktops="$(bspc query -D)"
+    i=1
+    for k in ${desktops}
+    do
+        bspc desktop "${k}" -n ${i}
+        i=$((i+1))
+    done
+}
 
-wm-is-i3 && echo "ERROR: Window manager not supported" && exit 1
-desktops="$(bspc query -D)"
-i=1
-for k in ${desktops}
-do
-    bspc desktop "${k}" -n ${i}
-    i=$((i+1))
-done
-
+wm-is-bspwm && bspwm_rename && exit 0
+echo "ERROR: Window manager not supported" && exit 1
