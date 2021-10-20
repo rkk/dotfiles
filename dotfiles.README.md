@@ -93,6 +93,60 @@ to feature or host-specific branches, named "feature/NAME" and
 "host/NAME", respectively.
 
 
+## KEYBOARD SHORTCUTS
+As this is a keyboard-centric configuration, a list of the most used shortcuts
+is appropriate.
+
+The design is based on Vi shortcuts,
+
+  * d for delete
+  * h, j, k, l for movement.
+  * / for search
+
+Outside the Vi realm, modifier keys are needed to invoke the desired action,
+with the following scheme,
+
+  * Primary modifier + key: Primary action with item (e.g. focus window)
+  * Primary plus secondary modifier + key: Secondary action with item (e.g. move window)
+
+For the modifiers, the X11 modifier naming convention is used in the following meaning,
+
+  * Super key: Windows key (see `.config/sxhkdrc/i3.sxhkdrc`)
+  * Control key: Normal Control key, but mapped to Caps Lock (see `.config/dvorarkk/X11/dvorarkk.xmodmap`)
+  * Mode key: Right Alt key  (see `.config/dvorarkk/X11/dvorarkk.xmodmap`)
+
+Keyboard shortcuts are not limited to a single key-modifier pair, but may be a sequence
+of key-modifier pairs or keys. An example is `Control + b, {h,l,j,k}` from Tmux that
+means Control and b pressed and released at the same time, following by pressing one
+of the keys h, l, j or k.
+
+Reducing the amount of simultaneously pressed keys is an overall design goal, as that
+reduces the muscle strain, especially on the lesser used fingers, and avoids stretching
+fingers to both reach and press.
+
+
+### Window manager operations
+
+  * Focus window left, right, up or down: Super + {h,l,j,k}
+  * Move window left, right, up or down: Super + Shift + {h,l,j,k}
+  * Focus workspace N (1 to 4): Super + N
+  * Move window to workspace N (1 to 4): Super + Shift + N or Control + Shift, N
+  * Toggle fullscreen of currently focused window: F11
+  * Close currently focused window: Super + w or Control + Space, w
+  * Kill application of currently focused window: Super + q
+  * Resize currently focused window, growing left, right, up or down: Control + Space, {arrow key left, right, up, down}
+  * Change window split orientation for new windows to horisontal or vertical: Control + Space, {h,v}
+
+### Terminal window and pane operations
+
+  * Focus pane left, right, up and down: Control + b, {h,l,j,k}
+  * Focus the previously focused pane: Control + b, Tab
+  * Focus the previously focused window: Control + b, Enter
+  * Create new window: Control + b, c
+  * Create new vertical pane: Control + b, -
+  * Create new horisontal pane: Control + b, |
+
+
 ## BUG REPORTS
 Bug reports and pull requests are highly appreciated.
 
