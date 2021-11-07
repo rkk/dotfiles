@@ -10,7 +10,7 @@ TMPDIR="${TMPDIR:-/tmp}"
 function usage() {
     script="$(basename "${0}")"
 	cat << EOF
-usage: ${script} OPTIONS
+Usage: ${script} OPTIONS
 
     --all         Install all profiles
     --only-devel  Install only the development profile
@@ -100,16 +100,23 @@ function install_go {
 
 function install_go_packages() {
     export PATH="${PATH}:/usr/local/go/bin"
-    # Replace "go get" with go modules.
-    go get golang.org/x/lint/golint
-    go get golang.org/x/tools/cmd/cover
-    go get golang.org/x/review/git-codereview
-    go get golang.org/x/tools/cmd/goimports
-    go get golang.org/x/tools/cmd/gorename
-    go get golang.org/x/tools/cmd/guru
-    go get github.com/jstemmer/gotags
-    go get github.com/nsf/gocode
-    go get github.com/rogpeppe/godef
+    # Keep list in sync with ~/.vim/bundle/vim-go/plugin/go.vim.
+    pkgs="golang.org/x/lint/golint golang.org/x/tools/cmd/cover"
+    pkgs="${pkgs} golang.org/x/review/git-codereview golang.org/x/tools/cmd/goimports"
+    pkgs="${pkgs} golang.org/x/tools/cmd/gorename golang.org/x/tools/cmd/guru"
+    pkgs="${pkgs} github.com/jstemmer/gotags github.com/nsf/gocode"
+    pkgs="${pkgs} github.com/rogpeppe/godef github.com/klauspost/asmfmt/cmd/asmfmt"
+    pkgs="${pkgs} github.com/go-delve/delve/cmd/dlv github.com/kisielk/errcheck"
+    pkgs="${pkgs} github.com/davidrjenni/reftools/cmd/fillstruct golang.org/x/tools/gopls"
+    pkgs="${pkgs} github.com/golangci/golangci-lint/cmd/golangci-lint"
+    pkgs="${pkgs} honnef.co/go/tools/cmd/staticcheck github.com/fatih/gomodifytags"
+    pkgs="${pkgs} github.com/josharian/impl honnef.co/go/tools/cmd/keyify"
+    pkgs="${pkgs} github.com/fatih/motion github.com/koron/iferr"
+
+    for p in ${pkgs}
+    do
+        go get "${p}@latest"
+    done
 }
 
 function install_dvorarkk {
