@@ -32,7 +32,7 @@ function add_pkg() {
     if [ "x${pkgs}" = "x" ]; then
         exit 1
     fi
-    for n in "${@}"
+    for n in ${@}
     do
         sudo apt-get \
             install -y \
