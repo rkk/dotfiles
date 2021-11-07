@@ -14,14 +14,7 @@ function dotfiles_add_pkg() {
     if [ "x${pkgs}" = "x" ]; then
         exit 1
     fi
-    for p in ${pkgs}
-    do
-        sudo apt-get install -y "${p}"
-        install_res="${?}"
-        if [ "${install_res}" -ne 0 ]; then
-            echo "ERROR: Cannot install Apt package ${p}"
-        fi
-    done
+    sudo apt-get install -y "${@}" --no-install-recommends
 }
 
 function dotfiles_install_devel_packages() {
