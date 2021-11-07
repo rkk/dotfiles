@@ -115,7 +115,7 @@ function install_go_packages() {
 
     for p in ${pkgs}
     do
-        go get "${p}@latest"
+        go install "${p}@latest"
     done
 }
 
