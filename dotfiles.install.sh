@@ -16,7 +16,15 @@ Usage: ${script} OPTIONS
     --only-devel  Install only the development profile
     --only-x11    Install only the X11 profile
 
+Run as the non-root user intended to use the environment.
 EOF
+}
+
+function ensure_not_sudo() {
+    if [ "${EUID}" -eq 0 ]; then
+        echo "ERROR: Script run in sudo or as root"
+        exit 2
+    fi
 }
 
 function add_pkg() {
@@ -24,17 +32,22 @@ function add_pkg() {
     if [ "x${pkgs}" = "x" ]; then
         exit 1
     fi
-    sudo apt-get install -y "${@}" --no-install-recommends
+    sudo apt install -y "${@}" --no-install-recommends
 }
 
 function init_pkg() {
     sudo apt update
+    sudo apt install -y \
+        apt-transport-https \
+        ca-certificates \
+        lsb-release \
+        --no-install-recommends
 }
 
 function clean_up_pkg() {
-	sudo apt autoremove
-	sudo apt autoclean
-	sudo apt clean
+	sudo apt autoremove -y
+	sudo apt autoclean -y
+	sudo apt clean -y
 }
 
 function install_devel_packages() {
@@ -93,7 +106,7 @@ function install_go {
         GO_VERSION=${GO_VERSION#go}
         (
             kernel=$(uname -s | tr '[:upper:]' '[:lower:]')
-            curl -sSL "https://storage.googleapis.com/golang/go${GO_VERSION}.${kernel}-amd64.tar.gz" | sudo tar -v -C /usr/local -xz
+            curl -sSL "https://storage.googleapis.com/golang/go${GO_VERSION}.${kernel}-amd64.tar.gz" | sudo tar -C /usr/local -xz
         )
     fi
 }
@@ -172,6 +185,8 @@ if [ ${#} -eq 0 ]; then
 	usage
 	exit 0
 fi
+
+ensure_not_sudo
 
 for opt in "${@}"; do
 	case ${opt} in
