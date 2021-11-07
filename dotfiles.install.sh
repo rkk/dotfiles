@@ -32,7 +32,13 @@ function add_pkg() {
     if [ "x${pkgs}" = "x" ]; then
         exit 1
     fi
-    sudo apt-get install -y "${@}" --no-install-recommends
+    for n in "${@}"
+    do
+        sudo apt-get \
+            install -y \
+            "${n}" \
+            --no-install-recommends
+    done
 }
 
 function init_pkg() {
