@@ -32,12 +32,12 @@ function add_pkg() {
     if [ "x${pkgs}" = "x" ]; then
         exit 1
     fi
-    sudo apt install -y "${@}" --no-install-recommends
+    sudo apt-get install -y "${@}" --no-install-recommends
 }
 
 function init_pkg() {
-    sudo apt update
-    sudo apt install -y \
+    sudo apt-get update
+    sudo apt-get install -y \
         apt-transport-https \
         ca-certificates \
         lsb-release \
@@ -45,9 +45,9 @@ function init_pkg() {
 }
 
 function clean_up_pkg() {
-	sudo apt autoremove -y
-	sudo apt autoclean -y
-	sudo apt clean -y
+	sudo apt-get autoremove -y
+	sudo apt-get autoclean -y
+	sudo apt-get clean -y
 }
 
 function install_devel_packages() {
